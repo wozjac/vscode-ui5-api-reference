@@ -1,0 +1,6 @@
+{
+  "eslint.options": {
+    "configFile": "./config/.eslintrc.json"
+  },
+  "beautify.config": "./config/.jsbeautifyrc"
+}

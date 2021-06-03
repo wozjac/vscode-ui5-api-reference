@@ -1,0 +1,40 @@
+<div>
+  <h4>
+    <a href="#"
+      id="vsc-ui5-ar-object-name"
+      class="vsc-ui5-ar-link"
+      data-apiDocUrl="{{apiDocUrl}}"
+      data-name="{{name}}">
+      {{name}}
+    </a>
+    {{#hasBaseObject}}
+      <div>
+        <span>extends:</span>
+        <a href="#"
+          class="vsc-ui5-ar-link"
+          id="vsc-ui5-ar-extends-link">
+          {{extends}}
+        </a>
+      </div>
+    {{/hasBaseObject}}
+    {{#isDeprecated}}
+      <div>
+        <span class="vsc-ui5-ar-deprecated">
+          DEPRECATED
+        </span>
+      </div>
+    {{/isDeprecated}}
+  </h4>
+  <button id="vsc-ui5-ar-show-descriptions">Show descriptions</button>
+  <p id="pod:{{name}}"
+    class="vsc-ui5-ar-object-description">
+    {{description}}
+  </p>
+  {{> membersTemplate}}
+  {{#inheritedApi}}
+    <div class="vsc-ui5-ar-borrowed">
+      <h4>Borrowed from {{name}}</h4>
+      {{> membersTemplate}}
+    </div>
+  {{/inheritedApi}}
+</div>

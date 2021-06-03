@@ -1,0 +1,101 @@
+{
+  "name": "vscode-ui5-api-reference",
+  "displayName": "VSCode-UI5: API Reference in a side bar view",
+  "description": "VSCode extension: SAPUI5/OpenUI5 Reference documentation in a side bar view",
+  "license": "MIT",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.53.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wozjac/vscode-ui5-api-reference.git"
+  },
+  "author": "Q-Prod Jacek Woźniczak <wozjac@zoho.com> (https://twitter.com/jacekwoz)",
+  "bugs": "https://github.com/wozjac/vscode-ui5-api-reference/issues",
+  "homepage": "https://github.com/wozjac/vscode-ui5-api-reference",
+  "publisher": "jacek-wozniczak",
+  "icon": "assets/icon.png",
+  "keywords": [
+    "api",
+    "ui5",
+    "sapui5",
+    "openui5",
+    "vscode"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "coverage": "c8 npm test",
+    "lint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
+    "coveralls": "c8 npm test && c8 report --reporter=text-lcov | coveralls",
+    "pretest": "npm run lint",
+    "test": "mocha",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.46.0",
+    "c8": "^7.7.2",
+    "chai": "^4.3.4",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "sinon": "^11.1.1",
+    "standard-version": "^9.3.0",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "mustache": "^4.2.0"
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ui5ApiReference",
+          "title": "UI5 API Reference",
+          "icon": "assets/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vscode-ui5-api-reference.showAPIView",
+        "title": "VSCode-UI5: show API view"
+      },
+      {
+        "command": "vscode-ui5-api-reference.searchAPI",
+        "title": "VSCode-UI5: display API for..."
+      }
+    ],
+    "views": {
+      "ui5ApiReference": [
+        {
+          "type": "webview",
+          "id": "ui5ApiReferenceView",
+          "name": "UI5 API Reference"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VSCode-UI5: API Reference",
+      "properties": {
+        "apiURL": {
+          "type": "string",
+          "default": "https://openui5.hana.ondemand.com/1.84.0",
+          "description": "The path to SAPUI5/OpenUI5 version"
+        }
+      }
+    }
+  }
+}

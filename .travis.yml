@@ -1,0 +1,16 @@
+language: node_js
+os:
+- osx
+
+node_js: 14
+
+git:
+  depth: 3
+
+install:
+  - npm install --no-optional
+
+script:
+  - npm test
+
+after_success: npm run coveralls

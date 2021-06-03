@@ -1,0 +1,16 @@
+{
+  "html": {
+    "indent_size": 2,
+    "end_with_newline": true,
+    "wrap_attributes": "force"
+  },
+  "xml": {
+    "indent_size": 2,
+    "end_with_newline": true,
+    "wrap_attributes": "force"
+  },
+  "js": {
+    "indent_size": 2,
+    "brace_style": "collapse,preserve-inline"
+  }
+}

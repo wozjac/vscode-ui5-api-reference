@@ -1,0 +1,176 @@
+{{#hasConstructor}}
+  <h5>Constructor:</h5>
+  <p id="pod_constructor:{{name}}"
+    class="vsc-ui5-ar-object-description">
+    {{constructor.description}}
+  </p>
+  {{#hasConstructorParams}}
+    {{#constructorParams}}
+      <ul>
+        <li>
+          <span class="vsc-ui5-ar-api-member-name">{{name}}:</span>
+          <span class="vsc-ui5-ar-return-type"> {{type}}{{#optional}}?{{/optional}}</span>
+          <p id="pod:{{objectName}}:{{name}}"
+            class="vsc-ui5-ar-object-description">
+            {{description}}
+          </p>
+          {{#hasProperties}}
+            {{#parameterProperties}}
+              <ul>
+                <li>
+                  <span>{{name}}</span>
+                  <span class="vsc-ui5-ar-return-type"> {{type}}{{#optional}}?{{/optional}}</span>
+                  <p id="pod:{{objectName}}:{{name}}"
+                    class="vsc-ui5-ar-object-description">
+                    {{description}}
+                  </p>
+                </li>
+              </ul>
+            {{/parameterProperties}}
+          {{/hasProperties}}
+        </li>
+      </ul>
+    {{/constructorParams}}
+  {{/hasConstructorParams}}
+  {{^hasConstructorParams}}
+    <p>no parameters</p>
+  {{/hasConstructorParams}}
+{{/hasConstructor}}
+{{#hasMethods}}
+  <h5>Methods:</h5>
+  {{#methods}}
+    <ul>
+      <li>
+        <a href="#"
+          class="vsc-ui5-ar-link vsc-ui5-ar-api-member-name
+          {{#deprecated}}
+            vsc-ui5-ar-deprecated-member
+          {{/deprecated}}"
+          data-apiDocUrl="{{apiDocUrl}}"
+          data-name="{{name}}">{{name}}</a><span>(</span><span class="vsc-ui5-ar-api-list">{{#hasParameters}}{{#parameters}}<span class="vsc-ui5-ar-api-method-param"
+                title="{{type}}">{{name}}{{#optional}}?{{/optional}}</span>
+            {{/parameters}}{{/hasParameters}}{{^hasParameters}}<span></span>{{/hasParameters}}
+        </span>
+        {{#hasReturnValue}}
+          <div><span>returns</span>
+            {{#hasUi5ObjectReturnType}}
+              <a href="#"
+                class="vsc-ui5-ar-return-type-link"
+                data-object-name="{{ui5ObjectReturnType}}">{{returnValue.type}}
+              </a>
+          </div>
+          {{/hasUi5ObjectReturnType}}
+          {{^hasUi5ObjectReturnType}}
+            <span>{{returnValue.type}}</span>
+          {{/hasUi5ObjectReturnType}}
+        {{/hasReturnValue}}
+        <span id="pod:{{objectName}}:{{name}}">
+          <p class="vsc-ui5-ar-object-description">
+            {{description}}
+          </p>
+          <span class="vsc-ui5-ar-object-description">
+            {{#parameters}}
+              <p>- <span>{{name}} ({{type}}) {{#optional}}?{{/optional}}</span>: {{description}}</p>
+              {{#parameterProperties}}
+                <ul>
+                  <li>{{name}} ({{type}}): {{description}}</li>
+                </ul>
+              {{/parameterProperties}}
+            {{/parameters}}
+          </span>
+        </span>
+      </li>
+    </ul>
+  {{/methods}}
+{{/hasMethods}}
+{{#hasAggregations}}
+  <h5>Aggregations:</h5>
+  <ul>
+    {{#aggregations}}
+      <li>
+        <a href="#"
+          class="vsc-ui5-ar-link vsc-ui5-ar-api-member-name
+          {{#deprecated}}
+            vsc-ui5-ar-deprecated-member
+          {{/deprecated}}"
+          data-apiDocUrl="{{apiDocUrl}}"
+          data-name="{{name}}">
+          {{name}}
+        </a> [{{cardinality}}]
+        {{#hasUi5ObjectType}}
+          <a href="#"
+            class="vsc-ui5-ar-return-type-link"
+            data-object-name="{{ui5ObjectType}}">{{type}}
+          </a>
+        {{/hasUi5ObjectType}}
+        {{^hasUi5ObjectType}}
+          <span class="vsc-ui5-ar-return-type">{{type}}</span>
+        {{/hasUi5ObjectType}}
+        <p id="pod:{{objectName}}:{{name}}"
+          class="vsc-ui5-ar-object-description">
+          {{description}}
+        </p>
+      </li>
+    {{/aggregations}}
+  </ul>
+{{/hasAggregations}}
+{{#hasEvents}}
+  <h5>Events:</h5>
+  <ul>
+    {{#events}}
+      <li>
+        <a href="#"
+          class="vsc-ui5-ar-link vsc-ui5-ar-api-member-name
+          {{#deprecated}}
+          vsc-ui5-ar-deprecated
+          {{/deprecated}}"
+          data-apiDocUrl="{{apiDocUrl}}"
+          data-name="{{name}}">
+          {{name}}
+        </a>(<span class="vsc-ui5-ar-api-list">{{#parameters}}<span>{{name}}{{#optional}}?{{/optional}}</span>{{/parameters}})</span>
+        <div id="pod:{{objectName}}:{{name}}"
+          class="vsc-ui5-ar-object-description">
+          {{description}}
+          {{#parameters}}
+            <ul>
+              {{#parameterProperties}}
+                <li>{{name}} ({{type}}{{#optional}}?{{/optional}}): {{description}}</li>
+              {{/parameterProperties}}
+            </ul>
+          {{/parameters}}
+        </div>
+      </li>
+    {{/events}}
+  </ul>
+{{/hasEvents}}
+{{#hasProperties}}
+  <h5>Properties:</h5>
+  <ul>
+    {{#properties}}
+      <li>
+        <a href="#"
+          class="vsc-ui5-ar-link vsc-ui5-ar-api-member-name
+          {{#deprecated}}
+          vsc-ui5-ar-deprecated
+          {{/deprecated}}"
+          data-apiDocUrl="{{apiDocUrl}}"
+          data-name="{{name}}">
+          {{name}}
+        </a>
+        {{#hasUi5ObjectType}}
+          <a href="#"
+            class="vsc-ui5-ar-return-type-link"
+            data-object-name="{{ui5ObjectType}}">{{type}}
+          </a>
+        {{/hasUi5ObjectType}}
+        {{^hasUi5ObjectType}}
+          <span class="vsc-ui5-ar-return-type-link">{{type}}</span>
+        {{/hasUi5ObjectType}}
+        <p id="pod:{{objectName}}:{{name}}"
+          class="vsc-ui5-ar-object-description">
+          {{description}}
+        </p>
+      </li>
+    {{/properties}}
+  </ul>
+{{/hasProperties}}

@@ -2,8 +2,8 @@
 ![David DM](https://david-dm.org/wozjac/vscode-ui5-api-reference.svg)
 [![GitHub license](https://img.shields.io/github/license/wozjac/vscode-ui5-api-reference)](https://github.com/wozjac/vscode-ui5-api-reference/blob/main/LICENSE)
 
-# VSCode-UI5: API reference side bar
-VS Code extension - SAP/Open UI5 reference view in the side bar.
+# VSCode-UI5: API reference 
+VS Code extension - SAP/Open UI5 reference view in a side bar view.
 
 ## Features
 - show/hide desciptions

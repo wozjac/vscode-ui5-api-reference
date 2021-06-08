@@ -1,6 +1,6 @@
 {
   "name": "vscode-ui5-api-reference",
-  "displayName": "VSCode-UI5: API Reference in a side bar view",
+  "displayName": "VSCode-UI5: API Reference",
   "description": "VSCode extension: SAPUI5/OpenUI5 Reference documentation in a side bar view",
   "license": "MIT",
   "version": "1.0.2",
@@ -60,16 +60,13 @@
   },
   "contributes": {
     "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "ui5ApiReference",
-          "title": "UI5 API Reference",
-          "icon": "assets/icon.svg"
-        }
-      ]
+      "activitybar": [{
+        "id": "ui5ApiReference",
+        "title": "UI5 API Reference",
+        "icon": "assets/icon.svg"
+      }]
     },
-    "commands": [
-      {
+    "commands": [{
         "command": "vscode-ui5-api-reference.showAPIView",
         "title": "VSCode-UI5: show API view"
       },
@@ -79,13 +76,11 @@
       }
     ],
     "views": {
-      "ui5ApiReference": [
-        {
-          "type": "webview",
-          "id": "ui5ApiReferenceView",
-          "name": "UI5 API Reference"
-        }
-      ]
+      "ui5ApiReference": [{
+        "type": "webview",
+        "id": "ui5ApiReferenceView",
+        "name": "UI5 API Reference"
+      }]
     },
     "configuration": {
       "title": "VSCode-UI5: API Reference",

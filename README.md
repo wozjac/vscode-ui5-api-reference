@@ -39,7 +39,8 @@ API side bar can be also opened using command:
 ## Extension Settings
 This extension contributes the following settings:
 
-* `apiURL`: The path to SAPUI5/OpenUI5 version; default is https://openui5.hana.ondemand.com/1.84.0
+* `apiURL`: The path to SAPUI5/OpenUI5 version; default is https://openui5.hana.ondemand.com/1.84.0  
+**Please remember to reload VS Code after changing this setting!**
 
 ## Release Notes
 See CHANGELOG.md

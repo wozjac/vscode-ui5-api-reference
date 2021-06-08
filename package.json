@@ -60,16 +60,13 @@
   },
   "contributes": {
     "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "ui5ApiReference",
-          "title": "UI5 API Reference",
-          "icon": "assets/icon.svg"
-        }
-      ]
+      "activitybar": [{
+        "id": "ui5ApiReference",
+        "title": "UI5 API Reference",
+        "icon": "assets/icon.svg"
+      }]
     },
-    "commands": [
-      {
+    "commands": [{
         "command": "vscode-ui5-api-reference.showAPIView",
         "title": "VSCode-UI5: show API view"
       },
@@ -79,13 +76,11 @@
       }
     ],
     "views": {
-      "ui5ApiReference": [
-        {
-          "type": "webview",
-          "id": "ui5ApiReferenceView",
-          "name": "UI5 API Reference"
-        }
-      ]
+      "ui5ApiReference": [{
+        "type": "webview",
+        "id": "ui5ApiReferenceView",
+        "name": "UI5 API Reference"
+      }]
     },
     "configuration": {
       "title": "VSCode-UI5: API Reference",
@@ -93,7 +88,7 @@
         "apiURL": {
           "type": "string",
           "default": "https://openui5.hana.ondemand.com/1.84.0",
-          "description": "The path to SAPUI5/OpenUI5 version"
+          "description": "The path to SAPUI5/OpenUI5 version. Please remember to reload VS Code after changing it!"
         }
       }
     }

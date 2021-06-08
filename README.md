@@ -28,6 +28,8 @@ API side bar can be also opened using command:
 - search can be also triggered using command:
 <img src="https://publicrepo.vipserv.org/images/vscode-api/search-command.gif" alt="search command" width="650px"/>
 
+- clicking on the object name or method, property etc. will open the original UI5 API page in your default browser
+
 ### Filtering
 - API can be filtered, for example typing "hbox add" will show only members matching "add". Filtering works also if the hitlist if firstly displayed.
 - displaying specific members: ?p will display only properties, ?c - constructor, ?e - events, ?m - methods; 

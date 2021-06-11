@@ -9,8 +9,9 @@
       "type": "extensionHost",
       "request": "launch",
       "args": [
-        "--disable-extensions",
+        // "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}"
+        
       ]
     },
     {

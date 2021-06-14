@@ -39,6 +39,8 @@ function activate(context) {
         const editor = vscode.window.activeTextEditor;
         // Gets the entire string from namespace and control
         const findControl = () => {
+          const isLowerCase = (string) => /^[a-z]*$/.test(string);
+
           //Formats the namespace so we can use it for search
           const getNamespace = (text) => {
             let namespace = text.includes(":") ? text.split(":")[0] : "";
@@ -46,21 +48,39 @@ function activate(context) {
             let xmlns = editor.document
               .getText()
               .split("\n")
-              .find(
-                (sLine) => sLine.includes("xmlns") && sLine.includes(namespace)
-              );
+              .find((sLine) =>
+                namespace === ""
+                  ? sLine.includes("xmlns=")
+                  : sLine.includes("xmlns") && sLine.includes(namespace)
+              )
+              .trim();
 
-            xmlns = (xmlns.includes(">") ? xmlns.slice(0, -1) : xmlns)
-              .split("=")[1]
-              //Remove all instances on " as it's already a string
-              .replace("\"", "")
-              .replace("\"", "");
+            xmlns = (xmlns.includes(">") ? xmlns.slice(0, -1) : xmlns).match(
+              /\"(.*?)\"/
+            )[1];
+
             return `${xmlns}.${text}`;
           };
           const cursorPosition = editor.selection.active;
           let text;
           let line = editor.document.lineAt(cursorPosition.line);
           if (line.text.includes("<")) {
+            //If the first character after the < is lowercase, then it's an aggregation
+            if (isLowerCase(line.text.trim().charAt(1))) {
+              let foundControl = false;
+              let count = 1;
+              while (foundControl === false) {
+                line = editor.document.lineAt(cursorPosition.line - count);
+                if (
+                  line.text.includes("<") &&
+                  !isLowerCase(line.text.trim().charAt(1))
+                ) {
+                  foundControl = true;
+                } else {
+                  count++;
+                }
+              }
+            }
             //just for good measure, check if it's the end tag
             let tagSplit = line.text.includes("</") ? "</" : "<";
             let endSplit = line.text.includes(" ")

@@ -35,7 +35,7 @@
     "lint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
     "coveralls": "c8 npm test && c8 report --reporter=text-lcov | coveralls",
     "pretest": "npm run lint",
-    "test": "mocha",
+    "test": "node ./test/runTest.js",
     "release": "standard-version"
   },
   "devDependencies": {

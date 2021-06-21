@@ -22,13 +22,10 @@
     "no-unused-vars": "warn",
     "constructor-super": "warn",
     "valid-typeof": "warn",
-    "quotes": [
-      "error",
-      "double"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "prefer-const": "error",
+    "no-var": "error",
+    "arrow-body-style": ["error", "always"],
+    "quotes": ["warn", "double"],
+    "semi": ["error", "always"]
   }
 }

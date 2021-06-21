@@ -38,6 +38,10 @@ API side bar can be also opened using command:
 - members can be also filtered by a search term, for example to display only methods with "add", type "hbox ?madd" 
 <img src="https://publicrepo.vipserv.org/images/vscode-api/search-members2.gif" alt="basic search" width="250px"/>
 
+### XML views
+API can be also opened for controls in XML views; use the context menu option on a selected control:
+<img src="https://publicrepo.vipserv.org/images/vscode-api/context.gif" alt="context menu" width="650px"/>
+
 ## Extension Settings
 This extension contributes the following settings:
 

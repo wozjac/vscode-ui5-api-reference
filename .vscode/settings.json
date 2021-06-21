@@ -2,5 +2,10 @@
   "eslint.options": {
     "configFile": "./config/.eslintrc.json"
   },
-  "beautify.config": "./config/.jsbeautifyrc"
+  "beautify.config": "./config/.jsbeautifyrc",
+  "prettier.configPath": "./config/.prettierrc",
+  "eslint.codeAction.showDocumentation": {
+
+    "enable": true
+  }
 }

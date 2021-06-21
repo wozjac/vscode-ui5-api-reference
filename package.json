@@ -31,11 +31,10 @@
   ],
   "main": "./extension.js",
   "scripts": {
-    "coverage": "c8 npm test",
     "lint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
-    "coveralls": "c8 npm test && c8 report --reporter=text-lcov | coveralls",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "pretest": "npm run lint",
-    "test": "mocha",
+    "test": "node ./test/runTest.js",
     "release": "standard-version"
   },
   "devDependencies": {
@@ -76,8 +75,23 @@
       {
         "command": "vscode-ui5-api-reference.searchAPI",
         "title": "VSCode-UI5: display API for..."
+      },
+      {
+        "command": "vscode-ui5-api-reference.showAPIViewForValue",
+        "title": "VSCode-UI5: Show API for selection",
+        "category": "navigation",
+        "where": "editorHasSelection"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceLangId == xml",
+          "command": "vscode-ui5-api-reference.showAPIViewForValue",
+          "group": "navigation"
+        }
+      ]
+    },
     "views": {
       "ui5ApiReference": [
         {

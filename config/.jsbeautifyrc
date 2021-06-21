@@ -2,12 +2,12 @@
   "html": {
     "indent_size": 2,
     "end_with_newline": true,
-    "wrap_attributes": "force"
+    "wrap_attributes": "auto"
   },
   "xml": {
     "indent_size": 2,
     "end_with_newline": true,
-    "wrap_attributes": "force"
+    "wrap_attributes": "auto"
   },
   "js": {
     "indent_size": 2,

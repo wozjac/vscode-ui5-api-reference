@@ -1,7 +1,7 @@
 const expect = require("chai").expect;
-const ui5APIFormatter = require("../src/core/ui5APIFormatter.js");
-const sapUiCoreApi = require("./support/fixtures/sapUiCoreApi.js");
-const stubber = require("./support/stubber.js");
+const ui5APIFormatter = require("../../../src/core/ui5APIFormatter.js");
+const sapUiCoreApi = require("../../support/fixtures/sapUiCoreApi.js");
+const stubber = require("../../support/stubber.js");
 
 describe("ui5APIFormatter tests", () => {
   before(() => {
@@ -33,12 +33,19 @@ describe("ui5APIFormatter tests", () => {
   });
 
   it("Should format JS doc with html and corrected headers", () => {
-    expect(ui5APIFormatter.formatJsDoc("This <h1>is</h1> object{@jsdoc} <p class='css'>with</p> #member " +
-      "<h5>member</h5>.")).to.equal("This <h5>is</h5> object with <h5>member</h5>.");
+    expect(
+      ui5APIFormatter.formatJsDoc(
+        "This <h1>is</h1> object{@jsdoc} <p class='css'>with</p> #member " + "<h5>member</h5>."
+      )
+    ).to.equal("This <h5>is</h5> object with <h5>member</h5>.");
   });
 
   it("Should format JS doc without any html except headers", () => {
-    expect(ui5APIFormatter.formatJsDoc("This <h1>is</h1> object{@jsdoc} <p class='css'>with</p> #member " +
-      "<h5>member</h5>.", true)).to.equal("This is object with member.");
+    expect(
+      ui5APIFormatter.formatJsDoc(
+        "This <h1>is</h1> object{@jsdoc} <p class='css'>with</p> #member " + "<h5>member</h5>.",
+        true
+      )
+    ).to.equal("This is object with member.");
   });
 });

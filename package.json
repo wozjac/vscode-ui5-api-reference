@@ -31,9 +31,8 @@
   ],
   "main": "./extension.js",
   "scripts": {
-    "coverage": "c8 npm test",
     "lint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
-    "coveralls": "c8 npm test && c8 report --reporter=text-lcov | coveralls",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js",
     "release": "standard-version"
@@ -79,7 +78,7 @@
       },
       {
         "command": "vscode-ui5-api-reference.showAPIViewForValue",
-        "title": "VSCode-UI5: Show API for Selection",
+        "title": "VSCode-UI5: Show API for selection",
         "category": "navigation",
         "where": "editorHasSelection"
       }

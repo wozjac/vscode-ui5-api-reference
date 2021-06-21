@@ -1,6 +1,6 @@
 const expect = require("chai").expect;
-const contextMenu = require("../src/core/contextMenu");
-const stubber = require("./support/stubber.js");
+const contextMenu = require("../../../src/core/contextMenu");
+const stubber = require("../../support/stubber.js");
 const vscode = require("vscode");
 const path = require("path");
 
@@ -13,191 +13,180 @@ describe("Context Menu tests", () => {
     stubber.restore();
   });
 
-  it("Should find string sap.ui.core.Title", async () => {
+  it("Should find sap.ui.core.Title #1", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view1.xml")
+      path.resolve(__dirname, "../../support/editor/view1.xml")
     );
+
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
     const position = editor.selection.active;
-
-    var newPosition = position.with(6, 14);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
+    const newPosition = position.with(6, 14);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
     editor.selection = newSelection;
-
     const out = contextMenu.findControl(editor);
 
     expect(out).to.deep.equal("sap.ui.core.Title");
   });
 
-  it("Should find string sap.m.Text", async () => {
+  it("Should find sap.ui.core.Title #2", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view1.xml")
+      path.resolve(__dirname, "../../support/editor/view2.xml")
     );
+
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
     const position = editor.selection.active;
-
-    var newPosition = position.with(7, 14);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
+    const newPosition = position.with(6, 28);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
     editor.selection = newSelection;
-
-    const out = contextMenu.findControl(editor);
-
-    expect(out).to.deep.equal("sap.m.Text");
-  });
-
-  it("Should find string sap.m.App", async () => {
-    const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view1.xml")
-    );
-    await vscode.window.showTextDocument(document);
-    const editor = vscode.window.activeTextEditor;
-    const position = editor.selection.active;
-
-    var newPosition = position.with(5, 6);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
-    editor.selection = newSelection;
-
-    const out = contextMenu.findControl(editor);
-
-    expect(out).to.deep.equal("sap.m.App");
-  });
-
-  it("Should find string sap.ui.core.Title", async () => {
-    const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view2.xml")
-    );
-    await vscode.window.showTextDocument(document);
-    const editor = vscode.window.activeTextEditor;
-    const position = editor.selection.active;
-
-    var newPosition = position.with(6, 28);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
-    editor.selection = newSelection;
-
     const out = contextMenu.findControl(editor);
 
     expect(out).to.deep.equal("sap.ui.core.Title");
   });
 
-  it("Should find string sap.ui.core.Title", async () => {
+  it("Should find sap.ui.core.Title #3", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view2.xml")
+      path.resolve(__dirname, "../../support/editor/view2.xml")
     );
+
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
     const position = editor.selection.active;
-
-    var newPosition = position.with(7, 17);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
+    const newPosition = position.with(7, 17);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
     editor.selection = newSelection;
-
     const out = contextMenu.findControl(editor);
 
     expect(out).to.deep.equal("sap.ui.core.Title");
   });
 
-  it("Should find string sap.m.Text", async () => {
+  it("Should find sap.ui.core.Title #4", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view2.xml")
+      path.resolve(__dirname, "../../support/editor/view3.xml")
     );
+
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
     const position = editor.selection.active;
-
-    var newPosition = position.with(8, 28);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
+    const newPosition = position.with(13, 18);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
     editor.selection = newSelection;
-
-    const out = contextMenu.findControl(editor);
-
-    expect(out).to.deep.equal("sap.m.Text");
-  });
-
-  it("Should find string sap.ui.core.Title", async () => {
-    const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view3.xml")
-    );
-    await vscode.window.showTextDocument(document);
-    const editor = vscode.window.activeTextEditor;
-    const position = editor.selection.active;
-
-    var newPosition = position.with(13, 18);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
-    editor.selection = newSelection;
-
     const out = contextMenu.findControl(editor);
 
     expect(out).to.deep.equal("sap.ui.core.Title");
   });
 
-  it("Should find string sap.m.Page", async () => {
+  it("Should find sap.m.Page #1", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view3.xml")
+      path.resolve(__dirname, "../../support/editor/view3.xml")
     );
+
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
     const position = editor.selection.active;
-
-    var newPosition = position.with(9, 18);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
+    const newPosition = position.with(9, 7);
+    const newPosition2 = position.with(9, 11);
+    const newSelection = new vscode.Selection(newPosition, newPosition2);
     editor.selection = newSelection;
-
     const out = contextMenu.findControl(editor);
 
     expect(out).to.deep.equal("sap.m.Page");
   });
 
-  it("Should find string sap.m.App", async () => {
+  it("Should find sap.m.Page #2", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view3.xml")
+      path.resolve(__dirname, "../../support/editor/view3.xml")
     );
+
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
     const position = editor.selection.active;
-
-    var newPosition = position.with(8, 9);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
+    const newPosition = position.with(9, 18);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
     editor.selection = newSelection;
-
-    const out = contextMenu.findControl(editor);
-
-    expect(out).to.deep.equal("sap.m.App");
-  });
-
-  it("Should find string sap.m.App", async () => {
-    const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view3.xml")
-    );
-    await vscode.window.showTextDocument(document);
-    const editor = vscode.window.activeTextEditor;
-    const position = editor.selection.active;
-
-    var newPosition = position.with(10, 9);
-    var newSelection = new vscode.Selection(newPosition, newPosition);
-    editor.selection = newSelection;
-
-    const out = contextMenu.findControl(editor);
-
-    expect(out).to.deep.equal("sap.m.App");
-  });
-
-  it("Should find string sap.m.Page", async () => {
-    const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "./support/editor/view3.xml")
-    );
-    await vscode.window.showTextDocument(document);
-    const editor = vscode.window.activeTextEditor;
-    const position = editor.selection.active;
-
-    var newPosition = position.with(9, 7);
-    let newPosition2 = position.with(9, 11);
-    var newSelection = new vscode.Selection(newPosition, newPosition2);
-    editor.selection = newSelection;
-
     const out = contextMenu.findControl(editor);
 
     expect(out).to.deep.equal("sap.m.Page");
+  });
+
+  it("Should find sap.m.App #1", async () => {
+    const document = await vscode.workspace.openTextDocument(
+      path.resolve(__dirname, "../../support/editor/view3.xml")
+    );
+
+    await vscode.window.showTextDocument(document);
+    const editor = vscode.window.activeTextEditor;
+    const position = editor.selection.active;
+    const newPosition = position.with(8, 9);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
+    editor.selection = newSelection;
+    const out = contextMenu.findControl(editor);
+
+    expect(out).to.equal("sap.m.App");
+  });
+
+  it("Should find sap.m.App #2", async () => {
+    const document = await vscode.workspace.openTextDocument(
+      path.resolve(__dirname, "../../support/editor/view3.xml")
+    );
+
+    await vscode.window.showTextDocument(document);
+    const editor = vscode.window.activeTextEditor;
+    const position = editor.selection.active;
+    const newPosition = position.with(10, 9);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
+    editor.selection = newSelection;
+    const out = contextMenu.findControl(editor);
+
+    expect(out).to.deep.equal("sap.m.App");
+  });
+
+  it("Should find string sap.m.App #3", async () => {
+    const document = await vscode.workspace.openTextDocument(
+      path.resolve(__dirname, "../../support/editor/view1.xml")
+    );
+
+    await vscode.window.showTextDocument(document);
+    const editor = vscode.window.activeTextEditor;
+    const position = editor.selection.active;
+    const newPosition = position.with(5, 6);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
+    editor.selection = newSelection;
+    const out = contextMenu.findControl(editor);
+
+    expect(out).to.deep.equal("sap.m.App");
+  });
+
+  it("Should find sap.m.Text #1", async () => {
+    const document = await vscode.workspace.openTextDocument(
+      path.resolve(__dirname, "../../support/editor/view2.xml")
+    );
+
+    await vscode.window.showTextDocument(document);
+    const editor = vscode.window.activeTextEditor;
+    const position = editor.selection.active;
+    const newPosition = position.with(8, 28);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
+    editor.selection = newSelection;
+    const out = contextMenu.findControl(editor);
+
+    expect(out).to.deep.equal("sap.m.Text");
+  });
+
+  it("Should find string sap.m.Text #2", async () => {
+    const document = await vscode.workspace.openTextDocument(
+      path.resolve(__dirname, "../../support/editor/view1.xml")
+    );
+
+    await vscode.window.showTextDocument(document);
+    const editor = vscode.window.activeTextEditor;
+    const position = editor.selection.active;
+    const newPosition = position.with(7, 14);
+    const newSelection = new vscode.Selection(newPosition, newPosition);
+    editor.selection = newSelection;
+    const out = contextMenu.findControl(editor);
+
+    expect(out).to.deep.equal("sap.m.Text");
   });
 });

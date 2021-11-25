@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.com/wozjac/vscode-ui5-api-reference.svg?branch=main)](https://travis-ci.com/wozjac/vscode-ui5-api-reference)
-![David DM](https://david-dm.org/wozjac/vscode-ui5-api-reference.svg)
 [![GitHub license](https://img.shields.io/github/license/wozjac/vscode-ui5-api-reference)](https://github.com/wozjac/vscode-ui5-api-reference/blob/main/LICENSE)
 
 # VSCode-UI5: API reference 

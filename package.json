@@ -40,7 +40,8 @@
     "clean": "rimraf out/",
     "vscode:prepublish": "npm run compile",
     "compile": "npm run clean && tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "markdownlint": "npx markdownlint -c ./config/markdownlint.json **/*.md"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
@@ -62,7 +63,9 @@
     "vscode-test": "^1.5.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "markdownlint": "^0.25.1",
+    "markdownlint-cli": "^0.31.1"
   },
   "dependencies": {
     "mustache": "^4.2.0"

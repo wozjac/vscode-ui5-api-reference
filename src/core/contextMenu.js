@@ -14,6 +14,7 @@ const getNamespace = (text, editor) => {
     .trim();
 
   xmlns = xmlns.includes(">") ? xmlns.slice(0, -1) : xmlns;
+  // eslint-disable-next-line quotes
   const regex = new RegExp(namespace === "" ? `xmlns="(.*?)"` : `xmlns:${namespace}="(.*?)\"`);
   xmlns = xmlns.match(regex)[0].match(/\"(.*?)\"/)[1];
 

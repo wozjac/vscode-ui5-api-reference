@@ -31,11 +31,14 @@
   ],
   "main": "./extension.js",
   "scripts": {
-    "lint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js",
-    "release": "standard-version"
+    "release": "standard-version",
+    "eslint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
+    "lint": "npm run eslint && npm run commitlint && npm run markdownlint",
+    "commitlint": "npx commitlint --from HEAD~1 --to HEAD --verbose -g ./config/commitlint.config.js",
+    "markdownlint": "npx markdownlint -c ./config/markdownlint.json **/*.md"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
@@ -44,9 +47,11 @@
     "@types/vscode": "^1.46.0",
     "c8": "^7.7.2",
     "chai": "^4.3.4",
+    "commitlint": "^17.0.3",
     "coveralls": "^3.1.0",
     "eslint": "^7.19.0",
     "glob": "^7.1.6",
+    "markdownlint": "^0.26.1",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "sinon": "^11.1.1",

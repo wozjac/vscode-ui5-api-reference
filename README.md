@@ -24,7 +24,8 @@ API side bar can be also opened using command:
 
 ### Basic search
 
-- if an UI5 object can be matched with the search input, it will be displayed immadiately, otherwise the hitlist is showed
+- if an UI5 object can be matched with the search input, it will be displayed immadiately,
+  otherwise the hitlist is showed
   ![Basic search](https://publicrepo.vipserv.org/images/vscode-api/basic-search.gif)
 
 - search can be done with or without namespace

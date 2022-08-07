@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.1.0...v1.2.0) (2022-08-07)
+
+
+### Features
+
+* set default OpenUI5 API version to 1.96.10 ([b426b67](https://github.com/wozjac/vscode-ui5-api-reference/commit/b426b670de39c2f37ce821d4af942334aada3dfc))
+
 ## [1.1.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.0.4...v1.1.0) (2021-06-21)
 
 

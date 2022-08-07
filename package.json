@@ -106,7 +106,7 @@
       "properties": {
         "apiURL": {
           "type": "string",
-          "default": "https://openui5.hana.ondemand.com/1.84.0",
+          "default": "https://openui5.hana.ondemand.com/1.96.10",
           "description": "The path to SAPUI5/OpenUI5 version. Please remember to reload VS Code after changing it!"
         }
       }

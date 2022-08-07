@@ -8,7 +8,7 @@ const contextMenu = require("./src/core/contextMenu");
 function activate(context) {
   const templatePaths = getTemplatePaths(context.extensionUri);
   const templates = dataSource.readTemplates(templatePaths);
-  const configuration = vscode.workspace.getConfiguration("");
+  const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
   const apiViewProvider = new APIReferenceProvider(context.extensionUri, templates);
 
   context.subscriptions.push(

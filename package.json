@@ -110,12 +110,18 @@
       ]
     },
     "configuration": {
+      "type": "object",
       "title": "VSCode-UI5: API Reference",
       "properties": {
-        "apiURL": {
+        "UI5ReferencePanel.apiURL": {
           "type": "string",
           "default": "https://openui5.hana.ondemand.com/1.96.10",
           "description": "The path to SAPUI5/OpenUI5 version. Please remember to reload VS Code after changing it!"
+        },
+        "apiURL": {
+          "type": "string",
+          "default": "https://openui5.hana.ondemand.com/1.96.10",
+          "description": "DEPRECATED , will be removed in the future version. Please move the setting to the one prefixed with \"UI5 Reference Panel\"."
         }
       }
     }

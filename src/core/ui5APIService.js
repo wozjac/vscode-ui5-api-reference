@@ -7,7 +7,7 @@ const ui5LibrariesDesignApi = {};
 const ui5ObjectsDesignApiBuffer = [];
 
 const sapLibraryDefs = {
-  "!name": "sap"
+  "!name": "sap",
 };
 
 const requireJsOverrides = {};
@@ -31,12 +31,14 @@ function getLibraryApi(libraryName) {
       const libraryUrlName = libraryName.replace(/\./g, "/");
       const libraryApiUrl = `${apiBaseUrl}/test-resources/${libraryUrlName}/designtime/api.json`;
 
-      dataSource.fetchJSON(libraryApiUrl)
-        .then((libraryApi) => {
+      dataSource.fetchJSON(libraryApiUrl).then(
+        (libraryApi) => {
           resolve(libraryApi);
-        }, (error) => {
+        },
+        (error) => {
           reject(error);
-        });
+        }
+      );
     }
   });
 }
@@ -67,7 +69,7 @@ function getUi5ObjectDesignApi(objectName, resultApi) {
   if (!libraryName) {
     return {
       kind: "namespace",
-      name: objectName
+      name: objectName,
     };
   }
 
@@ -80,8 +82,7 @@ function getUi5ObjectDesignApi(objectName, resultApi) {
     const libraryApi = ui5LibrariesDesignApi[ui5Object.library];
 
     objectApi = libraryApi.symbols.find((element) => {
-      if (element.kind === "class" ||
-        element.kind === "enum") {
+      if (element.kind === "class" || element.kind === "enum") {
         return element.name === ui5Object.name;
       } else {
         return element.basename === ui5Object.basename;
@@ -118,15 +119,17 @@ function loadUi5Objects() {
   if (Object.keys(ui5Objects).length) {
     return Promise.resolve(true);
   } else {
-    return getApiIndex()
-      .then((apiIndexJson) => {
+    return getApiIndex().then(
+      (apiIndexJson) => {
         prepareUi5Objects(apiIndexJson);
         //exports.ui5Objects = ui5Objects; //unit testing only
         console.log(`${constants.pluginLogPrefix}: UI5 API loaded from ${apiBaseUrl}`);
         Promise.resolve(true);
-      }, (error) => {
+      },
+      (error) => {
         Promise.reject(error);
-      });
+      }
+    );
   }
 }
 
@@ -134,28 +137,30 @@ function loadUi5LibrariesDesignApi() {
   const promises = [];
 
   for (const libraryKey in ui5LibrariesDesignApi) {
-    promises.push(new Promise((resolve) => {
-      getLibraryApi(libraryKey)
-        .then((libraryApiJson) => {
-          if (libraryApiJson.symbols && Array.isArray(libraryApiJson.symbols)) {
-            libraryApiJson.symbols.forEach((element) => {
-              element.name = getNormalizedName(element.name);
-              element.originalName = element.name;
-              element.apiDocUrl = getUi5ObjectApiDocUrl(element.name);
-            });
-          }
+    promises.push(
+      new Promise((resolve) => {
+        getLibraryApi(libraryKey)
+          .then((libraryApiJson) => {
+            if (libraryApiJson.symbols && Array.isArray(libraryApiJson.symbols)) {
+              libraryApiJson.symbols.forEach((element) => {
+                element.name = getNormalizedName(element.name);
+                element.originalName = element.name;
+                element.apiDocUrl = getUi5ObjectApiDocUrl(element.name);
+              });
+            }
 
-          ui5LibrariesDesignApi[libraryKey] = libraryApiJson;
-          prepareDefinitions(libraryKey);
-          console.log(`${constants.pluginLogPrefix}: loaded UI5 library: ${libraryKey}`);
-          resolve();
-        })
-        .catch((error) => {
-          //continue, no rejections
-          console.error(`${error}`);
-          return;
-        });
-    }));
+            ui5LibrariesDesignApi[libraryKey] = libraryApiJson;
+            prepareDefinitions(libraryKey);
+            console.log(`${constants.pluginLogPrefix}: loaded UI5 library: ${libraryKey}`);
+            resolve();
+          })
+          .catch((error) => {
+            //continue, no rejections
+            console.error(`${error}`);
+            return;
+          });
+      })
+    );
   }
 
   return Promise.all(promises);
@@ -198,7 +203,7 @@ function getEntry(apiIndexObject) {
     basename: apiIndexObject.name.substring(apiIndexObject.name.lastIndexOf(".") + 1),
     kind: apiIndexObject.kind,
     library: apiIndexObject.lib,
-    apiDocUrl: getUi5ObjectApiDocUrl(apiIndexObject.name)
+    apiDocUrl: getUi5ObjectApiDocUrl(apiIndexObject.name),
   };
 }
 
@@ -246,9 +251,7 @@ function prepareDefinitions(libraryKey) {
 }
 
 function getNormalizedName(name) {
-  return name
-    .replace("module:", "")
-    .replace(/\//g, ".");
+  return name.replace("module:", "").replace(/\//g, ".");
 }
 
 module.exports = {

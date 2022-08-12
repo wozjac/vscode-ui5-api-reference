@@ -10,6 +10,7 @@ VS Code extension - SAP/Open UI5 reference view in a side bar view.
 - show/hide desciptions
 - filtering options (show only members like properties, aggregations)
 - full API (with inherited members)
+- favorites list for quick access
 
 ## Installation
 
@@ -44,6 +45,13 @@ API side bar can be also opened using command:
 - members can be also filtered by a search term, for example to display only methods with "add", type "hbox ?madd"
   ![Filtering](https://publicrepo.vipserv.org/images/vscode-api/search-members2.gif)
 
+### Favorites
+
+They can be used to have frequently used objects always available. Favorites are stored in the
+configuration (per workspace) and they can be maintained there or using the icons available
+on the list and in the object API.
+![Favorites](https://publicrepo.vipserv.org/images/vscode-api/favorites.png)
+
 ### XML views
 
 API can be also opened for controls in XML views; use the context menu option on a selected control:
@@ -53,8 +61,9 @@ API can be also opened for controls in XML views; use the context menu option on
 
 This extension contributes the following settings:
 
-- `apiURL`: The path to SAPUI5/OpenUI5 version; default is <https://openui5.hana.ondemand.com/1.96.10>  
+- `apiURL`: the path to SAPUI5/OpenUI5 version; default is <https://openui5.hana.ondemand.com/1.96.10>  
   **Please remember to reload VS Code after changing this setting!**
+- `favorites`: the list of favorites UI5 objects; they can be added via configuration or using the icons in the panel
 
 ## Release Notes
 

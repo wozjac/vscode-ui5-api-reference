@@ -10,7 +10,7 @@ function readTemplates(templatePaths) {
   return {
     webview: readFileContent(templatePaths.webview),
     members: readFileContent(templatePaths.members),
-    objectAPI: readFileContent(templatePaths.objectAPI)
+    objectAPI: readFileContent(templatePaths.objectAPI),
   };
 }
 
@@ -19,8 +19,10 @@ async function fetchJSON(url) {
   let result;
 
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      res.on("data", chunk => { body += chunk; });
+    https.get(url, (res) => {
+      res.on("data", (chunk) => {
+        body += chunk;
+      });
 
       res.on("end", () => {
         try {
@@ -38,8 +40,7 @@ async function fetchJSON(url) {
   });
 }
 
-
 module.exports = {
   readTemplates,
-  fetchJSON
+  fetchJSON,
 };

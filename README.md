@@ -5,6 +5,11 @@
 
 VS Code extension - SAP/Open UI5 reference view in a side bar view.
 
+## Important
+
+**Since version 1.2.1 there is a new config field for the API URL version - please
+migrate your setting from the old, deprecated one.**
+
 ## Features
 
 - show/hide desciptions

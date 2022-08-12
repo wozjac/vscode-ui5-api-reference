@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.2.1...v1.3.0) (2022-08-12)
+
+
+### Features
+
+* add favorites section and config ([2e475b3](https://github.com/wozjac/vscode-ui5-api-reference/commit/2e475b31adcbc0bc1155c8d1b008f8a2ce2da573))
+
 ### [1.2.1](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.2.0...v1.2.1) (2022-08-07)
 
 

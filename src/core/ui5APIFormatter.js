@@ -1,7 +1,13 @@
 const constants = require("./constants.js");
 const ui5APIService = require("./ui5APIService.js");
+const favorites = require("./favorites.js");
 
-function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray = false, flatStatic = false) {
+function getFormattedObjectApi(
+  ui5ObjectApi,
+  cleanHtml = false,
+  inheritedAsArray = false,
+  flatStatic = false
+) {
   const api = {
     name: ui5ObjectApi.name,
     extends: ui5ObjectApi.extends,
@@ -14,7 +20,8 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
     hasProperties: false,
     hasInheritedMethods: false,
     hasBaseObject: false,
-    hasAggregations: false
+    hasAggregations: false,
+    isFavorite: favorites.isFavorite(ui5ObjectApi.name),
   };
 
   api.description = formatJsDoc(ui5ObjectApi.description, cleanHtml);
@@ -37,7 +44,9 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
       method.description = formatJsDoc(method.description, cleanHtml);
 
       if (method.deprecated) {
-        method.description = `[DEPRECATED! ${formatJsDoc(method.deprecated.text, true)}]  ${method.description}`;
+        method.description = `[DEPRECATED! ${formatJsDoc(method.deprecated.text, true)}]  ${
+          method.description
+        }`;
       }
 
       if (method.static) {
@@ -97,7 +106,9 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
       event.description = formatJsDoc(event.description, cleanHtml);
 
       if (event.deprecated) {
-        event.description = `[DEPRECATED! ${formatJsDoc(event.deprecated.text, true)}]  ${event.description}`;
+        event.description = `[DEPRECATED! ${formatJsDoc(event.deprecated.text, true)}]  ${
+          event.description
+        }`;
       }
 
       if (event.parameters) {
@@ -140,7 +151,10 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
 
               for (const prop in param.parameterProperties) {
                 const parameterProperty = param.parameterProperties[prop];
-                parameterProperty.description = formatJsDoc(parameterProperty.description, cleanHtml);
+                parameterProperty.description = formatJsDoc(
+                  parameterProperty.description,
+                  cleanHtml
+                );
                 parameterProperty.objectName = ui5ObjectApi.name;
                 properties.push(parameterProperty);
               }
@@ -167,9 +181,7 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
     api.properties = JSON.parse(JSON.stringify(properties));
 
     api.properties.forEach((property) => {
-      if (!property.type ||
-        property.type === "undefined") {
-
+      if (!property.type || property.type === "undefined") {
         property.type = "";
       } else {
         const theType = property.type.replace("[]", "");
@@ -187,7 +199,9 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
       property.description = formatJsDoc(property.description, cleanHtml);
 
       if (property.deprecated) {
-        property.description = `[DEPRECATED! ${formatJsDoc(property.deprecated.text, true)}]  ${property.description}`;
+        property.description = `[DEPRECATED! ${formatJsDoc(property.deprecated.text, true)}]  ${
+          property.description
+        }`;
       }
 
       property.apiDocUrl = `${ui5ObjectApi.apiDocUrl}/controlProperties`;
@@ -229,7 +243,10 @@ function getFormattedObjectApi(ui5ObjectApi, cleanHtml = false, inheritedAsArray
     api.inheritedApi = {};
 
     for (const objectKey in ui5ObjectApi.inheritedApi) {
-      api.inheritedApi[objectKey] = getFormattedObjectApi(ui5ObjectApi.inheritedApi[objectKey], cleanHtml);
+      api.inheritedApi[objectKey] = getFormattedObjectApi(
+        ui5ObjectApi.inheritedApi[objectKey],
+        cleanHtml
+      );
 
       if (ui5ObjectApi.inheritedApi[objectKey].methods) {
         api.hasInheritedMethods = true;
@@ -298,23 +315,19 @@ function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
 
   if (memberSearchString) {
     for (const key of filterableKeys) {
-      if (objectApi.kind === "class" &&
-        (key === "properties" || key === "aggregations")) {
-
+      if (objectApi.kind === "class" && (key === "properties" || key === "aggregations")) {
         objectApi["ui5-metadata"][key] = filterMembers("ui5-metadata", key);
 
-        if (!objectApi["ui5-metadata"][key] ||
-          (objectApi["ui5-metadata"][key] &&
-            objectApi["ui5-metadata"][key].length === 0)) {
-
+        if (
+          !objectApi["ui5-metadata"][key] ||
+          (objectApi["ui5-metadata"][key] && objectApi["ui5-metadata"][key].length === 0)
+        ) {
           delete objectApi["ui5-metadata"][key];
         }
       } else {
         objectApi[key] = filterMembers(key);
 
-        if (!objectApi[key] ||
-          (objectApi[key] && objectApi[key].length === 0)) {
-
+        if (!objectApi[key] || (objectApi[key] && objectApi[key].length === 0)) {
           delete objectApi[key];
         }
       }
@@ -329,7 +342,7 @@ function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
       methods: true,
       events: true,
       aggregations: true,
-      construct: true
+      construct: true,
     };
 
     switch (memberGroupFilter) {
@@ -355,7 +368,11 @@ function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
 
   if (objectApi.inheritedApi) {
     for (const name in objectApi.inheritedApi) {
-      objectApi.inheritedApi[name] = filterApiMembers(objectApi.inheritedApi[name], memberSearchString, memberGroupFilter);
+      objectApi.inheritedApi[name] = filterApiMembers(
+        objectApi.inheritedApi[name],
+        memberSearchString,
+        memberGroupFilter
+      );
     }
   }
 
@@ -401,11 +418,7 @@ function formatJsDoc(jsDoc, cleanHtml = false) {
     return "";
   }
 
-  jsDoc = jsDoc
-    .replace(/{@\w+/g, "")
-    .replace(/}/g, "")
-    .replace(/#\w+/g, "")
-    .replace(/\s\s+/g, " ");
+  jsDoc = jsDoc.replace(/{@\w+/g, "").replace(/}/g, "").replace(/#\w+/g, "").replace(/\s\s+/g, " ");
   //.replace(/#\w+:?\w+/g, "");
 
   if (cleanHtml) {
@@ -426,5 +439,5 @@ module.exports = {
   getFormattedObjectApi,
   filterApiMembers,
   convertModuleNameToPath,
-  formatJsDoc
+  formatJsDoc,
 };

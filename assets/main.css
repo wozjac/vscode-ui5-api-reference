@@ -1,16 +1,22 @@
 #vsc-ui5-ar-search-input {
-    display: block;
-    flex: 1;
-    width: 100%;
-    color: var(--vscode-input-foreground);
-    background-color: var(--vscode-input-background);
-    border: none;
-    padding: 4px;
+  display: block;
+  flex: 1;
+  width: 100%;
+  color: var(--vscode-input-foreground);
+  background-color: var(--vscode-input-background);
+  border: none;
+  padding: 4px;
+}
+
+#vsc-ui5-ar-favorites {
+  margin: 0;
+  padding: 0 0 10px 0;
+  list-style-type: none;
 }
 
 .vsc-ui5-ar-hr {
-    width: 100%;
-    margin: 5px 0 5px 0;
+  width: 100%;
+  margin: 5px 0 5px 0;
 }
 
 .vsc-ui5-ar-link,
@@ -19,46 +25,52 @@
 .vsc-ui5-ar-link:visited,
 .vsc-ui5-ar-return-type-link:visited,
 .vsc-ui5-ar-expand-link:visited {
-    text-decoration: none;
-    color: var(--vscode-input-foreground);
+  text-decoration: none;
+  color: var(--vscode-input-foreground);
+}
+
+.vsc-ui5-ar-favorite-link,
+.vsc-ui5-ar-favorite-link-remove {
+  text-decoration: none;
+  color: var(--vscode-input-foreground);
 }
 
 .vsc-ui5-ar-object-description {
-    display: none;
-    color: var(--vscode-input-foreground);
+  display: none;
+  color: var(--vscode-input-foreground);
 }
 
 .vsc-ui5-ar-return-type,
 .vsc-ui5-ar-type-link {
-    font-style: italic;
+  font-style: italic;
 }
 
 .vsc-ui5-ar-deprecated-member {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 .vsc-ui5-ar-deprecated {
-    color: red;
+  color: red;
 }
 
 #vsc-ui5-ar-show-descriptions {
-    display: block;
-    border: none;
-    margin: 0 auto;
+  display: block;
+  border: none;
+  margin: 0 auto;
 }
 
 .vsc-ui5-ar-api-list span:not(:last-of-type)::after {
-    content: ", "
+  content: ", ";
 }
 
 .vsc-ui5-ar-api-list span:last-of-type::after {
-    content: ")"
+  content: ")";
 }
 
 .vsc-ui5-ar-api-method-param {
-    font-style: italic;
+  font-style: italic;
 }
 
 .vsc-ui5-ar-api-member-name {
-    color: var(--vscode-symbolIcon-classForeground)
+  color: var(--vscode-symbolIcon-classForeground);
 }

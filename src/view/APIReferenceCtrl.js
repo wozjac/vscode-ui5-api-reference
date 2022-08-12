@@ -3,6 +3,7 @@ const ui5APIService = require("../core/ui5APIService.js");
 const ui5APIFormatter = require("../core/ui5APIFormatter.js");
 const ui5APIFinder = require("../core/ui5APIFinder.js");
 const constants = require("../core/constants.js");
+const favorites = require("../core/favorites");
 const Mustache = require("mustache");
 
 class APIReferenceCtrl {
@@ -12,7 +13,7 @@ class APIReferenceCtrl {
 
     this._globalState = {
       hitlistObjectsLimit: 25,
-      visibleObjectName: null
+      visibleObjectName: null,
     };
 
     this._searchState = {
@@ -20,7 +21,7 @@ class APIReferenceCtrl {
       searchedObjectName: null,
       memberSearchString: null,
       memberGroupFilter: null,
-      searchTimeout: 0
+      searchTimeout: 0,
     };
   }
 
@@ -30,7 +31,7 @@ class APIReferenceCtrl {
 
     if (!searchInput) {
       this._webviewView.webview.postMessage({
-        type: "emptySearch"
+        type: "emptySearch",
       });
 
       return;
@@ -49,9 +50,10 @@ class APIReferenceCtrl {
           this._searchState.memberGroupFilter = match[1].replace("?", "").toLowerCase();
           const memberSearchPart = match[2].trim();
 
-          if (memberSearchPart &&
-            this._searchState.memberGroupFilter !== constants.memberGroupFilter.construct) {
-
+          if (
+            memberSearchPart &&
+            this._searchState.memberGroupFilter !== constants.memberGroupFilter.construct
+          ) {
             this._searchState.memberSearchString = memberSearchPart;
           } else {
             this._searchState.memberSearchString = null;
@@ -73,18 +75,23 @@ class APIReferenceCtrl {
         this._searchState.memberSearchString = null;
       }
 
-      const foundObjects = ui5APIFinder.findUi5ApiObjects({ name: this._searchState.searchedObjectName });
+      const foundObjects = ui5APIFinder.findUi5ApiObjects({
+        name: this._searchState.searchedObjectName,
+      });
 
       if (foundObjects && foundObjects.length > 0) {
         if (foundObjects.length > this._globalState.hitlistObjectsLimit) {
           this._webviewView.webview.postMessage({
             type: "tooManySearchResults",
-            notification: `Found ${foundObjects.length} objects. Please narrow your search.`
+            notification: `Found ${foundObjects.length} objects. Please narrow your search.`,
           });
-        } else if (foundObjects.length > 1 && foundObjects.length <= this._globalState.hitlistObjectsLimit) {
+        } else if (
+          foundObjects.length > 1 &&
+          foundObjects.length <= this._globalState.hitlistObjectsLimit
+        ) {
           this._webviewView.webview.postMessage({
             type: "multipleSearchResults",
-            result: foundObjects
+            result: foundObjects,
           });
         } else {
           this.handleGetDesignAPIHtml({ ui5Object: foundObjects[0].name }, "oneSearchResult");
@@ -92,7 +99,7 @@ class APIReferenceCtrl {
       } else {
         this._webviewView.webview.postMessage({
           type: "noSearchResults",
-          notification: "Nothing found"
+          notification: "Nothing found",
         });
       }
     }, 500);
@@ -105,18 +112,18 @@ class APIReferenceCtrl {
     if (!designAPIHtml) {
       this._webviewView.webview.postMessage({
         type: "designAPINotFound",
-        notification: "Design API not found"
+        notification: "Design API not found",
       });
     } else {
       if (message.source === "hitlist") {
         this._webviewView.webview.postMessage({
           type: "showDesignAPI",
-          result: designAPIHtml
+          result: designAPIHtml,
         });
       } else {
         this._webviewView.webview.postMessage({
           type: "oneSearchResult",
-          result: designAPIHtml
+          result: designAPIHtml,
         });
       }
     }
@@ -124,6 +131,19 @@ class APIReferenceCtrl {
 
   handleOpenURL(apiDocURL) {
     vscode.env.openExternal(vscode.Uri.parse(apiDocURL));
+  }
+
+  handleChangeFavorite(message) {
+    if (message.operation === "remove") {
+      favorites.removeFavorite(message.ui5Object);
+    } else {
+      favorites.addFavorite(message.ui5Object);
+    }
+
+    this._webviewView.webview.postMessage({
+      type: "updateFavorites",
+      favorites: favorites.getFavorites(),
+    });
   }
 
   getDesignAPI(ui5ObjectPath) {
@@ -137,7 +157,8 @@ class APIReferenceCtrl {
       designApi = ui5APIFormatter.filterApiMembers(
         designApi,
         this._searchState.memberSearchString,
-        this._searchState.memberGroupFilter);
+        this._searchState.memberGroupFilter
+      );
     }
 
     designApi = ui5APIFormatter.getFormattedObjectApi(designApi, true, true);
@@ -148,7 +169,16 @@ class APIReferenceCtrl {
   triggerSearch(input) {
     this._webviewView.webview.postMessage({
       type: "triggerSearch",
-      input
+      input,
+    });
+  }
+
+  triggerWebviewResolved() {
+    const favs = favorites.getFavorites();
+
+    this._webviewView.webview.postMessage({
+      type: "webviewResolved",
+      favorites: favs,
     });
   }
 
@@ -158,7 +188,9 @@ class APIReferenceCtrl {
     if (!designAPI) {
       return null;
     } else {
-      return Mustache.render(this._templates.objectAPI, designAPI, { membersTemplate: this._templates.members });
+      return Mustache.render(this._templates.objectAPI, designAPI, {
+        membersTemplate: this._templates.members,
+      });
     }
   }
 }

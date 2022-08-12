@@ -7,6 +7,20 @@
       data-name="{{name}}">
       {{name}}
     </a>
+    {{#isFavorite}}
+    <a href="#" id="vsc-ui5-ar-favorite" 
+      class="vsc-ui5-ar-link is-favorite" 
+      title="Remove from favorites"
+      data-name="{{name}}">➖
+    </a>
+    {{/isFavorite}}
+    {{^isFavorite}}
+    <a href="#" id="vsc-ui5-ar-favorite" 
+      class="vsc-ui5-ar-link" 
+      title="Add to favorites"
+      data-name="{{name}}">⭐
+    </a>
+    {{/isFavorite}}
     {{#hasBaseObject}}
       <div>
         <span>extends:</span>

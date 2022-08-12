@@ -15,24 +15,30 @@ class APIReferenceProvider {
     webviewView.webview.options = {
       enableScripts: true,
 
-      localResourceRoots: [
-        this._extensionUri
-      ]
+      localResourceRoots: [this._extensionUri],
     };
 
     const variables = {
       nonce: getNonce(),
-      styleVSCodeUri: this._view.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "vscode.css")),
-      styleMainUri: this._view.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "main.css")),
-      jQueryScriptUri: this._view.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "src/view", "jquery.min.js")),
-      mainScriptUri: this._view.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "src/view", "main.js")),
-      cspSource: this._view.webview.cspSource
+      styleVSCodeUri: this._view.webview.asWebviewUri(
+        vscode.Uri.joinPath(this._extensionUri, "assets", "vscode.css")
+      ),
+      styleMainUri: this._view.webview.asWebviewUri(
+        vscode.Uri.joinPath(this._extensionUri, "assets", "main.css")
+      ),
+      jQueryScriptUri: this._view.webview.asWebviewUri(
+        vscode.Uri.joinPath(this._extensionUri, "src/view", "jquery.min.js")
+      ),
+      mainScriptUri: this._view.webview.asWebviewUri(
+        vscode.Uri.joinPath(this._extensionUri, "src/view", "main.js")
+      ),
+      cspSource: this._view.webview.cspSource,
     };
 
     webviewView.webview.html = Mustache.render(this._templates.webview, variables);
 
     webviewView.webview.onDidReceiveMessage(
-      message => {
+      (message) => {
         switch (message.type) {
           case "search":
             this._apiReferenceCtrl.handleSearch(message);
@@ -43,11 +49,16 @@ class APIReferenceProvider {
           case "openURL":
             this._apiReferenceCtrl.handleOpenURL(message.url);
             break;
+          case "changeFavorite":
+            this._apiReferenceCtrl.handleChangeFavorite(message);
+            break;
         }
       },
       undefined,
       context.subscriptions
     );
+
+    this._apiReferenceCtrl.triggerWebviewResolved();
   }
 
   triggerSearchCommand(input) {

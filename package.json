@@ -118,6 +118,14 @@
           "default": "https://openui5.hana.ondemand.com/1.96.10",
           "description": "The path to SAPUI5/OpenUI5 version. Please remember to reload VS Code after changing it!"
         },
+        "UI5ReferencePanel.favorites": {
+          "type": "array",
+          "title": "Favorites UI5 objects",
+          "description": "Favorites are shown on top of the panel. They can be added here or using the panel itself. After adding the entries here, reload of VSCode is required.",
+          "items": {
+            "type": "string"
+          }
+        },
         "apiURL": {
           "type": "string",
           "default": "https://openui5.hana.ondemand.com/1.96.10",

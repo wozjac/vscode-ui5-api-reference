@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // eslint-disable-next-line
   const vscode = acquireVsCodeApi();
 
@@ -6,14 +6,15 @@
     searchInputElement: $("#vsc-ui5-ar-search-input"),
     messagesElement: $("#vsc-ui5-ar-messages"),
     hitlistElement: $("#vsc-ui5-ar-hits"),
-    apiDocsElement: $("#vsc-ui5-ar-api")
+    apiDocsElement: $("#vsc-ui5-ar-api"),
+    favoritesListElement: $("#vsc-ui5-ar-favorites"),
   };
 
   elements.searchInputElement.on("keyup", () => {
     vscode.postMessage({ type: "search", searchInput: elements.searchInputElement.val() });
   });
 
-  window.addEventListener("message", event => {
+  window.addEventListener("message", (event) => {
     const message = event.data;
 
     switch (message.type) {
@@ -41,6 +42,12 @@
       case "triggerSearch":
         handleTriggerSearch(message);
         break;
+      case "webviewResolved":
+        handleWebviewResolved(message);
+        break;
+      case "updateFavorites":
+        handleUpdateFavorites(message);
+        break;
     }
   });
 
@@ -63,13 +70,13 @@
 
   function handleShowDesignAPI(message) {
     setNotification(null);
-    showObjectDesignAPI(message.result);
+    showObjectDesignAPI(message);
   }
 
   function handleOneSearchResult(message) {
     elements.hitlistElement.empty();
     setNotification(null);
-    showObjectDesignAPI(message.result);
+    showObjectDesignAPI(message);
   }
 
   function handleNoSearchResults(message) {
@@ -88,14 +95,83 @@
     vscode.postMessage({ type: "search", searchInput: message.input });
   }
 
-  function showObjectDesignAPI(designAPIHtml) {
+  function handleUpdateFavorites(message) {
+    prepareFavorites(message.favorites);
+  }
+
+  function handleWebviewResolved(message) {
+    prepareFavorites(message.favorites);
+  }
+
+  function prepareFavorites(favorites) {
+    elements.favoritesListElement.empty();
+
+    for (let index = 0; index < favorites.length; index++) {
+      const element = favorites[index];
+
+      const objectLinkElement = $(`
+        <a href="#" class="vsc-ui5-ar-favorite-link" title="${element}">
+          ⭐${element}
+        </a>`);
+
+      const removeFavoriteLinkElement =
+        $(`<a href="#" class="vsc-ui5-ar-favorite-link-remove" title="Remove from favorites" data-name="${element}">
+          ➖
+        </a>`);
+
+      const listItemElement = $("<li></li>");
+      objectLinkElement.appendTo(listItemElement);
+      removeFavoriteLinkElement.appendTo(listItemElement);
+
+      objectLinkElement.on(
+        "click",
+        {
+          name: element,
+        },
+        (event) => {
+          vscode.postMessage({
+            type: "getDesignAPIHtml",
+            ui5Object: event.data.name,
+            source: "hitlist",
+          });
+        }
+      );
+
+      removeFavoriteLinkElement.on(
+        "click",
+        {
+          name: element,
+        },
+        (event) => {
+          vscode.postMessage({
+            type: "changeFavorite",
+            operation: "remove",
+            ui5Object: $(event.target).attr("data-name"),
+          });
+
+          const favoriteApiObjectLink = elements.apiDocsElement.find("#vsc-ui5-ar-favorite");
+
+          if (
+            favoriteApiObjectLink &&
+            favoriteApiObjectLink.attr("data-name") === $(event.target).attr("data-name")
+          ) {
+            toggleApiObjectFavoriteLink(favoriteApiObjectLink, false);
+          }
+        }
+      );
+
+      listItemElement.appendTo(elements.favoritesListElement);
+    }
+  }
+
+  function showObjectDesignAPI(message) {
     elements.apiDocsElement.empty();
     unregisterUi5ObjectLinkHandlers();
 
-    elements.apiDocsElement.append(designAPIHtml);
+    elements.apiDocsElement.append(message.result);
     registerUi5ObjectLinkHandlers();
     removeEmptyBorrowedSections();
-  };
+  }
 
   function registerUi5ObjectLinkHandlers() {
     elements.apiDocsElement.on("click", "#vsc-ui5-ar-show-descriptions", () => {
@@ -129,6 +205,34 @@
         vscode.postMessage({ type: "getDesignAPIHtml", ui5Object: $(event.target).text().trim() });
       });
     }
+
+    const favoriteLink = elements.apiDocsElement.find("#vsc-ui5-ar-favorite");
+
+    favoriteLink.on("click", (event) => {
+      const isFavorite = favoriteLink.hasClass("is-favorite");
+
+      vscode.postMessage({
+        type: "changeFavorite",
+        operation: isFavorite ? "remove" : "add",
+        ui5Object: $(event.target).attr("data-name"),
+      });
+
+      if (isFavorite) {
+        toggleApiObjectFavoriteLink(favoriteLink, false);
+      } else {
+        toggleApiObjectFavoriteLink(favoriteLink, true);
+      }
+    });
+  }
+
+  function toggleApiObjectFavoriteLink(favoriteLinkElement, makeFavorite) {
+    if (makeFavorite) {
+      favoriteLinkElement.text("➖").attr("title", "Remove from favorites");
+      favoriteLinkElement.addClass("is-favorite");
+    } else {
+      favoriteLinkElement.text("⭐").attr("title", "Add to favorites");
+      favoriteLinkElement.removeClass("is-favorite");
+    }
   }
 
   function unregisterUi5ObjectLinkHandlers() {
@@ -137,6 +241,7 @@
     elements.apiDocsElement.off("click", "#vsc-ui5-ar-show-descriptions");
     elements.apiDocsElement.off("click", ".vsc-ui5-ar-return-type-link");
     elements.apiDocsElement.off("click", ".vsc-ui5-ar-api-member-name");
+    elements.apiDocsElement.off("click", "#vsc-ui5-ar-favorite");
   }
 
   function expandCollapseDescriptions() {
@@ -160,18 +265,27 @@
       htmlElement = $(
         `<li>
           <a href="#" class="vsc-ui5-ar-link" title="{{path}}">${ui5Object.name}</a>
-        </li>`);
+        </li>`
+      );
 
-      htmlElement.on("click", {
-        name: ui5Object.name
-      }, (event) => {
-        vscode.postMessage({ type: "getDesignAPIHtml", ui5Object: event.data.name, source: "hitlist" });
-      });
+      htmlElement.on(
+        "click",
+        {
+          name: ui5Object.name,
+        },
+        (event) => {
+          vscode.postMessage({
+            type: "getDesignAPIHtml",
+            ui5Object: event.data.name,
+            source: "hitlist",
+          });
+        }
+      );
 
       htmlElement.appendTo(elements.hitlistElement);
     }
 
-    elements.hitlistElement.append("<hr class=\"vsc-ui5-ar-hr\"/>");
+    elements.hitlistElement.append('<hr class="vsc-ui5-ar-hr"/>');
     elements.hitlistElement.show();
   }
 
@@ -193,4 +307,4 @@
       elements.messagesElement.hide();
     }
   }
-}());
+})();

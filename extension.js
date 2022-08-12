@@ -4,6 +4,7 @@ const ui5ApiService = require("./src/core/ui5APIService");
 const dataSource = require("./src/core/dataSource.js");
 const constants = require("./src/core/constants.js");
 const contextMenu = require("./src/core/contextMenu");
+const favorites = require("./src/core/favorites");
 
 function activate(context) {
   const templatePaths = getTemplatePaths(context.extensionUri);
@@ -54,6 +55,8 @@ function activate(context) {
     .catch((error) => {
       console.error(`${constants.pluginLogPrefix} ${error}`);
     });
+
+  favorites.initialize(configuration);
 }
 
 function getTemplatePaths(extensionUri) {

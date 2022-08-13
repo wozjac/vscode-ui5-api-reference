@@ -3,7 +3,7 @@ name: Build
 on: [push]
 
 jobs:
-  linting:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,3 +16,5 @@ jobs:
         run: npm install --no-optional
       - name: Compile
         run: npm run compile
+      - name: Coveralls
+        run: npm run coveralls

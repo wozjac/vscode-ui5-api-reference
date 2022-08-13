@@ -14,7 +14,11 @@ jobs:
           node-version: "14"
       - name: Install dependencies
         run: npm install --no-optional
-      - name: Compile
-        run: npm run compile
+      - run: xvfb-run -a npm test
+        if: runner.os == 'Linux'
+      - run: npm test
+        if: runner.os != 'Linux'
       - name: Coveralls
-        run: npm run coveralls
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ github.token }}

@@ -31,7 +31,7 @@
   ],
   "main": "./out/extension.js",
   "scripts": {
-    "coveralls": "npm run sed && cat ./coverage/lcov.info | coveralls",
+    "coveralls": "cat ./out/coverage/lcov.info | coveralls -v",
     "test": "node ./out/test/runTest.js",
     "release": "standard-version",
     "vscode:prepublish": "npm run compile",

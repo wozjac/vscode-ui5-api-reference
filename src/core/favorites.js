@@ -33,6 +33,10 @@ function getFavorites() {
 }
 
 function isFavorite(ui5ObjectName) {
+  if (!favorites) {
+    return false;
+  }
+
   for (let index = 0; index < favorites.length; index++) {
     const element = favorites[index];
 

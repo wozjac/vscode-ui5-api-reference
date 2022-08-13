@@ -1,10 +1,10 @@
 const vscode = require("vscode");
-const APIReferenceProvider = require("./src/view/APIReferenceProvider");
-const ui5ApiService = require("./src/core/ui5APIService");
-const dataSource = require("./src/core/dataSource.js");
-const constants = require("./src/core/constants.js");
-const contextMenu = require("./src/core/contextMenu");
-const favorites = require("./src/core/favorites");
+const APIReferenceProvider = require("./view/APIReferenceProvider");
+const ui5ApiService = require("./core/ui5APIService");
+const dataSource = require("./core/dataSource.js");
+const constants = require("./core/constants.js");
+const contextMenu = require("./core/contextMenu");
+const favorites = require("./core/favorites");
 
 function activate(context) {
   const templatePaths = getTemplatePaths(context.extensionUri);

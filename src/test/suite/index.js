@@ -2,7 +2,7 @@ const path = require("path");
 const Mocha = require("mocha");
 const glob = require("glob");
 
-const doCoverage = true;
+const doCoverage = false;
 
 function setupCoverage() {
   const NYC = require("nyc");

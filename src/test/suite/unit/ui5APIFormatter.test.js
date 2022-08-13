@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const ui5APIFormatter = require("../../../src/core/ui5APIFormatter.js");
+const ui5APIFormatter = require("../../../core/ui5APIFormatter.js");
 const sapUiCoreApi = require("../../support/fixtures/sapUiCoreApi.js");
 const stubber = require("../../support/stubber.js");
 

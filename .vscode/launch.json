@@ -9,12 +9,14 @@
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"]
     },
     {
       "name": "Extension Tests",
       "type": "extensionHost",
       "request": "launch",
+      "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
       "args": [
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}",

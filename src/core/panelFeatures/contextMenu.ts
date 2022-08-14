@@ -1,40 +1,67 @@
+import { TextEditor, TextDocument } from "vscode";
+
 //Formats the namespace so we can use it for search
-const getNamespace = (text, editor) => {
+export function getNamespace(text: string, document: TextDocument): string | undefined {
   const namespace = text.includes(":") ? text.split(":")[0] : "";
   text = text.includes(":") ? text.split(":")[1] : text;
+  const documentText = document.getText();
 
-  let xmlns = editor.document
-    .getText()
-    .split("\n")
-    .find((line) => {
+  if (!documentText) {
+    return;
+  }
+
+  const documentTextLines = documentText.split("\n");
+
+  let xmlns = documentTextLines
+    .find((line: string) => {
       return namespace === ""
         ? line.includes("xmlns=")
         : line.includes("xmlns") && line.includes(namespace);
     })
-    .trim();
+    ?.trim();
+
+  if (!xmlns) {
+    return;
+  }
 
   xmlns = xmlns.includes(">") ? xmlns.slice(0, -1) : xmlns;
   // eslint-disable-next-line quotes
   const regex = new RegExp(namespace === "" ? `xmlns="(.*?)"` : `xmlns:${namespace}="(.*?)\"`);
-  xmlns = xmlns.match(regex)[0].match(/\"(.*?)\"/)[1];
+  let matchResult = xmlns.match(regex);
+
+  if (!matchResult) {
+    return;
+  }
+
+  const match = matchResult[0];
+  matchResult = match.match(/\"(.*?)\"/);
+
+  if (!matchResult) {
+    return;
+  }
+
+  xmlns = matchResult[1];
 
   return `${xmlns}.${text}`;
-};
+}
 
-const findControl = (editor) => {
-  const isLowerCase = (string) => {
-    return /^[a-z]*$/.test(string);
+export function findControl(editor: TextEditor): string | undefined {
+  const isLowerCase = (input: string) => {
+    return /^[a-z]*$/.test(input);
   };
 
   const cursorPosition = editor.selection.active;
-  let line = editor.document.lineAt(cursorPosition.line);
+  const document = editor.document;
+  let line = document.lineAt(cursorPosition.line);
   let text = line.text.trim();
 
   if (text.includes("<")) {
     //If the first character after the < is lowercase, then it's an aggregation
     if (
       isLowerCase(text.charAt(1) === "/" ? text.charAt(2) : text.charAt(1)) &&
-      isLowerCase(text.indexOf(":") === -1 ? true : text.charAt(text.indexOf(":") + 1))
+      text.indexOf(":") === -1
+        ? true
+        : isLowerCase(text.charAt(text.indexOf(":") + 1))
     ) {
       let foundControl = false;
       let count = 1;
@@ -42,7 +69,7 @@ const findControl = (editor) => {
 
       while (foundControl === false) {
         count = navigator === "+" ? cursorPosition.line - count : cursorPosition.line + count;
-        line = editor.document.lineAt(count);
+        line = document.lineAt(count);
         text = line.text.trim();
         if (
           text.includes("<") &&
@@ -78,10 +105,5 @@ const findControl = (editor) => {
 
   text = text.includes(">") ? text.slice(0, -1) : text;
 
-  return getNamespace(text, editor);
-};
-
-module.exports = {
-  getNamespace,
-  findControl,
-};
+  return getNamespace(text, document);
+}

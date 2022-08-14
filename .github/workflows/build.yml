@@ -18,6 +18,8 @@ jobs:
         if: runner.os == 'Linux'
       - run: npm test
         if: runner.os != 'Linux'
+      - name: Adjust coverage results
+        run: npm run sed
       - name: Coveralls
         uses: coverallsapp/github-action@v1.1.2
         with:

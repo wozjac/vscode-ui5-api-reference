@@ -1,12 +1,14 @@
-const fs = require("fs");
-const https = require("https");
+import * as fs from "fs";
+import * as https from "https";
+import * as vscode from "vscode";
 
-function readFileContent(fileUri) {
-  const file = fs.readFileSync(fileUri.fsPath, { encoding: "UTF-8" });
-  return file.toString();
+export interface TemplatePaths {
+  webview: vscode.Uri;
+  members: vscode.Uri;
+  objectAPI: vscode.Uri;
 }
 
-function readTemplates(templatePaths) {
+export function readTemplates(templatePaths: TemplatePaths) {
   return {
     webview: readFileContent(templatePaths.webview),
     members: readFileContent(templatePaths.members),
@@ -14,9 +16,9 @@ function readTemplates(templatePaths) {
   };
 }
 
-async function fetchJSON(url) {
+export async function fetchJSON(url: string): Promise<unknown> {
   let body = "";
-  let result;
+  let result: unknown;
 
   return new Promise((resolve, reject) => {
     https.get(url, (res) => {
@@ -40,7 +42,8 @@ async function fetchJSON(url) {
   });
 }
 
-module.exports = {
-  readTemplates,
-  fetchJSON,
-};
+function readFileContent(fileUri: vscode.Uri) {
+  const file = fs.readFileSync(fileUri.fsPath, { encoding: "utf-8" });
+
+  return file.toString();
+}

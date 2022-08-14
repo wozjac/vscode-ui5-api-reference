@@ -22,3 +22,4 @@ jobs:
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ github.token }}
+          path-to-lcov: ./out/coverage/lcov.info

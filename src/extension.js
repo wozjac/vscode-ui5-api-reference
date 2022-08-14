@@ -3,8 +3,8 @@ const APIReferenceProvider = require("./view/APIReferenceProvider");
 const ui5ApiService = require("./core/ui5APIService");
 const dataSource = require("./core/dataSource.js");
 const constants = require("./core/constants.js");
-const contextMenu = require("./core/contextMenu");
-const favorites = require("./core/favorites");
+const contextMenu = require("./core/panelFeatures/contextMenu");
+const favorites = require("./core/panelFeatures/favorites");
 
 function activate(context) {
   const templatePaths = getTemplatePaths(context.extensionUri);

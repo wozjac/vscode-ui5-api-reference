@@ -1,6 +1,6 @@
-const constants = require("./constants.js");
-const ui5APIService = require("./ui5APIService.js");
-const favorites = require("./favorites.js");
+const constants = require("../core/constants.js");
+const ui5APIService = require("../core/ui5APIService.js");
+const favorites = require("../core/panelFeatures/favorites.js");
 
 function getFormattedObjectApi(
   ui5ObjectApi,

@@ -1,4 +1,4 @@
-const ui5ApiService = require("./ui5APIService.js");
+const ui5ApiService = require("../ui5APIService.js");
 
 function findUi5ApiObjects(query) {
   const result = [];
@@ -104,5 +104,5 @@ function findUi5ObjectByBasename(searchedBasename, ignoreCase = true) {
 module.exports = {
   findUi5ApiObjects,
   findUi5ObjectByName,
-  findUi5ObjectByBasename
+  findUi5ObjectByBasename,
 };

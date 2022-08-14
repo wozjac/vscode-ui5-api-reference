@@ -1,9 +1,9 @@
 const vscode = require("vscode");
 const ui5APIService = require("../core/ui5APIService.js");
-const ui5APIFormatter = require("../core/ui5APIFormatter.js");
-const ui5APIFinder = require("../core/ui5APIFinder.js");
+const ui5APIFormatter = require("../transform/ui5APIFormatter.js");
+const ui5APIFinder = require("../core/search/ui5APIFinder.js");
 const constants = require("../core/constants.js");
-const favorites = require("../core/favorites");
+const favorites = require("../core/panelFeatures/favorites");
 const Mustache = require("mustache");
 
 class APIReferenceCtrl {

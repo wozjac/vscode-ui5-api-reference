@@ -46,7 +46,7 @@
     "commitlint": "npx commitlint --from HEAD~1 --to HEAD --verbose -g ./config/commitlint.config.js",
     "markdownlint": "npx markdownlint -c ./config/markdownlint.json **/*.md",
     "pretest": "npm run compile",
-    "sed": "sed 's/\\.\\.\\///g' ./out/coverage/lcov.info"
+    "sed": "sed -i 's/\\.\\.\\///g' ./out/coverage/lcov.info"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",

@@ -37,7 +37,7 @@ describe("ui5APIFinder tests", () => {
     expect(found).to.equal(undefined);
   });
 
-  it("Should return null if object not found", () => {
+  it("Should return undefined if object not found", () => {
     const found = ui5APIFinder.findUi5ApiObjects({
       name: "button",
     });
@@ -74,6 +74,6 @@ describe("ui5APIFinder tests", () => {
   });
 
   it("Should not return searched object by basename due to case search", () => {
-    expect(ui5APIFinder.findUi5ObjectByBasename("tree", false)).to.equal(null);
+    expect(ui5APIFinder.findUi5ObjectByBasename("tree", false)).to.equal(undefined);
   });
 });

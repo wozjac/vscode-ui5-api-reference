@@ -6,7 +6,7 @@ export interface SearchQuery {
   ignoreCase: boolean;
 }
 
-export function findUi5ApiObjects(query: SearchQuery) {
+export function findUi5ApiObjects(query: SearchQuery): ApiIndexNodeEnhanced[] | undefined {
   const result = [];
 
   if (query.ignoreCase === undefined) {
@@ -55,7 +55,7 @@ export function findUi5ApiObjects(query: SearchQuery) {
     result.push(ui5Object);
   }
 
-  return result.length > 0 ? result : null;
+  return result.length > 0 ? result : undefined;
 }
 
 export function findUi5ObjectByName(

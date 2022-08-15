@@ -1,9 +1,10 @@
 const vscode = require("vscode");
 const ui5APIService = require("../core/ui5ApiService.js");
-const ui5APIFormatter = require("../transform/ui5APIFormatter.js");
+const ui5APIFormatter = require("../objectApi/objectApiFormat.js");
 const ui5APIFinder = require("../search/ui5ApiFinder.js");
 const constants = require("../core/constants.js");
 const favorites = require("../panelFeatures/favorites");
+const filtering = require("../panelFeatures/apiDocsFiltering");
 const Mustache = require("mustache");
 
 class APIReferenceCtrl {
@@ -154,7 +155,7 @@ class APIReferenceCtrl {
     }
 
     if (this._searchState.memberSearchString || this._searchState.memberGroupFilter) {
-      designApi = ui5APIFormatter.filterApiMembers(
+      designApi = filtering.filterApiMembers(
         designApi,
         this._searchState.memberSearchString,
         this._searchState.memberGroupFilter

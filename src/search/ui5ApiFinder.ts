@@ -1,6 +1,12 @@
-const ui5ApiService = require("../core/ui5ApiService.js");
+import * as ui5ApiService from "../core/ui5ApiService";
+import { ApiIndexNodeEnhanced } from "../core/ui5Api";
 
-function findUi5ApiObjects(query) {
+export interface SearchQuery {
+  name: string;
+  ignoreCase: boolean;
+}
+
+export function findUi5ApiObjects(query: SearchQuery) {
   const result = [];
 
   if (query.ignoreCase === undefined) {
@@ -52,7 +58,10 @@ function findUi5ApiObjects(query) {
   return result.length > 0 ? result : null;
 }
 
-function findUi5ObjectByName(searchedName, ignoreCase = true) {
+export function findUi5ObjectByName(
+  searchedName: string,
+  ignoreCase = true
+): ApiIndexNodeEnhanced | undefined {
   const ui5Objects = ui5ApiService.getUi5Objects();
   let objectName;
 
@@ -78,7 +87,10 @@ function findUi5ObjectByName(searchedName, ignoreCase = true) {
   }
 }
 
-function findUi5ObjectByBasename(searchedBasename, ignoreCase = true) {
+export function findUi5ObjectByBasename(
+  searchedBasename: string,
+  ignoreCase = true
+): ApiIndexNodeEnhanced[] | undefined {
   const result = [];
   let objectBasename, ui5Object;
 
@@ -98,11 +110,5 @@ function findUi5ObjectByBasename(searchedBasename, ignoreCase = true) {
     }
   }
 
-  return result.length > 0 ? result : null;
+  return result.length > 0 ? result : undefined;
 }
-
-module.exports = {
-  findUi5ApiObjects,
-  findUi5ObjectByName,
-  findUi5ObjectByBasename,
-};

@@ -34,7 +34,7 @@ describe("ui5APIFinder tests", () => {
       ignoreCase: false,
     });
 
-    expect(found).to.equal(null);
+    expect(found).to.equal(undefined);
   });
 
   it("Should return null if object not found", () => {
@@ -42,7 +42,7 @@ describe("ui5APIFinder tests", () => {
       name: "button",
     });
 
-    expect(found).to.equal(null);
+    expect(found).to.equal(undefined);
   });
 
   it("Should return searched object by name", () => {

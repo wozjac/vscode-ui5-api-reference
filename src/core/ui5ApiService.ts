@@ -1,94 +1,17 @@
-import * as ui5API from "./ui5API";
+import * as ui5Api from "./ui5API";
 import * as constants from "./constants";
 import * as dataSource from "./dataSource";
 import * as apiBuffer from "./ui5APIBuffer";
 
-interface ApiIndexNode {
-  kind: string;
-  lib: string;
-  name: string;
-  displayName: string;
-  visibility: string;
-  nodes?: ApiIndexNode[];
-}
-
-interface ApiIndexNodeEnhanced {
-  name: string;
-  originalName: string;
-  basename: string;
-  kind: string;
-  library: string;
-  apiDocUrl: string;
-}
-
-interface ApiIndex {
-  symbols: ApiIndexNode[];
-}
-
 interface Ui5LibrariesApi {
-  [index: string]: LibraryApi;
-}
-
-interface LibraryApi {
-  symbols: LibraryApiSymbol[];
-}
-
-export interface LibraryApiSymbol {
-  basename: string;
-  description: string;
-  experimental: {
-    since: string;
-  };
-  export?: string;
-  kind: string;
-  module: string;
-  name: string;
-  resource: string;
-  since: string;
-  static: boolean;
-  visibility: string;
-  originalName: string;
-  apiDocUrl: string;
-  extends?: string;
-  constructor?: Ui5ObjectConstructor;
-  methods?: Ui5ObjectMethod[];
-  "ui5-metamodel"?: boolean;
-  "ui5-metadata"?: Ui5Metadata;
-  inheritedApi?: LibraryApiSymbol;
-}
-
-interface Ui5ObjectConstructor {
-  description: string;
-  parameters?: Ui5ObjectMethodParameter[];
-}
-
-interface Ui5ObjectMethod {
-  description: string;
-  name: string;
-  visiblity: string;
-  returnType: {
-    type: string;
-  };
-  parameters?: Ui5ObjectMethodParameter[];
-}
-
-interface Ui5ObjectMethodParameter {
-  description: string;
-  name: string;
-  optional: boolean;
-  type: string;
-}
-
-interface Ui5Metadata {
-  metadataClass?: string;
-  stereotype?: string;
+  [index: string]: ui5Api.LibraryApi;
 }
 
 interface SapLibraryDefs {
   [index: string]: string | object;
 }
 
-const apiIndexNodes: { [key: string]: ApiIndexNodeEnhanced } = {};
+const apiIndexNodes: { [key: string]: ui5Api.ApiIndexNodeEnhanced } = {};
 const ui5Libraries: Ui5LibrariesApi = {};
 
 export const sapLibraryDefs: SapLibraryDefs = {
@@ -101,15 +24,15 @@ export function setAPIBaseURL(apiUrl: string) {
   apiBaseUrl = apiUrl;
 }
 
-export function fetchApiIndex(): Promise<ApiIndex> {
-  return dataSource.fetchJSON(`${apiBaseUrl}/docs/api/api-index.json`) as Promise<ApiIndex>;
+export function fetchApiIndex(): Promise<ui5Api.ApiIndex> {
+  return dataSource.fetchJSON(`${apiBaseUrl}/docs/api/api-index.json`) as Promise<ui5Api.ApiIndex>;
 }
 
-function fetchLibraryApi(libraryApiUrl: string): Promise<LibraryApi> {
-  return dataSource.fetchJSON(libraryApiUrl) as Promise<LibraryApi>;
+function fetchLibraryApi(libraryApiUrl: string): Promise<ui5Api.LibraryApi> {
+  return dataSource.fetchJSON(libraryApiUrl) as Promise<ui5Api.LibraryApi>;
 }
 
-function getLibraryApi(libraryName: string): Promise<LibraryApi> {
+function getLibraryApi(libraryName: string): Promise<ui5Api.LibraryApi> {
   const libraryApi = ui5Libraries[libraryName] as any;
 
   return new Promise((resolve, reject) => {
@@ -141,8 +64,8 @@ export function getUi5Objects() {
 
 export function getUi5ObjectDesignApi(
   ui5ObjectName: string,
-  resultApi: LibraryApiSymbol
-): LibraryApiSymbol | undefined {
+  resultApi: ui5Api.LibraryApiSymbol
+): ui5Api.LibraryApiSymbol | undefined {
   const ui5Object = apiIndexNodes[ui5ObjectName];
 
   //no library === just namespace
@@ -153,7 +76,7 @@ export function getUi5ObjectDesignApi(
   //   };
   // }
 
-  let objectApi: LibraryApiSymbol | undefined;
+  let objectApi: ui5Api.LibraryApiSymbol | undefined;
   const bufferedDesignApi = apiBuffer.searchObjectDesignApiBuffer(ui5Object.name);
 
   if (bufferedDesignApi) {
@@ -179,7 +102,7 @@ export function getUi5ObjectDesignApi(
   //method called recursively, we have previous result -> add new stuff
   if (resultApi) {
     if (!resultApi.inheritedApi) {
-      resultApi.inheritedApi = <LibraryApiSymbol>{};
+      resultApi.inheritedApi = <ui5Api.LibraryApiSymbol>{};
     }
 
     // @ts-ignore
@@ -223,9 +146,9 @@ export function loadUi5LibrariesDesignApi(): Promise<void[]> {
           .then((libraryApi) => {
             if (libraryApi.symbols && Array.isArray(libraryApi.symbols)) {
               libraryApi.symbols.forEach((element) => {
-                element.name = ui5API.getNormalizedName(element.name);
+                element.name = ui5Api.getNormalizedName(element.name);
                 element.originalName = element.name;
-                element.apiDocUrl = ui5API.getUi5ObjectApiDocUrl(element.name, apiBaseUrl);
+                element.apiDocUrl = ui5Api.getUi5ObjectApiDocUrl(element.name, apiBaseUrl);
               });
             }
 
@@ -245,16 +168,16 @@ export function loadUi5LibrariesDesignApi(): Promise<void[]> {
   return Promise.all(promises);
 }
 
-function prepareUi5Objects(apiIndexEntry: ApiIndex | ApiIndexNode) {
+function prepareUi5Objects(apiIndexEntry: ui5Api.ApiIndex | ui5Api.ApiIndexNode) {
   let normalizedName;
 
   if ("symbols" in apiIndexEntry) {
     for (const object of apiIndexEntry.symbols) {
-      normalizedName = ui5API.getNormalizedName(object.name);
+      normalizedName = ui5Api.getNormalizedName(object.name);
       apiIndexNodes[normalizedName] = enhanceApiIndexNode(object);
 
       //extract library
-      ui5Libraries[object.lib] = <LibraryApi>{};
+      ui5Libraries[object.lib] = <ui5Api.LibraryApi>{};
 
       if (object.nodes) {
         for (const node of object.nodes) {
@@ -263,9 +186,9 @@ function prepareUi5Objects(apiIndexEntry: ApiIndex | ApiIndexNode) {
       }
     }
   } else {
-    normalizedName = ui5API.getNormalizedName(apiIndexEntry.name);
+    normalizedName = ui5Api.getNormalizedName(apiIndexEntry.name);
     apiIndexNodes[normalizedName] = enhanceApiIndexNode(apiIndexEntry);
-    ui5Libraries[apiIndexEntry.lib] = <LibraryApi>{};
+    ui5Libraries[apiIndexEntry.lib] = <ui5Api.LibraryApi>{};
 
     if (apiIndexEntry.nodes) {
       for (const node of apiIndexEntry.nodes) {
@@ -275,13 +198,13 @@ function prepareUi5Objects(apiIndexEntry: ApiIndex | ApiIndexNode) {
   }
 }
 
-function enhanceApiIndexNode(apiIndexNode: ApiIndexNode): ApiIndexNodeEnhanced {
+function enhanceApiIndexNode(apiIndexNode: ui5Api.ApiIndexNode): ui5Api.ApiIndexNodeEnhanced {
   return {
-    name: ui5API.getNormalizedName(apiIndexNode.name),
+    name: ui5Api.getNormalizedName(apiIndexNode.name),
     originalName: apiIndexNode.name,
     basename: apiIndexNode.name.substring(apiIndexNode.name.lastIndexOf(".") + 1),
     kind: apiIndexNode.kind,
     library: apiIndexNode.lib,
-    apiDocUrl: ui5API.getUi5ObjectApiDocUrl(apiIndexNode.name, apiBaseUrl),
+    apiDocUrl: ui5Api.getUi5ObjectApiDocUrl(apiIndexNode.name, apiBaseUrl),
   };
 }

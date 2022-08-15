@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const contextMenu = require("../../../core/panelFeatures/contextMenu.js");
+const contextMenu = require("../../../panelFeatures/contextMenu.js");
 const stubber = require("../../support/stubber.js");
 const vscode = require("vscode");
 const path = require("path");

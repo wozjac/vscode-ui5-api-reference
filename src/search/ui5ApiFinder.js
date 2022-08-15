@@ -1,4 +1,4 @@
-const ui5ApiService = require("../ui5APIService.js");
+const ui5ApiService = require("../core/ui5ApiService.js");
 
 function findUi5ApiObjects(query) {
   const result = [];

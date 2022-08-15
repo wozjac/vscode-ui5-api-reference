@@ -9,6 +9,7 @@
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
+      "preLaunchTask": "${defaultBuildTask}",
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"]
     },
@@ -16,7 +17,7 @@
       "name": "Extension Tests",
       "type": "extensionHost",
       "request": "launch",
-      "preLaunchTask": "tsc: build - tsconfig.json",
+      "preLaunchTask": "${defaultBuildTask}",
       "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
       "args": [
         "--disable-extensions",

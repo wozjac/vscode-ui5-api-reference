@@ -1,10 +1,10 @@
-const constants = require("../core/constants");
+import * as constants from "../core/constants";
 
-function convertModuleNameToPath(moduleName) {
+export function convertModuleNameToPath(moduleName: string): string {
   return moduleName.replace("module:", "").replace(/\//g, ".");
 }
 
-function formatJsDoc(jsDoc, cleanHtml = false) {
+function formatJsDoc(jsDoc: string, cleanHtml = false): string {
   if (!jsDoc) {
     return "";
   }
@@ -25,8 +25,3 @@ function formatJsDoc(jsDoc, cleanHtml = false) {
 
   return jsDoc;
 }
-
-module.exports = {
-  formatJsDoc,
-  convertModuleNameToPath,
-};

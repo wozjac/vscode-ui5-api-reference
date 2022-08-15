@@ -5,3 +5,4 @@ coverage
 *.vsix
 pnpm-lock.yaml
 out
+workdir

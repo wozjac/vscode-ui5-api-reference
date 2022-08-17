@@ -37,6 +37,7 @@ class APIReferenceCtrl {
 
       if (this._searchState.memberGroupFilter) {
         this._searchState.memberGroupFilter = null;
+        this._searchState.memberSearchString = null;
 
         if (this._globalState.visibleObjectName) {
           this.handleGetDesignAPIHtml(
@@ -54,12 +55,28 @@ class APIReferenceCtrl {
         return;
       }
 
-      const justMembersFiltering = searchInput.match(/(\?[mpeac])(.*)/i);
+      const justMembersFiltering = searchInput.match(/(^\?[mpeac])(.*)$/i);
 
       if (justMembersFiltering) {
+        // no API shown
+        if (!this._globalState.visibleObjectName) {
+          return;
+        }
+
         this._searchState.memberGroupFilter = justMembersFiltering[1]
           .replace("?", "")
           .toLowerCase();
+
+        const memberSearchPart = justMembersFiltering[2].trim();
+
+        if (
+          memberSearchPart &&
+          this._searchState.memberGroupFilter !== constants.memberGroupFilter.construct
+        ) {
+          this._searchState.memberSearchString = memberSearchPart;
+        } else {
+          this._searchState.memberSearchString = null;
+        }
 
         this.handleGetDesignAPIHtml(
           { ui5Object: this._globalState.visibleObjectName },
@@ -70,10 +87,12 @@ class APIReferenceCtrl {
       }
 
       const parts = searchInput.split(" ");
-      this._searchState.previousSearchedObjectName = this._searchState.searchedObjectName;
-      this._searchState.searchedObjectName = parts[0];
 
       if (parts.length === 2 && parts[1]) {
+        this._searchState.previousSearchedObjectName = this._searchState.searchedObjectName;
+        this._searchState.searchedObjectName = parts[0];
+
+        // if (parts.length === 2 && parts[1]) {
         this._searchState.memberSearchString = parts[1];
         const match = this._searchState.memberSearchString.match(/(\?[mpeac])(.*)/i);
 
@@ -93,6 +112,8 @@ class APIReferenceCtrl {
           this._searchState.memberGroupFilter = null;
         }
       } else {
+        this._searchState.searchedObjectName = searchInput.trim();
+
         if (this._searchState.previousSearchedObjectName !== this._searchState.searchedObjectName) {
           this._globalState.visibleObjectName = null;
         }

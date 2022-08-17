@@ -1,7 +1,7 @@
 import * as ui5Api from "./types";
 import * as constants from "./constants";
 import * as dataSource from "./dataSource";
-import * as apiBuffer from "./ui5APIBuffer";
+import * as apiBuffer from "./ui5ApiBuffer";
 
 interface Ui5LibrariesApi {
   [index: string]: ui5Api.LibraryApi;
@@ -105,7 +105,6 @@ export function getUi5ObjectDesignApi(
       resultApi.inheritedApi = {};
     }
 
-    // @ts-ignore
     resultApi.inheritedApi[ui5ObjectName] = objectApi;
   } else {
     resultApi = objectApi;

@@ -143,6 +143,12 @@
             "type": "string"
           }
         },
+        "UI5ReferencePanel.hitlistSize": {
+          "type": "number",
+          "title": "Hitlist size",
+          "description": "Maximum number of objects shown in the hitlist if multiple objects matches the search query; if more objects is found than this number, then the hitlist is not displayed and you are asked to narrow your search.",
+          "default": 35
+        },
         "apiURL": {
           "type": "string",
           "default": "https://openui5.hana.ondemand.com/1.96.10",

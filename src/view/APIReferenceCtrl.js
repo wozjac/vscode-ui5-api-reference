@@ -12,8 +12,10 @@ class APIReferenceCtrl {
     this._webviewView = webviewView;
     this._templates = templates;
 
+    const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
+
     this._globalState = {
-      hitlistObjectsLimit: 25,
+      hitlistObjectsLimit: configuration.get("hitlistSize"),
       visibleObjectName: null,
     };
 
@@ -130,6 +132,9 @@ class APIReferenceCtrl {
       const foundObjects = ui5APIFinder.findUi5ApiObjects({
         name: this._searchState.searchedObjectName,
       });
+
+      const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
+      this._globalState.hitlistObjectsLimit = configuration.get("hitlistSize");
 
       if (foundObjects && foundObjects.length > 0) {
         if (foundObjects.length > this._globalState.hitlistObjectsLimit) {

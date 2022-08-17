@@ -78,6 +78,9 @@ This extension contributes the following settings:
 - `apiURL`: the path to SAPUI5/OpenUI5 version; default is <https://openui5.hana.ondemand.com/1.96.10>  
   **Please remember to reload VS Code after changing this setting!**
 - `favorites`: the list of favorites UI5 objects; they can be added via configuration or using the icons in the panel
+- `hitlistSize`: maximum number of objects shown in the hitlist if multiple objects
+  matches the search query; if more objects is found, then the
+  hitlist is not displayed and you are asked to narrow your search
 
 ## Release Notes
 

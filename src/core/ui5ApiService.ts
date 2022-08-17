@@ -1,4 +1,4 @@
-import * as ui5Api from "./ui5API";
+import * as ui5Api from "./types";
 import * as constants from "./constants";
 import * as dataSource from "./dataSource";
 import * as apiBuffer from "./ui5APIBuffer";
@@ -102,7 +102,7 @@ export function getUi5ObjectDesignApi(
   //method called recursively, we have previous result -> add new stuff
   if (resultApi) {
     if (!resultApi.inheritedApi) {
-      resultApi.inheritedApi = <ui5Api.LibraryApiSymbol>{};
+      resultApi.inheritedApi = {};
     }
 
     // @ts-ignore
@@ -146,9 +146,9 @@ export function loadUi5LibrariesDesignApi(): Promise<void[]> {
           .then((libraryApi) => {
             if (libraryApi.symbols && Array.isArray(libraryApi.symbols)) {
               libraryApi.symbols.forEach((element) => {
-                element.name = ui5Api.getNormalizedName(element.name);
+                element.name = getNormalizedName(element.name);
                 element.originalName = element.name;
-                element.apiDocUrl = ui5Api.getUi5ObjectApiDocUrl(element.name, apiBaseUrl);
+                element.apiDocUrl = getUi5ObjectApiDocUrl(element.name, apiBaseUrl);
               });
             }
 
@@ -173,7 +173,7 @@ function prepareUi5Objects(apiIndexEntry: ui5Api.ApiIndex | ui5Api.ApiIndexNode)
 
   if ("symbols" in apiIndexEntry) {
     for (const object of apiIndexEntry.symbols) {
-      normalizedName = ui5Api.getNormalizedName(object.name);
+      normalizedName = getNormalizedName(object.name);
       apiIndexNodes[normalizedName] = enhanceApiIndexNode(object);
 
       //extract library
@@ -186,7 +186,7 @@ function prepareUi5Objects(apiIndexEntry: ui5Api.ApiIndex | ui5Api.ApiIndexNode)
       }
     }
   } else {
-    normalizedName = ui5Api.getNormalizedName(apiIndexEntry.name);
+    normalizedName = getNormalizedName(apiIndexEntry.name);
     apiIndexNodes[normalizedName] = enhanceApiIndexNode(apiIndexEntry);
     ui5Libraries[apiIndexEntry.lib] = <ui5Api.LibraryApi>{};
 
@@ -200,11 +200,25 @@ function prepareUi5Objects(apiIndexEntry: ui5Api.ApiIndex | ui5Api.ApiIndexNode)
 
 function enhanceApiIndexNode(apiIndexNode: ui5Api.ApiIndexNode): ui5Api.ApiIndexNodeEnhanced {
   return {
-    name: ui5Api.getNormalizedName(apiIndexNode.name),
+    name: getNormalizedName(apiIndexNode.name),
     originalName: apiIndexNode.name,
     basename: apiIndexNode.name.substring(apiIndexNode.name.lastIndexOf(".") + 1),
     kind: apiIndexNode.kind,
     library: apiIndexNode.lib,
-    apiDocUrl: ui5Api.getUi5ObjectApiDocUrl(apiIndexNode.name, apiBaseUrl),
+    apiDocUrl: getUi5ObjectApiDocUrl(apiIndexNode.name, apiBaseUrl),
   };
+}
+
+export function getNormalizedName(name: string) {
+  return name.replace("module:", "").replace(/\//g, ".");
+}
+
+export function getUi5ObjectApiDocUrl(ui5ObjectName: string, apiBaseUrl: string) {
+  let path = ui5ObjectName;
+
+  if (path.indexOf("module:") !== -1) {
+    path = encodeURIComponent(path);
+  }
+
+  return `${apiBaseUrl}/#/api/${path}`;
 }

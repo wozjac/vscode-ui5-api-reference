@@ -264,7 +264,7 @@
     for (const ui5Object of ui5Objects) {
       htmlElement = $(
         `<li>
-          <a href="#" class="vsc-ui5-ar-link" title="{{path}}">${ui5Object.name}</a>
+          <a href="#" class="vsc-ui5-ar-link" title="${ui5Object.name}">${ui5Object.name}</a>
         </li>`
       );
 

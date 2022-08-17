@@ -4,7 +4,7 @@ export function convertModuleNameToPath(moduleName: string): string {
   return moduleName.replace("module:", "").replace(/\//g, ".");
 }
 
-function formatJsDoc(jsDoc: string, cleanHtml = false): string {
+export function formatJsDoc(jsDoc: string, cleanHtml = false): string {
   if (!jsDoc) {
     return "";
   }

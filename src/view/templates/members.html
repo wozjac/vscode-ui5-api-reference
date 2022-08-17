@@ -2,10 +2,10 @@
   <h5>Constructor:</h5>
   <p id="pod_constructor:{{name}}"
     class="vsc-ui5-ar-object-description">
-    {{constructor.description}}
+    {{ui5Constructor.description}}
   </p>
   {{#hasConstructorParams}}
-    {{#constructorParams}}
+    {{#ui5Constructor.parameters}}
       <ul>
         <li>
           <span class="vsc-ui5-ar-api-member-name">{{name}}:</span>
@@ -30,7 +30,7 @@
           {{/hasProperties}}
         </li>
       </ul>
-    {{/constructorParams}}
+    {{/ui5Constructor.parameters}}
   {{/hasConstructorParams}}
   {{^hasConstructorParams}}
     <p>no parameters</p>
@@ -52,17 +52,17 @@
             {{/parameters}}{{/hasParameters}}{{^hasParameters}}<span></span>{{/hasParameters}}
         </span>
         {{#hasReturnValue}}
-          <div><span>returns</span>
+          <div><span>returns</span> 
             {{#hasUi5ObjectReturnType}}
               <a href="#"
-                class="vsc-ui5-ar-return-type-link"
+                class="vsc-ui5-ar-return-type-link italic"
                 data-object-name="{{ui5ObjectReturnType}}">{{returnValue.type}}
               </a>
-          </div>
           {{/hasUi5ObjectReturnType}}
           {{^hasUi5ObjectReturnType}}
-            <span>{{returnValue.type}}</span>
+            <span class="italic">{{returnValue.type}}</span>
           {{/hasUi5ObjectReturnType}}
+          </div>
         {{/hasReturnValue}}
         <span id="pod:{{objectName}}:{{name}}">
           <p class="vsc-ui5-ar-object-description">
@@ -70,7 +70,7 @@
           </p>
           <span class="vsc-ui5-ar-object-description">
             {{#parameters}}
-              <p>- <span>{{name}} ({{type}}) {{#optional}}?{{/optional}}</span>: {{description}}</p>
+              <p>- <span class="italic">{{name}} ({{type}}){{#optional}}?{{/optional}}</span>: {{description}}</p>
               {{#parameterProperties}}
                 <ul>
                   <li>{{name}} ({{type}}): {{description}}</li>
@@ -78,6 +78,11 @@
               {{/parameterProperties}}
             {{/parameters}}
           </span>
+           {{#hasReturnValue}}
+           <p class="vsc-ui5-ar-object-description">
+             returns <span class="italic">{{returnValue.type}}</span>: {{returnValue.description}}
+           </p>
+           {{/hasReturnValue}}
         </span>
       </li>
     </ul>
@@ -89,7 +94,7 @@
     {{#aggregations}}
       <li>
         <a href="#"
-          class="vsc-ui5-ar-link vsc-ui5-ar-api-member-name
+          class="vsc-ui5-ar-link vsc-ui5-ar-api-member-name italic
           {{#deprecated}}
             vsc-ui5-ar-deprecated-member
           {{/deprecated}}"
@@ -99,12 +104,12 @@
         </a> [{{cardinality}}]
         {{#hasUi5ObjectType}}
           <a href="#"
-            class="vsc-ui5-ar-return-type-link"
+            class="vsc-ui5-ar-return-type-link italic"
             data-object-name="{{ui5ObjectType}}">{{type}}
           </a>
         {{/hasUi5ObjectType}}
         {{^hasUi5ObjectType}}
-          <span class="vsc-ui5-ar-return-type">{{type}}</span>
+          <span class="vsc-ui5-ar-return-type italic">{{type}}</span>
         {{/hasUi5ObjectType}}
         <p id="pod:{{objectName}}:{{name}}"
           class="vsc-ui5-ar-object-description">
@@ -127,16 +132,14 @@
           data-apiDocUrl="{{apiDocUrl}}"
           data-name="{{name}}">
           {{name}}
-        </a>(<span class="vsc-ui5-ar-api-list">{{#parameters}}<span>{{name}}{{#optional}}?{{/optional}}</span>{{/parameters}})</span>
+        </a>(<span class="vsc-ui5-ar-api-list">{{#parameters}}<span class="italic">{{name}}{{#optional}}?{{/optional}}</span>{{/parameters}}</span>
         <div id="pod:{{objectName}}:{{name}}"
           class="vsc-ui5-ar-object-description">
           {{description}}
           {{#parameters}}
-            <ul>
               {{#parameterProperties}}
-                <li>{{name}} ({{type}}{{#optional}}?{{/optional}}): {{description}}</li>
+                <p>- {{name}} (<span class="italic">{{type}}</span>{{#optional}}?{{/optional}}): {{description}}</p>
               {{/parameterProperties}}
-            </ul>
           {{/parameters}}
         </div>
       </li>
@@ -159,13 +162,16 @@
         </a>
         {{#hasUi5ObjectType}}
           <a href="#"
-            class="vsc-ui5-ar-return-type-link"
+            class="vsc-ui5-ar-return-type-link italic"
             data-object-name="{{ui5ObjectType}}">{{type}}
           </a>
         {{/hasUi5ObjectType}}
         {{^hasUi5ObjectType}}
-          <span class="vsc-ui5-ar-return-type-link">{{type}}</span>
+          <span class="vsc-ui5-ar-return-type-link italic">{{type}}</span>
         {{/hasUi5ObjectType}}
+        {{#hasDefaultValue}}
+          <span>(default: {{defaultValue}})</span>
+        {{/hasDefaultValue}}
         <p id="pod:{{objectName}}:{{name}}"
           class="vsc-ui5-ar-object-description">
           {{description}}

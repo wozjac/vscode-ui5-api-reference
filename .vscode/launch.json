@@ -14,7 +14,7 @@
       "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"]
     },
     {
-      "name": "Extension Tests",
+      "name": "Tests",
       "type": "extensionHost",
       "request": "launch",
       "preLaunchTask": "${defaultBuildTask}",

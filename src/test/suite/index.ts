@@ -1,6 +1,6 @@
-const path = require("path");
-const Mocha = require("mocha");
-const glob = require("glob");
+import * as path from "path";
+import * as Mocha from "mocha";
+import * as glob from "glob";
 
 const doCoverage = true;
 
@@ -24,7 +24,7 @@ function setupCoverage() {
   return nyc;
 }
 
-async function run() {
+export async function run() {
   const nyc = doCoverage ? setupCoverage() : null;
 
   const mocha = new Mocha({
@@ -53,7 +53,3 @@ async function run() {
     }
   }
 }
-
-module.exports = {
-  run,
-};

@@ -1,7 +1,7 @@
-const expect = require("chai").expect;
-const ui5APIFinder = require("../../../search/ui5ApiFinder.js");
-const ui5ApiObjects = require("../../support/fixtures/ui5ApiObjects.js");
-const stubber = require("../../support/stubber.js");
+import { expect } from "chai";
+import * as ui5APIFinder from "../../../search/ui5ApiFinder";
+import ui5ApiObjects from "../../support/fixtures/ui5ApiObjects";
+import * as stubber from "../../support/stubber";
 
 describe("ui5APIFinder tests", () => {
   before(() => {
@@ -17,7 +17,11 @@ describe("ui5APIFinder tests", () => {
       name: "event",
     });
 
-    expect(found[0]).to.deep.equal(ui5ApiObjects["sap.ui.base.EventProvider"]);
+    expect(found).not.to.be.undefined;
+
+    if (found) {
+      expect(found[0]).to.deep.equal(ui5ApiObjects["sap.ui.base.EventProvider"]);
+    }
   });
 
   it("Should find the object ignoring case", () => {
@@ -25,7 +29,11 @@ describe("ui5APIFinder tests", () => {
       name: "Event",
     });
 
-    expect(found[0]).to.deep.equal(ui5ApiObjects["sap.ui.base.EventProvider"]);
+    expect(found).not.to.be.undefined;
+
+    if (found) {
+      expect(found[0]).to.deep.equal(ui5ApiObjects["sap.ui.base.EventProvider"]);
+    }
   });
 
   it("Should not find the object due to case search", () => {

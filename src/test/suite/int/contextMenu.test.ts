@@ -1,8 +1,8 @@
-const expect = require("chai").expect;
-const contextMenu = require("../../../panelFeatures/contextMenu.js");
-const stubber = require("../../support/stubber.js");
-const vscode = require("vscode");
-const path = require("path");
+import { expect } from "chai";
+import * as contextMenu from "../../../panelFeatures/contextMenu";
+import * as stubber from "../../support/stubber.js";
+import * as vscode from "vscode";
+import * as path from "path";
 
 describe("Context Menu tests", () => {
   before(() => {
@@ -20,6 +20,10 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
     const position = editor.selection.active;
     const newPosition = position.with(6, 14);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -36,6 +40,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(6, 28);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -52,6 +61,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(7, 17);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -68,6 +82,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(13, 18);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -84,6 +103,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(9, 7);
     const newPosition2 = position.with(9, 11);
@@ -101,6 +125,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(9, 18);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -117,6 +146,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(8, 9);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -133,6 +167,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(10, 9);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -149,6 +188,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(5, 6);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -165,6 +209,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(8, 28);
     const newSelection = new vscode.Selection(newPosition, newPosition);
@@ -181,6 +230,11 @@ describe("Context Menu tests", () => {
 
     await vscode.window.showTextDocument(document);
     const editor = vscode.window.activeTextEditor;
+
+    if (!editor) {
+      expect.fail();
+    }
+
     const position = editor.selection.active;
     const newPosition = position.with(7, 14);
     const newSelection = new vscode.Selection(newPosition, newPosition);

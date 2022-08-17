@@ -3,7 +3,7 @@ import { ApiIndexNodeEnhanced } from "../core/types";
 
 export interface SearchQuery {
   name: string;
-  ignoreCase: boolean;
+  ignoreCase?: boolean;
 }
 
 export function findUi5ApiObjects(query: SearchQuery): ApiIndexNodeEnhanced[] | undefined {

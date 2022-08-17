@@ -1,11 +1,11 @@
-module.exports = {
+export default {
   "sap.ui.base.Object": {
     name: "sap.ui.base.Object",
     originalName: "sap.ui.base.Object",
     basename: "Object",
     kind: "class",
     library: "sap.ui.core",
-    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.ui.base.Object"
+    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.ui.base.Object",
   },
   "sap.ui.base.EventProvider": {
     name: "sap.ui.base.EventProvider",
@@ -13,7 +13,7 @@ module.exports = {
     basename: "EventProvider",
     kind: "class",
     library: "sap.ui.core",
-    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.ui.base.EventProvider"
+    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.ui.base.EventProvider",
   },
   "sap.m.Tree": {
     name: "sap.m.Tree",
@@ -21,7 +21,7 @@ module.exports = {
     basename: "Tree",
     kind: "class",
     library: "sap.m",
-    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.m.Tree"
+    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.m.Tree",
   },
   "sap.m.ColumnListItem": {
     name: "sap.m.ColumnListItem",
@@ -29,7 +29,7 @@ module.exports = {
     basename: "ColumnListItem",
     kind: "class",
     library: "sap.m",
-    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.m.ColumnListItem"
+    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.m.ColumnListItem",
   },
   "jQuery.Event": {
     name: "jQuery.Event",
@@ -37,7 +37,7 @@ module.exports = {
     basename: "Event",
     kind: "class",
     library: "sap.ui.core",
-    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/jQuery.Event"
+    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/jQuery.Event",
   },
   "sap.ui": {
     name: "sap.ui",
@@ -45,6 +45,6 @@ module.exports = {
     basename: "ui",
     kind: "namespace",
     library: "sap.ui.core",
-    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.ui"
-  }
+    apiDocUrl: "https://openui5.hana.ondemand.com/#/api/sap.ui",
+  },
 };

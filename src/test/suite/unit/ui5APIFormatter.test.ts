@@ -1,7 +1,9 @@
-const expect = require("chai").expect;
-const ui5APIFormatter = require("../../../objectApi/objectApiFormat.js");
-const sapUiCoreApi = require("../../support/fixtures/sapUiCoreApi.js");
-const stubber = require("../../support/stubber.js");
+import { expect } from "chai";
+import * as ui5APIFormatter from "../../../objectApi/objectApiFormat";
+import * as formatter from "../../../objectApi/formatter";
+import sapUiCoreApi from "../../support/fixtures/sapUiCoreApi";
+import * as stubber from "../../support/stubber";
+import { LibraryApiSymbol } from "../../../core/types";
 
 describe("ui5APIFormatter tests", () => {
   before(() => {
@@ -13,7 +15,7 @@ describe("ui5APIFormatter tests", () => {
   });
 
   it("should return formatted ui5 api object (EventProvider)", () => {
-    const api = ui5APIFormatter.getFormattedObjectApi(sapUiCoreApi.symbols[1]);
+    const api = ui5APIFormatter.getFormattedObjectApi(sapUiCoreApi.symbols[1] as any);
     expect(api).not.to.be.null;
     expect(api.hasConstructorParams).to.be.false;
     expect(api.hasProperties).to.be.false;
@@ -24,7 +26,7 @@ describe("ui5APIFormatter tests", () => {
   });
 
   it("should return formatted ui5 api object (Tree)", () => {
-    const api = ui5APIFormatter.getFormattedObjectApi(sapUiCoreApi.symbols[0]);
+    const api = ui5APIFormatter.getFormattedObjectApi(sapUiCoreApi.symbols[0] as any);
     expect(api).not.to.be.null;
     expect(api.events).to.have.length(1);
     expect(api.methods).to.have.length(13);
@@ -34,7 +36,7 @@ describe("ui5APIFormatter tests", () => {
 
   it("Should format JS doc with html and corrected headers", () => {
     expect(
-      ui5APIFormatter.formatJsDoc(
+      formatter.formatJsDoc(
         "This <h1>is</h1> object{@jsdoc} <p class='css'>with</p> #member " + "<h5>member</h5>."
       )
     ).to.equal("This <h5>is</h5> object with <h5>member</h5>.");
@@ -42,7 +44,7 @@ describe("ui5APIFormatter tests", () => {
 
   it("Should format JS doc without any html except headers", () => {
     expect(
-      ui5APIFormatter.formatJsDoc(
+      formatter.formatJsDoc(
         "This <h1>is</h1> object{@jsdoc} <p class='css'>with</p> #member " + "<h5>member</h5>.",
         true
       )

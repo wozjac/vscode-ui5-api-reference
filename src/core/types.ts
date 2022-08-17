@@ -27,7 +27,7 @@ export interface LibraryApi {
 export interface LibraryApiSymbol {
   basename: string;
   description: string;
-  experimental: {
+  experimental?: {
     since: string;
   };
   export?: string;
@@ -35,10 +35,10 @@ export interface LibraryApiSymbol {
   module: string;
   name: string;
   resource: string;
-  since: string;
+  since?: string;
   static: boolean;
   visibility: string;
-  originalName: string;
+  originalName?: string;
   apiDocUrl: string;
   extends?: string;
   constructor?: Ui5ObjectConstructor;

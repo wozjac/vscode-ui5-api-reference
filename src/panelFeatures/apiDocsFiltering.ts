@@ -1,9 +1,22 @@
-const constants = require("../core/constants.js");
+import * as constants from "../core/constants";
+import { LibraryApiSymbol } from "../core/types";
 
-function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
+interface DeleteMarkers {
+  events: boolean;
+  methods: boolean;
+  aggregations: boolean;
+  properties: boolean;
+  construct: boolean;
+}
+
+export function filterApiMembers(
+  ui5ObjectApi: LibraryApiSymbol,
+  memberSearchString: string,
+  memberGroupFilter: string
+) {
   const objectApi = JSON.parse(JSON.stringify(ui5ObjectApi));
 
-  function filterMembers(key1, key2) {
+  function filterMembers(key1: string, key2?: string) {
     let filterable;
 
     if (key2) {
@@ -13,7 +26,7 @@ function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
     }
 
     if (filterable) {
-      return filterable.filter((member) => {
+      return filterable.filter((member: any) => {
         if (member.visibility !== "public") {
           return false;
         }
@@ -49,7 +62,7 @@ function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
   }
 
   if (memberGroupFilter) {
-    const deleteMarkers = {
+    const deleteMarkers: DeleteMarkers = {
       properties: true,
       methods: true,
       events: true,
@@ -91,9 +104,9 @@ function filterApiMembers(ui5ObjectApi, memberSearchString, memberGroupFilter) {
   return objectApi;
 }
 
-function _deleteMembers(objectApi, deleteMarkers) {
+function _deleteMembers(objectApi: LibraryApiSymbol, deleteMarkers: DeleteMarkers) {
   if (deleteMarkers.properties === true) {
-    if (objectApi.kind === "class") {
+    if (objectApi.kind === "class" && objectApi["ui5-metadata"]) {
       delete objectApi["ui5-metadata"].properties;
     } else {
       delete objectApi.properties;
@@ -101,7 +114,7 @@ function _deleteMembers(objectApi, deleteMarkers) {
   }
 
   if (deleteMarkers.aggregations === true) {
-    if (objectApi.kind === "class") {
+    if (objectApi.kind === "class" && objectApi["ui5-metadata"]) {
       delete objectApi["ui5-metadata"].aggregations;
     } else {
       delete objectApi.aggregations;
@@ -120,7 +133,3 @@ function _deleteMembers(objectApi, deleteMarkers) {
     delete objectApi.constructor;
   }
 }
-
-module.exports = {
-  filterApiMembers,
-};

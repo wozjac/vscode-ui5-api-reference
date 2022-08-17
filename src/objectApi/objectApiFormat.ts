@@ -79,17 +79,19 @@ export function getFormattedObjectApi(
         properties = [];
       }
 
-      if (ui5ObjectApi.constructor) {
+      if (ui5ObjectApi.hasOwnProperty("constructor")) {
         formattedApi.hasConstructor = true;
 
-        formattedApi.ui5Constructor = constructorFormat.prepareConstructor(
-          ui5ObjectApi.constructor,
-          ui5ObjectApi,
-          cleanHtml
-        );
+        if (ui5ObjectApi.constructor) {
+          formattedApi.ui5Constructor = constructorFormat.prepareConstructor(
+            ui5ObjectApi.constructor,
+            ui5ObjectApi,
+            cleanHtml
+          );
 
-        if (formattedApi.ui5Constructor.parameters) {
-          formattedApi.hasConstructorParams = true;
+          if (formattedApi.ui5Constructor.parameters) {
+            formattedApi.hasConstructorParams = true;
+          }
         }
       }
 

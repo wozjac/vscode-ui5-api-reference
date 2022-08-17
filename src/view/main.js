@@ -132,7 +132,7 @@
           vscode.postMessage({
             type: "getDesignAPIHtml",
             ui5Object: event.data.name,
-            source: "hitlist",
+            source: "favorite",
           });
         }
       );

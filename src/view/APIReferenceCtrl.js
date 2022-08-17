@@ -35,10 +35,40 @@ class APIReferenceCtrl {
         type: "emptySearch",
       });
 
+      if (this._searchState.memberGroupFilter) {
+        this._searchState.memberGroupFilter = null;
+
+        if (this._globalState.visibleObjectName) {
+          this.handleGetDesignAPIHtml(
+            { ui5Object: this._globalState.visibleObjectName },
+            "oneSearchResult"
+          );
+        }
+      }
+
       return;
     }
 
     this._searchState.searchTimeout = setTimeout(() => {
+      if (searchInput === "?") {
+        return;
+      }
+
+      const justMembersFiltering = searchInput.match(/(\?[mpeac])(.*)/i);
+
+      if (justMembersFiltering) {
+        this._searchState.memberGroupFilter = justMembersFiltering[1]
+          .replace("?", "")
+          .toLowerCase();
+
+        this.handleGetDesignAPIHtml(
+          { ui5Object: this._globalState.visibleObjectName },
+          "oneSearchResult"
+        );
+
+        return;
+      }
+
       const parts = searchInput.split(" ");
       this._searchState.previousSearchedObjectName = this._searchState.searchedObjectName;
       this._searchState.searchedObjectName = parts[0];
@@ -108,6 +138,12 @@ class APIReferenceCtrl {
 
   handleGetDesignAPIHtml(message) {
     this._globalState.visibleObjectName = message.ui5Object;
+
+    if (message.source === "favorite") {
+      this._searchState.memberGroupFilter = undefined;
+      this._searchState.memberSearchString = undefined;
+    }
+
     const designAPIHtml = this.getDesignAPIHtml(message.ui5Object);
 
     if (!designAPIHtml) {
@@ -116,7 +152,7 @@ class APIReferenceCtrl {
         notification: "Design API not found",
       });
     } else {
-      if (message.source === "hitlist") {
+      if (message.source === "hitlist" || message.source === "favorite") {
         this._webviewView.webview.postMessage({
           type: "showDesignAPI",
           result: designAPIHtml,
@@ -162,9 +198,7 @@ class APIReferenceCtrl {
       );
     }
 
-    designApi = ui5APIFormatter.getFormattedObjectApi(designApi, true, true);
-
-    return designApi;
+    return ui5APIFormatter.getFormattedObjectApi(designApi, true, true);
   }
 
   triggerSearch(input) {

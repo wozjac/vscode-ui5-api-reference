@@ -49,6 +49,7 @@ export interface LibraryApiSymbol {
   inheritedApi?: { [key: string]: LibraryApiSymbol };
   properties?: any;
   deprecated?: Deprecated;
+  aggregations?: Ui5ObjectAggregations;
 }
 
 export interface Ui5ObjectConstructor {

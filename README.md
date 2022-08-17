@@ -44,11 +44,20 @@ API side bar can be also opened using command:
 
 - API can be filtered, for example typing "hbox add" will show only members matching "add".
   Filtering works also if the hitlist if firstly displayed.
-- displaying specific members: ?p will display only properties, ?c - constructor, ?e - events, ?m - methods;
+- displaying specific members: ?p will display only properties, ?c - constructor, ?e - events,
+  ?m - methods, ?a - aggregations; for example hbox ?m will immediately display Hbox with
+  methods only. m.butt ?p will show hitlist first and after selecting an object
+  members filter will be applied, showing only properties
+
   ![Filtering](https://publicrepo.vipserv.org/images/vscode-api/search-members1.gif)
 
 - members can be also filtered by a search term, for example to display only methods with "add", type "hbox ?madd"
+
   ![Filtering](https://publicrepo.vipserv.org/images/vscode-api/search-members2.gif)
+
+- when an object's API is already displayed, putting only ?c, ?m etc. in the search input
+  will apply fitlering on this object. It might be also narrowed to searched string, for
+  example "get..." methods - ?mget etc.
 
 ### Favorites
 

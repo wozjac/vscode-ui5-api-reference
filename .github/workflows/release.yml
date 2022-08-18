@@ -20,6 +20,8 @@ jobs:
           node-version: "14"
       - name: Install dependencies
         run: npm install --no-optional
+      - name: Run tests
+        run: npm test
       - name: Package vsce
         run: npm run package
       - name: Release

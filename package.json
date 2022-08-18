@@ -46,7 +46,8 @@
     "commitlint": "npx commitlint --from HEAD~1 --to HEAD --verbose -g ./config/commitlint.config.js",
     "markdownlint": "npx markdownlint -c ./config/markdownlint.json **/*.md",
     "pretest": "npm run compile",
-    "sed": "sed -i 's/\\.\\.\\///g' ./out/coverage/lcov.info"
+    "sed": "sed -i 's/\\.\\.\\///g' ./out/coverage/lcov.info",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -77,6 +78,7 @@
     "standard-version": "^9.5.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.5.5",
+    "vsce": "^2.10.0",
     "vscode-test": "^1.5.0"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-name: Main
+name: Release
 
 on:
   push:
@@ -26,4 +26,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
-          files: vscode-ui5-api-reference-${{ github.ref_name }}.vsix
+          files: vscode-ui5-api-reference-*.vsix

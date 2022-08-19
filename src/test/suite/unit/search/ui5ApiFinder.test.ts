@@ -3,7 +3,7 @@ import * as ui5ApiFinder from "../../../../search/ui5ApiFinder";
 import ui5ApiObjects from "../../../support/fixtures/ui5ApiObjects";
 import * as stubber from "../../../support/stubber";
 
-describe("ui5APIFinder tests", () => {
+describe("ui5ApiFinder tests", () => {
   before(() => {
     stubber.stubUI5Service();
   });

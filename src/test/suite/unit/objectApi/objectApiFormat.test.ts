@@ -5,7 +5,7 @@ import sapUiCoreApi from "../../../support/fixtures/sapUiCoreApi";
 import * as stubber from "../../../support/stubber";
 import { LibraryApiSymbol } from "../../../../core/types";
 
-describe("ui5APIFormatter tests", () => {
+describe("objectApiFormat tests", () => {
   before(() => {
     stubber.stubUI5Service();
   });

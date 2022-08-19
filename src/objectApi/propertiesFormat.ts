@@ -29,13 +29,12 @@ export function prepareProperties(
     }
 
     propertyApi.objectName = ui5ObjectApi.name;
-    property.description = formatter.formatJsDoc(property.description, cleanHtml);
 
     if (property.deprecated) {
-      property.description = `[DEPRECATED! ${formatter.formatJsDoc(
+      propertyApi.description = `[DEPRECATED! ${formatter.formatJsDoc(
         property.deprecated.text,
         true
-      )}]  ${property.description}`;
+      )}] ${propertyApi.description}`;
 
       propertyApi.deprecated = property.deprecated;
     }
@@ -43,6 +42,8 @@ export function prepareProperties(
     if (property.defaultValue) {
       propertyApi.defaultValue = property.defaultValue;
       propertyApi.hasDefaultValue = true;
+    } else {
+      propertyApi.hasDefaultValue = false;
     }
 
     propertyApi.apiDocUrl = `${ui5ObjectApi.apiDocUrl}/controlProperties`;

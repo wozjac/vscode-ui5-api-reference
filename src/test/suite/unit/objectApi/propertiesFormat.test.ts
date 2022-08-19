@@ -20,7 +20,7 @@ rawPropertyWithSimpleDefaultValue.defaultValue = "string";
 const rawPropertyWithUi5Type = Object.assign({}, rawPropertyBasic);
 rawPropertyWithUi5Type.type = "sap.m.Tree";
 
-describe("favorites tests", () => {
+describe("propertiesFormat tests", () => {
   before(() => {
     stubber.stubUI5Service();
   });

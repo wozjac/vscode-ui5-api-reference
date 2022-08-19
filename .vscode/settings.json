@@ -8,5 +8,6 @@
     "enable": true
   },
   "spellright.language": ["pl"],
-  "spellright.documentTypes": ["latex"]
+  "spellright.documentTypes": ["latex"],
+  "UI5ReferencePanel.favorites": []
 }

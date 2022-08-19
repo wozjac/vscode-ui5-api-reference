@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import * as ui5APIFinder from "../../../search/ui5ApiFinder";
-import ui5ApiObjects from "../../support/fixtures/ui5ApiObjects";
-import * as stubber from "../../support/stubber";
+import * as ui5ApiFinder from "../../../../search/ui5ApiFinder";
+import ui5ApiObjects from "../../../support/fixtures/ui5ApiObjects";
+import * as stubber from "../../../support/stubber";
 
 describe("ui5APIFinder tests", () => {
   before(() => {
@@ -13,7 +13,7 @@ describe("ui5APIFinder tests", () => {
   });
 
   it("Should find the object", () => {
-    const found = ui5APIFinder.findUi5ApiObjects({
+    const found = ui5ApiFinder.findUi5ApiObjects({
       name: "event",
     });
 
@@ -25,7 +25,7 @@ describe("ui5APIFinder tests", () => {
   });
 
   it("Should find the object ignoring case", () => {
-    const found = ui5APIFinder.findUi5ApiObjects({
+    const found = ui5ApiFinder.findUi5ApiObjects({
       name: "Event",
     });
 
@@ -37,7 +37,7 @@ describe("ui5APIFinder tests", () => {
   });
 
   it("Should not find the object due to case search", () => {
-    const found = ui5APIFinder.findUi5ApiObjects({
+    const found = ui5ApiFinder.findUi5ApiObjects({
       name: "event",
       ignoreCase: false,
     });
@@ -46,7 +46,7 @@ describe("ui5APIFinder tests", () => {
   });
 
   it("Should return undefined if object not found", () => {
-    const found = ui5APIFinder.findUi5ApiObjects({
+    const found = ui5ApiFinder.findUi5ApiObjects({
       name: "button",
     });
 
@@ -54,34 +54,34 @@ describe("ui5APIFinder tests", () => {
   });
 
   it("Should return searched object by name", () => {
-    expect(ui5APIFinder.findUi5ObjectByName("sap.m.Tree")).to.deep.equal(
+    expect(ui5ApiFinder.findUi5ObjectByName("sap.m.Tree")).to.deep.equal(
       ui5ApiObjects["sap.m.Tree"]
     );
   });
 
   it("Should return searched object by name ignoring case", () => {
-    expect(ui5APIFinder.findUi5ObjectByName("sap.m.tree")).to.deep.equal(
+    expect(ui5ApiFinder.findUi5ObjectByName("sap.m.tree")).to.deep.equal(
       ui5ApiObjects["sap.m.Tree"]
     );
   });
 
   it("Should not return searched object by due to case search", () => {
-    expect(ui5APIFinder.findUi5ObjectByName("sap.m.tree", false)).to.be.undefined;
+    expect(ui5ApiFinder.findUi5ObjectByName("sap.m.tree", false)).to.be.undefined;
   });
 
   it("Should return searched object by basename ignoring case", () => {
-    expect(ui5APIFinder.findUi5ObjectByBasename("tree")).to.deep.equal([
+    expect(ui5ApiFinder.findUi5ObjectByBasename("tree")).to.deep.equal([
       ui5ApiObjects["sap.m.Tree"],
     ]);
   });
 
   it("Should return searched object by basename", () => {
-    expect(ui5APIFinder.findUi5ObjectByBasename("Tree")).to.deep.equal([
+    expect(ui5ApiFinder.findUi5ObjectByBasename("Tree")).to.deep.equal([
       ui5ApiObjects["sap.m.Tree"],
     ]);
   });
 
   it("Should not return searched object by basename due to case search", () => {
-    expect(ui5APIFinder.findUi5ObjectByBasename("tree", false)).to.equal(undefined);
+    expect(ui5ApiFinder.findUi5ObjectByBasename("tree", false)).to.equal(undefined);
   });
 });

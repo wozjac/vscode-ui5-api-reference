@@ -10,8 +10,8 @@ export function prepareEvents(events: Ui5ObjectEvents, ui5ObjectApi: any, cleanH
     eventApi.objectName = ui5ObjectApi.name;
     eventApi.description = formatJsDoc(event.description, cleanHtml);
 
-    if (eventApi.deprecated) {
-      eventApi.description = `[DEPRECATED! ${formatJsDoc(eventApi.deprecated.text, true)}]  ${
+    if (event.deprecated) {
+      eventApi.description = `[DEPRECATED! ${formatJsDoc(event.deprecated.text, true)}] ${
         eventApi.description
       }`;
     }

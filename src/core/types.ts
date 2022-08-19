@@ -84,6 +84,7 @@ export interface Ui5ObjectEvent {
   name: string;
   visibility: string;
   parameters?: Ui5ObjectParameters;
+  deprecated?: Deprecated;
 }
 
 export type Ui5ObjectEvents = Ui5ObjectEvent[];

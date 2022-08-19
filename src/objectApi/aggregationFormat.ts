@@ -14,7 +14,7 @@ export function prepareAggregations(
     aggregationApi.cardinality = aggregation.cardinality;
     aggregationApi.objectName = ui5ObjectApi.name;
 
-    const theType = aggregation.type.replace("[]", "");
+    const theType = aggregation.type.replace(/[\[\]]/g, "");
     aggregationApi.type = theType;
     const typeObject = ui5ApiService.getUi5Objects()[theType];
 

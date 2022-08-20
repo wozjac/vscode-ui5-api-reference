@@ -45,7 +45,7 @@ function activate(context) {
   );
 
   const apiBaseUrl = configuration.get("apiURL");
-  ui5ApiService.setAPIBaseURL(apiBaseUrl);
+  ui5ApiService.setApiBaseURL(apiBaseUrl);
 
   ui5ApiService
     .loadUi5Objects()

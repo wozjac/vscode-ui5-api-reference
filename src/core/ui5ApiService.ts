@@ -20,7 +20,7 @@ export const sapLibraryDefs: SapLibraryDefs = {
 
 let apiBaseUrl: string;
 
-export function setAPIBaseURL(apiUrl: string) {
+export function setApiBaseURL(apiUrl: string) {
   apiBaseUrl = apiUrl;
 }
 

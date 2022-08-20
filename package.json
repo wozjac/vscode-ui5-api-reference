@@ -38,7 +38,7 @@
     "clean": "rimraf out/",
     "compile": "npm run clean && tsc -p ./ && npm run copyFixtures && npm run copyEditor",
     "watch": "tsc -watch -p ./",
-    "copyFixtures": "copyfiles --error --up 1 ./src/test/support/fixtures/*.xml out",
+    "copyFixtures": "copyfiles --error --up 1 ./src/test/support/fixtures/*.* out",
     "copyEditor": "copyfiles --error --up 1 ./src/test/support/editor/*.xml out",
     "rimraf": "./node_modules/rimraf/bin.js",
     "eslint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",

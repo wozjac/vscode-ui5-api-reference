@@ -42,7 +42,7 @@ export async function fetchJSON(url: string): Promise<unknown> {
   });
 }
 
-function readFileContent(fileUri: vscode.Uri) {
+export function readFileContent(fileUri: vscode.Uri) {
   const file = fs.readFileSync(fileUri.fsPath, { encoding: "utf-8" });
 
   return file.toString();

@@ -197,7 +197,9 @@ function prepareUi5Objects(apiIndexEntry: ui5Api.ApiIndex | ui5Api.ApiIndexNode)
   }
 }
 
-function enhanceApiIndexNode(apiIndexNode: ui5Api.ApiIndexNode): ui5Api.ApiIndexNodeEnhanced {
+export function enhanceApiIndexNode(
+  apiIndexNode: ui5Api.ApiIndexNode
+): ui5Api.ApiIndexNodeEnhanced {
   return {
     name: getNormalizedName(apiIndexNode.name),
     originalName: apiIndexNode.name,

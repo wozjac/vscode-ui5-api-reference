@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { ApiReferenceProvider } from "./view/APIReferenceProvider";
+import { ApiReferenceProvider } from "./view/ApiReferenceProvider";
 import * as ui5ApiService from "./core/ui5ApiService";
 import * as dataSource from "./core/dataSource";
 import * as constants from "./core/constants.js";

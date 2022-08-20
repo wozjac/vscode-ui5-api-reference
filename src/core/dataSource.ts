@@ -8,7 +8,13 @@ export interface TemplatePaths {
   objectAPI: vscode.Uri;
 }
 
-export function readTemplates(templatePaths: TemplatePaths) {
+export interface TemplatesContent {
+  webview: string;
+  members: string;
+  objectAPI: string;
+}
+
+export function readTemplates(templatePaths: TemplatePaths): TemplatesContent {
   return {
     webview: readFileContent(templatePaths.webview),
     members: readFileContent(templatePaths.members),

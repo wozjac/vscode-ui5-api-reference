@@ -1,21 +1,54 @@
-const vscode = require("vscode");
-const ui5APIService = require("../core/ui5ApiService.js");
-const ui5APIFormatter = require("../objectApi/objectApiFormat.js");
-const ui5APIFinder = require("../search/ui5ApiFinder.js");
-const constants = require("../core/constants.js");
-const favorites = require("../panelFeatures/favorites");
-const filtering = require("../panelFeatures/apiDocsFiltering");
-const Mustache = require("mustache");
+import * as vscode from "vscode";
+import * as ui5APIService from "../core/ui5ApiService";
+import * as ui5APIFormatter from "../objectApi/objectApiFormat";
+import * as ui5APIFinder from "../search/ui5ApiFinder";
+import * as constants from "../core/constants";
+import * as favorites from "../panelFeatures/favorites";
+import * as filtering from "../panelFeatures/apiDocsFiltering";
+import * as mustache from "mustache";
+import { TemplatesContent } from "../core/dataSource";
 
-class APIReferenceCtrl {
-  constructor(webviewView, templates) {
+interface GlobalState {
+  hitlistObjectsLimit: number;
+  visibleObjectName: string | null;
+}
+
+interface SearchState {
+  previousSearchedObjectName: string | null;
+  searchedObjectName: string | null;
+  memberSearchString: string | null;
+  memberGroupFilter: string | null;
+  searchTimeout?: ReturnType<typeof setTimeout>;
+}
+
+interface SearchMessage {
+  searchInput: string;
+}
+
+interface GetDesignApiMessage {
+  source?: string;
+  ui5Object: string;
+}
+
+interface ChangeFavoriteMessage {
+  operation: string;
+  ui5Object: string;
+}
+
+export class ApiReferenceCtrl {
+  private _webviewView: vscode.WebviewView;
+  private _templates: TemplatesContent;
+  private _globalState: GlobalState;
+  private _searchState: SearchState;
+
+  constructor(webviewView: vscode.WebviewView, templates: TemplatesContent) {
     this._webviewView = webviewView;
     this._templates = templates;
 
     const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
 
     this._globalState = {
-      hitlistObjectsLimit: configuration.get("hitlistSize"),
+      hitlistObjectsLimit: configuration.get("hitlistSize") as number,
       visibleObjectName: null,
     };
 
@@ -24,11 +57,10 @@ class APIReferenceCtrl {
       searchedObjectName: null,
       memberSearchString: null,
       memberGroupFilter: null,
-      searchTimeout: 0,
     };
   }
 
-  handleSearch(message) {
+  handleSearch(message: SearchMessage) {
     clearTimeout(this._searchState.searchTimeout);
     const searchInput = message.searchInput;
 
@@ -43,8 +75,8 @@ class APIReferenceCtrl {
 
         if (this._globalState.visibleObjectName) {
           this.handleGetDesignAPIHtml(
-            { ui5Object: this._globalState.visibleObjectName },
-            "oneSearchResult"
+            { ui5Object: this._globalState.visibleObjectName }
+            //"oneSearchResult"
           );
         }
       }
@@ -81,8 +113,8 @@ class APIReferenceCtrl {
         }
 
         this.handleGetDesignAPIHtml(
-          { ui5Object: this._globalState.visibleObjectName },
-          "oneSearchResult"
+          { ui5Object: this._globalState.visibleObjectName }
+          // "oneSearchResult"
         );
 
         return;
@@ -134,7 +166,7 @@ class APIReferenceCtrl {
       });
 
       const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
-      this._globalState.hitlistObjectsLimit = configuration.get("hitlistSize");
+      this._globalState.hitlistObjectsLimit = configuration.get("hitlistSize") as number;
 
       if (foundObjects && foundObjects.length > 0) {
         if (foundObjects.length > this._globalState.hitlistObjectsLimit) {
@@ -151,7 +183,7 @@ class APIReferenceCtrl {
             result: foundObjects,
           });
         } else {
-          this.handleGetDesignAPIHtml({ ui5Object: foundObjects[0].name }, "oneSearchResult");
+          this.handleGetDesignAPIHtml({ ui5Object: foundObjects[0].name }); // , "oneSearchResult");
         }
       } else {
         this._webviewView.webview.postMessage({
@@ -162,12 +194,12 @@ class APIReferenceCtrl {
     }, 500);
   }
 
-  handleGetDesignAPIHtml(message) {
+  handleGetDesignAPIHtml(message: GetDesignApiMessage) {
     this._globalState.visibleObjectName = message.ui5Object;
 
     if (message.source === "favorite") {
-      this._searchState.memberGroupFilter = undefined;
-      this._searchState.memberSearchString = undefined;
+      this._searchState.memberGroupFilter = null;
+      this._searchState.memberSearchString = null;
     }
 
     const designAPIHtml = this.getDesignAPIHtml(message.ui5Object);
@@ -192,11 +224,11 @@ class APIReferenceCtrl {
     }
   }
 
-  handleOpenURL(apiDocURL) {
+  handleOpenURL(apiDocURL: string) {
     vscode.env.openExternal(vscode.Uri.parse(apiDocURL));
   }
 
-  handleChangeFavorite(message) {
+  handleChangeFavorite(message: ChangeFavoriteMessage) {
     if (message.operation === "remove") {
       favorites.removeFavorite(message.ui5Object);
     } else {
@@ -209,8 +241,8 @@ class APIReferenceCtrl {
     });
   }
 
-  getDesignAPI(ui5ObjectPath) {
-    let designApi = ui5APIService.getUi5ObjectDesignApi(ui5ObjectPath);
+  getDesignAPI(ui5ObjectName: string) {
+    let designApi = ui5APIService.getUi5ObjectDesignApi(ui5ObjectName);
 
     if (!designApi) {
       return;
@@ -227,7 +259,7 @@ class APIReferenceCtrl {
     return ui5APIFormatter.getFormattedObjectApi(designApi, true, true);
   }
 
-  triggerSearch(input) {
+  triggerSearch(input: string) {
     this._webviewView.webview.postMessage({
       type: "triggerSearch",
       input,
@@ -243,17 +275,15 @@ class APIReferenceCtrl {
     });
   }
 
-  getDesignAPIHtml(ui5Object) {
-    const designAPI = this.getDesignAPI(ui5Object);
+  getDesignAPIHtml(ui5ObjectName: string) {
+    const designAPI = this.getDesignAPI(ui5ObjectName);
 
     if (!designAPI) {
       return null;
     } else {
-      return Mustache.render(this._templates.objectAPI, designAPI, {
+      return mustache.render(this._templates.objectAPI, designAPI, {
         membersTemplate: this._templates.members,
       });
     }
   }
 }
-
-module.exports = APIReferenceCtrl;

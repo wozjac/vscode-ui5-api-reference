@@ -1,5 +1,5 @@
 const vscode = require("vscode");
-const APIReferenceCtrl = require("./APIReferenceCtrl.js");
+import { ApiReferenceCtrl } from "./ApiReferenceCtrl";
 const Mustache = require("mustache");
 
 class APIReferenceProvider {
@@ -10,7 +10,7 @@ class APIReferenceProvider {
 
   resolveWebviewView(webviewView, context) {
     this._view = webviewView;
-    this._apiReferenceCtrl = new APIReferenceCtrl(webviewView, this._templates);
+    this._apiReferenceCtrl = new ApiReferenceCtrl(webviewView, this._templates);
 
     webviewView.webview.options = {
       enableScripts: true,

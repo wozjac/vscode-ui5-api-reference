@@ -64,7 +64,7 @@ export function getUi5Objects() {
 
 export function getUi5ObjectDesignApi(
   ui5ObjectName: string,
-  resultApi: ui5Api.LibraryApiSymbol
+  resultApi?: ui5Api.LibraryApiSymbol
 ): ui5Api.LibraryApiSymbol | undefined {
   const ui5Object = apiIndexNodes[ui5ObjectName];
 

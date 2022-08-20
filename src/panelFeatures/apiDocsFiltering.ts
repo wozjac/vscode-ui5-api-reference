@@ -11,9 +11,9 @@ interface DeleteMarkers {
 
 export function filterApiMembers(
   ui5ObjectApi: LibraryApiSymbol,
-  memberSearchString: string,
-  memberGroupFilter: string
-) {
+  memberSearchString?: string | null,
+  memberGroupFilter?: string | null
+): LibraryApiSymbol {
   const objectApi = JSON.parse(JSON.stringify(ui5ObjectApi));
 
   function filterMembers(key1: string, key2?: string) {
@@ -25,7 +25,7 @@ export function filterApiMembers(
       filterable = objectApi[key1];
     }
 
-    if (filterable) {
+    if (filterable && memberSearchString) {
       return filterable.filter((member: any) => {
         if (member.visibility !== "public") {
           return false;

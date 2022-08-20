@@ -19,7 +19,7 @@ export function prepareMethods(
     if (method.deprecated) {
       methodApi.deprecated = method.deprecated;
 
-      methodApi.description = `[DEPRECATED! ${formatJsDoc(methodApi.deprecated.text, true)}]  ${
+      methodApi.description = `[DEPRECATED! ${formatJsDoc(methodApi.deprecated.text, true)}] ${
         methodApi.description
       }`;
     }
@@ -31,16 +31,20 @@ export function prepareMethods(
       } else {
         methodApi.name = `${ui5ObjectApi.name}.${method.name}`;
       }
+    } else {
+      methodApi.static = false;
     }
 
     if (method.parameters) {
       methodApi.hasParameters = true;
       methodApi.parameters = prepareParameters(method.parameters, cleanHtml);
+    } else {
+      methodApi.hasParameters = false;
     }
 
     if (method.returnValue && method.returnValue.type) {
       methodApi.hasReturnValue = true;
-      const returnType = method.returnValue.type.replace("[]", "");
+      const returnType = method.returnValue.type.replace(/[\[\]]/g, "");
       methodApi.returnValue = { type: returnType };
 
       if (method.returnValue.description) {
@@ -61,6 +65,8 @@ export function prepareMethods(
       } else {
         methodApi.hasUi5ObjectReturnType = false;
       }
+    } else {
+      methodApi.hasReturnValue = false;
     }
 
     let path = methodApi.name;

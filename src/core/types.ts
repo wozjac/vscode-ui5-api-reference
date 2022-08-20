@@ -61,7 +61,7 @@ export interface Ui5ObjectMethod {
   description: string;
   name: string;
   visibility: string;
-  returnValue: ReturnValue;
+  returnValue?: ReturnValue;
   parameters?: Ui5ObjectParameters;
   static?: boolean;
   deprecated?: Deprecated;

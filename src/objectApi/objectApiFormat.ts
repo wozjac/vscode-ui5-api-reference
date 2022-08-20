@@ -113,35 +113,6 @@ export function getFormattedObjectApi(
       ui5ObjectApi,
       cleanHtml
     );
-    // formattedApi.properties = JSON.parse(JSON.stringify(properties));
-
-    // formattedApi.properties.forEach((property: any) => {
-    //   if (!property.type || property.type === "undefined") {
-    //     property.type = "";
-    //   } else {
-    //     const theType = property.type.replace("[]", "");
-    //     const typeObject = ui5ApiService.getUi5Objects()[theType];
-
-    //     if (typeObject) {
-    //       property.hasUi5ObjectType = true;
-    //       property.ui5ObjectType = theType;
-    //     } else {
-    //       property.hasUi5ObjectType = false;
-    //     }
-    //   }
-
-    //   property.objectName = ui5ObjectApi.name;
-    //   property.description = formatter.formatJsDoc(property.description, cleanHtml);
-
-    //   if (property.deprecated) {
-    //     property.description = `[DEPRECATED! ${formatter.formatJsDoc(
-    //       property.deprecated.text,
-    //       true
-    //     )}]  ${property.description}`;
-    //   }
-
-    //   property.apiDocUrl = `${ui5ObjectApi.apiDocUrl}/controlProperties`;
-    // });
   }
 
   if (ui5ObjectApi.deprecated) {

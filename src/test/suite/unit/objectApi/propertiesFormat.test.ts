@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as stubber from "../../../support/stubber";
 import { prepareProperties } from "../../../../objectApi/propertiesFormat";
 import { Ui5ObjectProperty, LibraryApiSymbol } from "../../../../core/types";
-import { ui5ObjectApi } from "./common";
+import { ColumnListItemApiSymbol } from "../common";
 
 const rawPropertyBasic: Ui5ObjectProperty = {
   name: "myName",
@@ -30,7 +30,7 @@ describe("propertiesFormat tests", () => {
   });
 
   it("should prepare basic fields", () => {
-    const formatted = prepareProperties([rawPropertyBasic], ui5ObjectApi, true);
+    const formatted = prepareProperties([rawPropertyBasic], ColumnListItemApiSymbol, true);
 
     expect(formatted).to.have.lengthOf(1);
     const property = formatted[0];
@@ -46,7 +46,7 @@ describe("propertiesFormat tests", () => {
   });
 
   it("should prepare deprecated text", () => {
-    const formatted = prepareProperties([rawPropertyDeprecated], ui5ObjectApi, true);
+    const formatted = prepareProperties([rawPropertyDeprecated], ColumnListItemApiSymbol, true);
 
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].description).to.equal(
@@ -55,14 +55,18 @@ describe("propertiesFormat tests", () => {
   });
 
   it("should prepare default value", () => {
-    const formatted = prepareProperties([rawPropertyWithSimpleDefaultValue], ui5ObjectApi, true);
+    const formatted = prepareProperties(
+      [rawPropertyWithSimpleDefaultValue],
+      ColumnListItemApiSymbol,
+      true
+    );
 
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].defaultValue).to.equal("string");
   });
 
   it("should prepare UI5 type", () => {
-    const formatted = prepareProperties([rawPropertyWithUi5Type], ui5ObjectApi, true);
+    const formatted = prepareProperties([rawPropertyWithUi5Type], ColumnListItemApiSymbol, true);
 
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].hasUi5ObjectType).to.be.true;

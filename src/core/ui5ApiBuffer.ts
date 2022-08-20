@@ -1,14 +1,16 @@
 import { LibraryApiSymbol } from "./types";
 
 const ui5ObjectsDesignApiBufferLength = 30;
-const ui5ObjectsDesignApiBuffer: LibraryApiSymbol[] = [];
+let ui5ObjectsDesignApiBuffer: LibraryApiSymbol[] = [];
 
-export function searchObjectDesignApiBuffer(ui5ObjectName: string): LibraryApiSymbol | undefined {
+export function searchObjectDesignApiBuffer(
+  requestedObjectName: string
+): LibraryApiSymbol | undefined {
   let result;
 
   if (ui5ObjectsDesignApiBuffer.length > 0) {
-    result = ui5ObjectsDesignApiBuffer.find((designApi) => {
-      return designApi.name === ui5ObjectName;
+    result = ui5ObjectsDesignApiBuffer.find((bufferedUi5Object) => {
+      return bufferedUi5Object.name === requestedObjectName;
     });
   }
 
@@ -23,4 +25,12 @@ export function addToObjectDesignApiBuffer(objectApi: LibraryApiSymbol) {
 
     ui5ObjectsDesignApiBuffer.push(objectApi);
   }
+}
+
+export function getBufferLength() {
+  return ui5ObjectsDesignApiBuffer.length;
+}
+
+export function resetBuffer() {
+  ui5ObjectsDesignApiBuffer = [];
 }

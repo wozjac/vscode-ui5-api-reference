@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as stubber from "../../../support/stubber";
 import { prepareEvents } from "../../../../objectApi/eventFormat";
 import { Ui5ObjectEvent, LibraryApiSymbol } from "../../../../core/types";
-import { ui5ObjectApi } from "./common";
+import { ColumnListItemApiSymbol } from "../common";
 
 const rawEvent: Ui5ObjectEvent = {
   description: "This is <code>event</code>",
@@ -37,7 +37,7 @@ describe("eventFormat tests", () => {
   });
 
   it("should prepare basic fields", () => {
-    const formatted = prepareEvents([rawEvent], ui5ObjectApi, true);
+    const formatted = prepareEvents([rawEvent], ColumnListItemApiSymbol, true);
     expect(formatted).to.have.lengthOf(1);
     const event = formatted[0];
     expect(event.description).to.equal("This is event");
@@ -49,13 +49,13 @@ describe("eventFormat tests", () => {
   });
 
   it("should prepare deprecated", () => {
-    const formatted = prepareEvents([rawEventDeprecated], ui5ObjectApi, true);
+    const formatted = prepareEvents([rawEventDeprecated], ColumnListItemApiSymbol, true);
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].description).to.equal("[DEPRECATED! No longer used] This is event");
   });
 
   it("should prepare event parameters", () => {
-    const formatted = prepareEvents([rawEventDeprecated], ui5ObjectApi, true);
+    const formatted = prepareEvents([rawEventDeprecated], ColumnListItemApiSymbol, true);
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0]).not.to.be.undefined;
   });

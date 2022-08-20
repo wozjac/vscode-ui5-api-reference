@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as stubber from "../../../support/stubber";
 import { prepareConstructor } from "../../../../objectApi/constructorFormat";
 import { Ui5ObjectConstructor, LibraryApiSymbol } from "../../../../core/types";
-import { ui5ObjectApi } from "./common";
+import { ColumnListItemApiSymbol } from "../common";
 
 const rawConstructor: Ui5ObjectConstructor = {
   description: "This is <code>constructor</code>",
@@ -32,7 +32,7 @@ describe("constructorFormat tests", () => {
   });
 
   it("should prepare basic fields with parameters", () => {
-    const formattedConstructor = prepareConstructor(rawConstructor, ui5ObjectApi, true);
+    const formattedConstructor = prepareConstructor(rawConstructor, ColumnListItemApiSymbol, true);
 
     expect(formattedConstructor).not.to.be.undefined;
     expect(formattedConstructor.description).to.equal("This is constructor");

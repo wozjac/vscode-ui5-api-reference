@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as stubber from "../../../support/stubber";
 import { prepareMethods } from "../../../../objectApi/methodFormat";
 import { Ui5ObjectMethod, LibraryApiSymbol } from "../../../../core/types";
-import { ui5ObjectApi } from "./common";
+import { ColumnListItemApiSymbol } from "../common";
 
 const rawMethod: Ui5ObjectMethod = {
   description: "This is <code>method</code>",
@@ -51,7 +51,7 @@ describe("methodFormat tests", () => {
   });
 
   it("should prepare basic fields", () => {
-    const formatted = prepareMethods([rawMethod], ui5ObjectApi, true, true);
+    const formatted = prepareMethods([rawMethod], ColumnListItemApiSymbol, true, true);
     expect(formatted).to.have.lengthOf(1);
     const method = formatted[0];
     expect(method.description).to.equal("This is method");
@@ -63,33 +63,38 @@ describe("methodFormat tests", () => {
   });
 
   it("should prepare deprecated", () => {
-    const formatted = prepareMethods([rawMethodDeprecated], ui5ObjectApi, true, true);
+    const formatted = prepareMethods([rawMethodDeprecated], ColumnListItemApiSymbol, true, true);
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].description).to.equal("[DEPRECATED! No longer used] This is method");
   });
 
   it("should prepare flat static name", () => {
-    const formatted = prepareMethods([rawMethodStatic], ui5ObjectApi, true, true);
+    const formatted = prepareMethods([rawMethodStatic], ColumnListItemApiSymbol, true, true);
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].static).to.be.true;
     expect(formatted[0].name).to.equal("myMethod");
   });
 
   it("should prepare full static name", () => {
-    const formatted = prepareMethods([rawMethodStatic], ui5ObjectApi, true, false);
+    const formatted = prepareMethods([rawMethodStatic], ColumnListItemApiSymbol, true, false);
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].static).to.be.true;
     expect(formatted[0].name).to.equal("sap.m.ColumnListItem.myMethod");
   });
 
   it("should prepare with params", () => {
-    const formatted = prepareMethods([rawMethodWithParams], ui5ObjectApi, true, true);
+    const formatted = prepareMethods([rawMethodWithParams], ColumnListItemApiSymbol, true, true);
     expect(formatted).to.have.lengthOf(1);
     expect(formatted[0].parameters).to.have.lengthOf(1);
   });
 
   it("should prepare with simple return value", () => {
-    const formatted = prepareMethods([rawMethodWithSimpleReturnType], ui5ObjectApi, true, true);
+    const formatted = prepareMethods(
+      [rawMethodWithSimpleReturnType],
+      ColumnListItemApiSymbol,
+      true,
+      true
+    );
     expect(formatted).to.have.lengthOf(1);
     const method = formatted[0];
     expect(method.hasReturnValue).to.be.true;
@@ -98,7 +103,12 @@ describe("methodFormat tests", () => {
   });
 
   it("should prepare with UI5 object return value", () => {
-    const formatted = prepareMethods([rawMethodWithUi5ReturnType], ui5ObjectApi, true, true);
+    const formatted = prepareMethods(
+      [rawMethodWithUi5ReturnType],
+      ColumnListItemApiSymbol,
+      true,
+      true
+    );
     expect(formatted).to.have.lengthOf(1);
     const method = formatted[0];
     expect(method.hasReturnValue).to.be.true;

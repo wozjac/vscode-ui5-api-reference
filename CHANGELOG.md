@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.0...v1.4.1) (2022-08-20)
+
+
+### Bug Fixes
+
+* aggregation type recognition ([063a5a0](https://github.com/wozjac/vscode-ui5-api-reference/commit/063a5a0a08607695de00fe4aea26e1d958c0172f))
+* correct description for deprecated properties ([17eba2f](https://github.com/wozjac/vscode-ui5-api-reference/commit/17eba2f3e5d694b16ce47f8c0865537956ddc97f))
+
 ## [1.4.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.3.0...v1.4.0) (2022-08-18)
 
 

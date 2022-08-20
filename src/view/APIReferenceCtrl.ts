@@ -24,7 +24,6 @@ interface SearchState {
 interface SearchMessage {
   searchInput: string;
 }
-
 interface GetDesignApiMessage {
   source?: string;
   ui5Object: string;
@@ -36,23 +35,23 @@ interface ChangeFavoriteMessage {
 }
 
 export class ApiReferenceCtrl {
-  private _webviewView: vscode.WebviewView;
-  private _templates: TemplatesContent;
-  private _globalState: GlobalState;
-  private _searchState: SearchState;
+  private webviewView: vscode.WebviewView;
+  private templates: TemplatesContent;
+  private globalState: GlobalState;
+  private searchState: SearchState;
 
   constructor(webviewView: vscode.WebviewView, templates: TemplatesContent) {
-    this._webviewView = webviewView;
-    this._templates = templates;
+    this.webviewView = webviewView;
+    this.templates = templates;
 
     const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
 
-    this._globalState = {
+    this.globalState = {
       hitlistObjectsLimit: configuration.get("hitlistSize") as number,
       visibleObjectName: null,
     };
 
-    this._searchState = {
+    this.searchState = {
       previousSearchedObjectName: null,
       searchedObjectName: null,
       memberSearchString: null,
@@ -61,21 +60,21 @@ export class ApiReferenceCtrl {
   }
 
   handleSearch(message: SearchMessage) {
-    clearTimeout(this._searchState.searchTimeout);
+    clearTimeout(this.searchState.searchTimeout);
     const searchInput = message.searchInput;
 
     if (!searchInput) {
-      this._webviewView.webview.postMessage({
+      this.webviewView.webview.postMessage({
         type: "emptySearch",
       });
 
-      if (this._searchState.memberGroupFilter) {
-        this._searchState.memberGroupFilter = null;
-        this._searchState.memberSearchString = null;
+      if (this.searchState.memberGroupFilter) {
+        this.searchState.memberGroupFilter = null;
+        this.searchState.memberSearchString = null;
 
-        if (this._globalState.visibleObjectName) {
+        if (this.globalState.visibleObjectName) {
           this.handleGetDesignAPIHtml(
-            { ui5Object: this._globalState.visibleObjectName }
+            { ui5Object: this.globalState.visibleObjectName }
             //"oneSearchResult"
           );
         }
@@ -84,7 +83,7 @@ export class ApiReferenceCtrl {
       return;
     }
 
-    this._searchState.searchTimeout = setTimeout(() => {
+    this.searchState.searchTimeout = setTimeout(() => {
       if (searchInput === "?") {
         return;
       }
@@ -93,27 +92,25 @@ export class ApiReferenceCtrl {
 
       if (justMembersFiltering) {
         // no API shown
-        if (!this._globalState.visibleObjectName) {
+        if (!this.globalState.visibleObjectName) {
           return;
         }
 
-        this._searchState.memberGroupFilter = justMembersFiltering[1]
-          .replace("?", "")
-          .toLowerCase();
+        this.searchState.memberGroupFilter = justMembersFiltering[1].replace("?", "").toLowerCase();
 
         const memberSearchPart = justMembersFiltering[2].trim();
 
         if (
           memberSearchPart &&
-          this._searchState.memberGroupFilter !== constants.memberGroupFilter.construct
+          this.searchState.memberGroupFilter !== constants.memberGroupFilter.construct
         ) {
-          this._searchState.memberSearchString = memberSearchPart;
+          this.searchState.memberSearchString = memberSearchPart;
         } else {
-          this._searchState.memberSearchString = null;
+          this.searchState.memberSearchString = null;
         }
 
         this.handleGetDesignAPIHtml(
-          { ui5Object: this._globalState.visibleObjectName }
+          { ui5Object: this.globalState.visibleObjectName }
           // "oneSearchResult"
         );
 
@@ -123,62 +120,62 @@ export class ApiReferenceCtrl {
       const parts = searchInput.split(" ");
 
       if (parts.length === 2 && parts[1]) {
-        this._searchState.previousSearchedObjectName = this._searchState.searchedObjectName;
-        this._searchState.searchedObjectName = parts[0];
+        this.searchState.previousSearchedObjectName = this.searchState.searchedObjectName;
+        this.searchState.searchedObjectName = parts[0];
 
         // if (parts.length === 2 && parts[1]) {
-        this._searchState.memberSearchString = parts[1];
-        const match = this._searchState.memberSearchString.match(/(\?[mpeac])(.*)/i);
+        this.searchState.memberSearchString = parts[1];
+        const match = this.searchState.memberSearchString.match(/(\?[mpeac])(.*)/i);
 
         if (match) {
-          this._searchState.memberGroupFilter = match[1].replace("?", "").toLowerCase();
+          this.searchState.memberGroupFilter = match[1].replace("?", "").toLowerCase();
           const memberSearchPart = match[2].trim();
 
           if (
             memberSearchPart &&
-            this._searchState.memberGroupFilter !== constants.memberGroupFilter.construct
+            this.searchState.memberGroupFilter !== constants.memberGroupFilter.construct
           ) {
-            this._searchState.memberSearchString = memberSearchPart;
+            this.searchState.memberSearchString = memberSearchPart;
           } else {
-            this._searchState.memberSearchString = null;
+            this.searchState.memberSearchString = null;
           }
         } else {
-          this._searchState.memberGroupFilter = null;
+          this.searchState.memberGroupFilter = null;
         }
       } else {
-        this._searchState.searchedObjectName = searchInput.trim();
+        this.searchState.searchedObjectName = searchInput.trim();
 
-        if (this._searchState.previousSearchedObjectName !== this._searchState.searchedObjectName) {
-          this._globalState.visibleObjectName = null;
+        if (this.searchState.previousSearchedObjectName !== this.searchState.searchedObjectName) {
+          this.globalState.visibleObjectName = null;
         }
 
-        this._searchState.memberSearchString = null;
-        this._searchState.memberGroupFilter = null;
+        this.searchState.memberSearchString = null;
+        this.searchState.memberGroupFilter = null;
       }
 
       //skip single ? sign
-      if (this._searchState.memberSearchString === "?") {
-        this._searchState.memberSearchString = null;
+      if (this.searchState.memberSearchString === "?") {
+        this.searchState.memberSearchString = null;
       }
 
       const foundObjects = ui5APIFinder.findUi5ApiObjects({
-        name: this._searchState.searchedObjectName,
+        name: this.searchState.searchedObjectName,
       });
 
       const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
-      this._globalState.hitlistObjectsLimit = configuration.get("hitlistSize") as number;
+      this.globalState.hitlistObjectsLimit = configuration.get("hitlistSize") as number;
 
       if (foundObjects && foundObjects.length > 0) {
-        if (foundObjects.length > this._globalState.hitlistObjectsLimit) {
-          this._webviewView.webview.postMessage({
+        if (foundObjects.length > this.globalState.hitlistObjectsLimit) {
+          this.webviewView.webview.postMessage({
             type: "tooManySearchResults",
             notification: `Found ${foundObjects.length} objects. Please narrow your search.`,
           });
         } else if (
           foundObjects.length > 1 &&
-          foundObjects.length <= this._globalState.hitlistObjectsLimit
+          foundObjects.length <= this.globalState.hitlistObjectsLimit
         ) {
-          this._webviewView.webview.postMessage({
+          this.webviewView.webview.postMessage({
             type: "multipleSearchResults",
             result: foundObjects,
           });
@@ -186,7 +183,7 @@ export class ApiReferenceCtrl {
           this.handleGetDesignAPIHtml({ ui5Object: foundObjects[0].name }); // , "oneSearchResult");
         }
       } else {
-        this._webviewView.webview.postMessage({
+        this.webviewView.webview.postMessage({
           type: "noSearchResults",
           notification: "Nothing found",
         });
@@ -195,28 +192,28 @@ export class ApiReferenceCtrl {
   }
 
   handleGetDesignAPIHtml(message: GetDesignApiMessage) {
-    this._globalState.visibleObjectName = message.ui5Object;
+    this.globalState.visibleObjectName = message.ui5Object;
 
     if (message.source === "favorite") {
-      this._searchState.memberGroupFilter = null;
-      this._searchState.memberSearchString = null;
+      this.searchState.memberGroupFilter = null;
+      this.searchState.memberSearchString = null;
     }
 
     const designAPIHtml = this.getDesignAPIHtml(message.ui5Object);
 
     if (!designAPIHtml) {
-      this._webviewView.webview.postMessage({
+      this.webviewView.webview.postMessage({
         type: "designAPINotFound",
         notification: "Design API not found",
       });
     } else {
       if (message.source === "hitlist" || message.source === "favorite") {
-        this._webviewView.webview.postMessage({
+        this.webviewView.webview.postMessage({
           type: "showDesignAPI",
           result: designAPIHtml,
         });
       } else {
-        this._webviewView.webview.postMessage({
+        this.webviewView.webview.postMessage({
           type: "oneSearchResult",
           result: designAPIHtml,
         });
@@ -235,7 +232,7 @@ export class ApiReferenceCtrl {
       favorites.addFavorite(message.ui5Object);
     }
 
-    this._webviewView.webview.postMessage({
+    this.webviewView.webview.postMessage({
       type: "updateFavorites",
       favorites: favorites.getFavorites(),
     });
@@ -248,11 +245,11 @@ export class ApiReferenceCtrl {
       return;
     }
 
-    if (this._searchState.memberSearchString || this._searchState.memberGroupFilter) {
+    if (this.searchState.memberSearchString || this.searchState.memberGroupFilter) {
       designApi = filtering.filterApiMembers(
         designApi,
-        this._searchState.memberSearchString,
-        this._searchState.memberGroupFilter
+        this.searchState.memberSearchString,
+        this.searchState.memberGroupFilter
       );
     }
 
@@ -260,7 +257,7 @@ export class ApiReferenceCtrl {
   }
 
   triggerSearch(input: string) {
-    this._webviewView.webview.postMessage({
+    this.webviewView.webview.postMessage({
       type: "triggerSearch",
       input,
     });
@@ -269,7 +266,7 @@ export class ApiReferenceCtrl {
   triggerWebviewResolved() {
     const favs = favorites.getFavorites();
 
-    this._webviewView.webview.postMessage({
+    this.webviewView.webview.postMessage({
       type: "webviewResolved",
       favorites: favs,
     });
@@ -281,8 +278,8 @@ export class ApiReferenceCtrl {
     if (!designAPI) {
       return null;
     } else {
-      return mustache.render(this._templates.objectAPI, designAPI, {
-        membersTemplate: this._templates.members,
+      return mustache.render(this.templates.objectAPI, designAPI, {
+        membersTemplate: this.templates.members,
       });
     }
   }

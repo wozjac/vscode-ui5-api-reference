@@ -1,16 +1,16 @@
-const vscode = require("vscode");
-const APIReferenceProvider = require("./view/APIReferenceProvider");
-const ui5ApiService = require("./core/ui5ApiService");
-const dataSource = require("./core/dataSource.js");
-const constants = require("./core/constants.js");
-const contextMenu = require("./panelFeatures/contextMenu");
-const favorites = require("./panelFeatures/favorites");
+import * as vscode from "vscode";
+import { ApiReferenceProvider } from "./view/APIReferenceProvider";
+import * as ui5ApiService from "./core/ui5ApiService";
+import * as dataSource from "./core/dataSource";
+import * as constants from "./core/constants.js";
+import * as contextMenu from "./panelFeatures/contextMenu";
+import * as favorites from "./panelFeatures/favorites";
 
-function activate(context) {
+export function activate(context: vscode.ExtensionContext) {
   const templatePaths = getTemplatePaths(context.extensionUri);
   const templates = dataSource.readTemplates(templatePaths);
   const configuration = vscode.workspace.getConfiguration("UI5ReferencePanel");
-  const apiViewProvider = new APIReferenceProvider(context.extensionUri, templates);
+  const apiViewProvider = new ApiReferenceProvider(context.extensionUri, templates);
 
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider("ui5ApiReferenceView", apiViewProvider, {
@@ -30,21 +30,28 @@ function activate(context) {
     vscode.commands.registerCommand("vscode-ui5-api-reference.showAPIViewForValue", async () => {
       const editor = vscode.window.activeTextEditor;
       // Gets the entire string from namespace and control
-      const input = editor.selection !== "" ? contextMenu.findControl(editor) : editor.selection;
-      await vscode.commands.executeCommand("workbench.view.extension.ui5ApiReference");
-      apiViewProvider.triggerSearchCommand(input);
+      if (editor) {
+        const input = contextMenu.findControl(editor);
+
+        if (input) {
+          await vscode.commands.executeCommand("workbench.view.extension.ui5ApiReference");
+          apiViewProvider.triggerSearchCommand(input.toString());
+        }
+      }
     })
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand("vscode-ui5-api-reference.searchAPI", async () => {
       const input = await vscode.window.showInputBox();
-      await vscode.commands.executeCommand("workbench.view.extension.ui5ApiReference");
-      apiViewProvider.triggerSearchCommand(input);
+      if (input) {
+        await vscode.commands.executeCommand("workbench.view.extension.ui5ApiReference");
+        apiViewProvider.triggerSearchCommand(input);
+      }
     })
   );
 
-  const apiBaseUrl = configuration.get("apiURL");
+  const apiBaseUrl = configuration.get("apiURL") as string;
   ui5ApiService.setApiBaseURL(apiBaseUrl);
 
   ui5ApiService
@@ -59,14 +66,10 @@ function activate(context) {
   favorites.initialize(configuration);
 }
 
-function getTemplatePaths(extensionUri) {
+function getTemplatePaths(extensionUri: vscode.Uri) {
   return {
     webview: vscode.Uri.joinPath(extensionUri, "src/view/templates", "webview.html"),
     members: vscode.Uri.joinPath(extensionUri, "src/view/templates", "members.html"),
     objectAPI: vscode.Uri.joinPath(extensionUri, "src/view/templates", "objectAPI.html"),
   };
 }
-
-module.exports = {
-  activate,
-};

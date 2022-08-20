@@ -1,4 +1,5 @@
 [![Build Status](https://github.com/wozjac/vscode-ui5-api-reference/actions/workflows/build.yml/badge.svg)](https://github.com/wozjac/vscode-ui5-api-reference/actions/workflows/build.yml)
+[![Coverage Status](https://coveralls.io/repos/github/wozjac/vscode-ui5-api-reference/badge.svg?branch=main)](https://coveralls.io/github/wozjac/vscode-ui5-api-reference?branch=main)
 [![GitHub license](https://img.shields.io/github/license/wozjac/vscode-ui5-api-reference)](https://github.com/wozjac/vscode-ui5-api-reference/blob/main/LICENSE)
 
 # VSCode-UI5: API reference

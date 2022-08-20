@@ -1,6 +1,6 @@
 {
   "name": "vscode-ui5-api-reference",
-  "displayName": "VSCode-UI5: API Reference",
+  "displayName": "VSCode UI5: API Reference",
   "description": "VSCode extension: SAPUI5/OpenUI5 Reference documentation in a side bar view",
   "license": "MIT",
   "version": "1.4.0",

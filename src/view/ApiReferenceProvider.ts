@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { ApiReferenceCtrl } from "./ApiReferenceCtrl";
+import { ApiReferenceCtrl } from "./ApiReferenceController";
 import * as mustache from "mustache";
 import { TemplatesContent } from "../core/dataSource";
 

@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import * as contextMenu from "../../../panelFeatures/contextMenu";
-import * as stubber from "../../support/stubber.js";
+import * as contextMenu from "../../../../panelFeatures/contextMenu";
+import * as stubber from "../../../support/stubber.js";
 import * as vscode from "vscode";
 import * as path from "path";
 
@@ -15,7 +15,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.ui.core.Title #1", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view1.xml")
+      path.resolve(__dirname, "../../../support/editor/view1.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -35,7 +35,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.ui.core.Title #2", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view2.xml")
+      path.resolve(__dirname, "../../../support/editor/view2.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -56,7 +56,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.ui.core.Title #3", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view2.xml")
+      path.resolve(__dirname, "../../../support/editor/view2.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -77,7 +77,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.ui.core.Title #4", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view3.xml")
+      path.resolve(__dirname, "../../../support/editor/view3.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -98,7 +98,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.m.Page #1", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view3.xml")
+      path.resolve(__dirname, "../../../support/editor/view3.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -120,7 +120,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.m.Page #2", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view3.xml")
+      path.resolve(__dirname, "../../../support/editor/view3.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -141,7 +141,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.m.App #1", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view3.xml")
+      path.resolve(__dirname, "../../../support/editor/view3.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -162,7 +162,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.m.App #2", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view3.xml")
+      path.resolve(__dirname, "../../../support/editor/view3.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -183,7 +183,7 @@ describe("Context Menu tests", () => {
 
   it("Should find string sap.m.App #3", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view1.xml")
+      path.resolve(__dirname, "../../../support/editor/view1.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -204,7 +204,7 @@ describe("Context Menu tests", () => {
 
   it("Should find sap.m.Text #1", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view2.xml")
+      path.resolve(__dirname, "../../../support/editor/view2.xml")
     );
 
     await vscode.window.showTextDocument(document);
@@ -225,7 +225,7 @@ describe("Context Menu tests", () => {
 
   it("Should find string sap.m.Text #2", async () => {
     const document = await vscode.workspace.openTextDocument(
-      path.resolve(__dirname, "../../support/editor/view1.xml")
+      path.resolve(__dirname, "../../../support/editor/view1.xml")
     );
 
     await vscode.window.showTextDocument(document);

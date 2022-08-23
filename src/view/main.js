@@ -190,10 +190,6 @@
       vscode.postMessage({ type: "openURL", url: $(event.target).attr("data-apiDocUrl") });
     });
 
-    objectNameLink.on("click", (event) => {
-      vscode.postMessage({ type: "openURL", url: $(event.target).attr("data-apiDocUrl") });
-    });
-
     elements.apiDocsElement.on("click", ".vsc-ui5-ar-return-type-link", (event) => {
       vscode.postMessage({ type: "getDesignAPIHtml", ui5Object: $(event.target).text().trim() });
     });

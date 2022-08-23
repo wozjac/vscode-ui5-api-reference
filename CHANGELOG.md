@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.2...v1.4.3) (2022-08-23)
+
+
+### Bug Fixes
+
+* opening API object reference page twice ([df13627](https://github.com/wozjac/vscode-ui5-api-reference/commit/df136279147f0846de8c178fa5165c4c2237e851))
+
 ### [1.4.2](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.1...v1.4.2) (2022-08-20)
 
 ### [1.4.1](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.0...v1.4.1) (2022-08-20)

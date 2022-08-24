@@ -6,6 +6,9 @@
 
 VS Code extension - SAP/Open UI5 reference view in a side bar view.
 
+Video about features:
+[![Features video](assets/video.png)](https://www.youtube.com/watch?v=0-rLpBbXmEI "Features video")
+
 ## Important
 
 **Since version 1.2.1 there is a new config field for the API URL version - please

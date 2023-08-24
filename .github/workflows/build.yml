@@ -9,7 +9,7 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v3
@@ -26,7 +26,7 @@ jobs:
         if: runner.os == 'Linux'
       - name: Coveralls
         if: runner.os == 'Linux'
-        uses: coverallsapp/github-action@v1.1.2
+        uses: coverallsapp/github-action@v2.2.1
         with:
           github-token: ${{ github.token }}
-          path-to-lcov: ./out/coverage/lcov.info
+          file: ./out/coverage/lcov.info

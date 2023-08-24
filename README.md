@@ -80,7 +80,7 @@ API can be also opened for controls in XML views; use the context menu option on
 
 This extension contributes the following settings:
 
-- `apiURL`: the path to SAPUI5/OpenUI5 version; default is <https://openui5.hana.ondemand.com/1.96.10>  
+- `apiURL`: the path to SAPUI5/OpenUI5 version; default is <https://openui5.hana.ondemand.com/1.114.3>  
   **Please remember to reload VS Code after changing this setting!**
 - `favorites`: the list of favorites UI5 objects; they can be added via configuration or using the icons in the panel
 - `hitlistSize`: maximum number of objects shown in the hitlist if multiple objects
@@ -99,7 +99,7 @@ This plugin is licensed under the [MIT license](http://opensource.org/licenses/M
 
 Feel free to contact me:
 
-- wozjac@zoho.com
+- <wozjac@zoho.com>
 - [jacekw.dev](https://jacekw.dev)
 - Twitter (<https://twitter.com/jacekwoz>)
 - LinkedIn (<https://www.linkedin.com/in/jacek-wznk>)

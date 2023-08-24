@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.6...v1.5.0) (2023-08-24)
+
+
+### Features
+
+* change the default UI5 version to 1.114.3 ([af90b63](https://github.com/wozjac/vscode-ui5-api-reference/commit/af90b6370acfb5e24bed8a017a52fb696130c154))
+
 ### [1.4.6](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.5...v1.4.6) (2022-08-24)
 
 ### [1.4.5](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.4...v1.4.5) (2022-08-24)

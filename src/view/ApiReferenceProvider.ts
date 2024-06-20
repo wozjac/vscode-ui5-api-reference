@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { ApiReferenceCtrl } from "./ApiReferenceController";
-import * as mustache from "mustache";
-import { TemplatesContent } from "../core/dataSource";
+import { ApiReferenceCtrl } from "./ApiReferenceController.js";
+import Mustache from "mustache";
+import { TemplatesContent } from "../core/dataSource.js";
 
 export class ApiReferenceProvider {
   private extensionUri: vscode.Uri;
@@ -41,7 +41,7 @@ export class ApiReferenceProvider {
       cspSource: this.view.webview.cspSource,
     };
 
-    webviewView.webview.html = mustache.render(this.templates.webview, variables);
+    webviewView.webview.html = Mustache.render(this.templates.webview, variables);
 
     webviewView.webview.onDidReceiveMessage(
       (message) => {

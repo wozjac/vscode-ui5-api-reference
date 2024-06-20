@@ -1,4 +1,4 @@
-import { LibraryApiSymbol } from "./types";
+import { LibraryApiSymbol } from "./types.js";
 
 const ui5ObjectsDesignApiBufferLength = 30;
 let ui5ObjectsDesignApiBuffer: LibraryApiSymbol[] = [];

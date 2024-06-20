@@ -1,6 +1,6 @@
-import { Ui5ObjectConstructor, LibraryApiSymbol } from "../core/types";
-import { Ui5ConstructorApi } from "./types";
-import * as formatter from "./formatter";
+import { Ui5ObjectConstructor, LibraryApiSymbol } from "../core/types.js";
+import { Ui5ConstructorApi } from "./types.js";
+import * as formatter from "./formatter.js";
 
 export function prepareConstructor(
   ui5Constructor: Ui5ObjectConstructor,

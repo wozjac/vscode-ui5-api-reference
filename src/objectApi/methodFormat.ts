@@ -1,8 +1,8 @@
-import { formatJsDoc } from "./formatter";
-import { prepareParameters } from "./parameterFormat";
-import { getUi5Objects } from "../core/ui5ApiService";
-import { MethodApi, MethodsApi } from "./types";
-import { Ui5ObjectMethods, LibraryApiSymbol } from "../core/types";
+import { formatJsDoc } from "./formatter.js";
+import { prepareParameters } from "./parameterFormat.js";
+import { getUi5Objects } from "../core/ui5ApiService.js";
+import { MethodApi, MethodsApi } from "./types.js";
+import { Ui5ObjectMethods, LibraryApiSymbol } from "../core/types.js";
 
 export function prepareMethods(
   methods: Ui5ObjectMethods,

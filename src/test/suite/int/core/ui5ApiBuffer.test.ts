@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import * as ui5ApiBuffer from "../../../../core/ui5ApiBuffer";
-import * as stubber from "../../../support/stubber";
+import * as ui5ApiBuffer from "../../../../core/ui5ApiBuffer.js";
+import * as stubber from "../../../support/stubber.js";
 import * as vscode from "vscode";
-import { ColumnListItemApiSymbol, BaseObjectApiSymbol } from "../../unit/common";
+import { ColumnListItemApiSymbol, BaseObjectApiSymbol } from "../../unit/common.js";
 
 describe("ui5ApiBuffer tests", () => {
   before(() => {

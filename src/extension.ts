@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
-import { ApiReferenceProvider } from "./view/ApiReferenceProvider";
-import * as ui5ApiService from "./core/ui5ApiService";
-import * as dataSource from "./core/dataSource";
+import { ApiReferenceProvider } from "./view/ApiReferenceProvider.js";
+import * as ui5ApiService from "./core/ui5ApiService.js";
+import * as dataSource from "./core/dataSource.js";
 import * as constants from "./core/constants.js";
-import * as contextMenu from "./panelFeatures/contextMenu";
-import * as favorites from "./panelFeatures/favorites";
+import * as contextMenu from "./panelFeatures/contextMenu.js";
+import * as favorites from "./panelFeatures/favorites.js";
 
 export function activate(context: vscode.ExtensionContext) {
   const templatePaths = getTemplatePaths(context.extensionUri);

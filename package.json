@@ -43,7 +43,7 @@
     "rimraf": "./node_modules/rimraf/bin.js",
     "eslint": "eslint -c config/.eslintrc.json --ignore-path config/.eslintignore ./src/**/*.js",
     "lint": "npm run eslint && npm run commitlint && npm run markdownlint",
-    "commitlint": "npx commitlint --from HEAD~1 --to HEAD --verbose -g ./config/commitlint.config.js",
+    "commitlint": "npx commitlint --from HEAD~1 --to HEAD --verbose -g ./config/commitlint.config.mjs",
     "markdownlint": "npx markdownlint -c ./config/markdownlint.json **/*.md",
     "pretest": "npm run compile",
     "sed": "sed -i 's/\\.\\.\\///g' ./out/coverage/lcov.info",

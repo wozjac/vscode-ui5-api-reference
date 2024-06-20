@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import * as stubber from "../../../support/stubber";
-import { prepareEvents } from "../../../../objectApi/eventFormat";
-import { Ui5ObjectEvent, LibraryApiSymbol } from "../../../../core/types";
-import { ColumnListItemApiSymbol } from "../common";
+import * as stubber from "../../../support/stubber.js";
+import { prepareEvents } from "../../../../objectApi/eventFormat.js";
+import { Ui5ObjectEvent, LibraryApiSymbol } from "../../../../core/types.js";
+import { ColumnListItemApiSymbol } from "../common.js";
 
 const rawEvent: Ui5ObjectEvent = {
   description: "This is <code>event</code>",

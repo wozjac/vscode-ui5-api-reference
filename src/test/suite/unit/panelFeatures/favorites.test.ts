@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import * as favorites from "../../../../panelFeatures/favorites";
-import * as stubber from "../../../support/stubber";
+import * as favorites from "../../../../panelFeatures/favorites.js";
+import * as stubber from "../../../support/stubber.js";
 import * as vscode from "vscode";
 
 describe("favorites tests", () => {

@@ -1,4 +1,4 @@
-import { LibraryApiSymbol } from "../../../core/types";
+import { LibraryApiSymbol } from "../../../core/types.js";
 
 export const ColumnListItemApiSymbol: LibraryApiSymbol = {
   name: "sap.m.ColumnListItem",

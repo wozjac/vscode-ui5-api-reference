@@ -1,7 +1,7 @@
-import * as formatter from "./formatter";
-import * as ui5ApiService from "../core/ui5ApiService";
-import { AggregationApi, AggregationsApi } from "./types";
-import { Ui5ObjectAggregations } from "../core/types";
+import * as formatter from "./formatter.js";
+import * as ui5ApiService from "../core/ui5ApiService.js";
+import { AggregationApi, AggregationsApi } from "./types.js";
+import { Ui5ObjectAggregations } from "../core/types.js";
 
 export function prepareAggregations(
   aggregations: Ui5ObjectAggregations,

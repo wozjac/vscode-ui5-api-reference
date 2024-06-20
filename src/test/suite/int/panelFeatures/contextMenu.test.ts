@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import * as contextMenu from "../../../../panelFeatures/contextMenu";
+import * as contextMenu from "../../../../panelFeatures/contextMenu.js";
 import * as stubber from "../../../support/stubber.js";
 import * as vscode from "vscode";
 import * as path from "path";

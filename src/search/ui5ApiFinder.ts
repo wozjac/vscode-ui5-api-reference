@@ -1,5 +1,5 @@
-import * as ui5ApiService from "../core/ui5ApiService";
-import { ApiIndexNodeEnhanced } from "../core/types";
+import * as ui5ApiService from "../core/ui5ApiService.js";
+import { ApiIndexNodeEnhanced } from "../core/types.js";
 
 export interface SearchQuery {
   name: string;

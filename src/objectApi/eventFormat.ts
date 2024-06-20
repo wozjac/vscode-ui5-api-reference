@@ -1,7 +1,7 @@
-import { formatJsDoc } from "./formatter";
-import { EventApi, EventsApi } from "./types";
-import * as parameterFormat from "./parameterFormat";
-import { Ui5ObjectEvents } from "../core/types";
+import { formatJsDoc } from "./formatter.js";
+import { EventApi, EventsApi } from "./types.js";
+import * as parameterFormat from "./parameterFormat.js";
+import { Ui5ObjectEvents } from "../core/types.js";
 
 export function prepareEvents(events: Ui5ObjectEvents, ui5ObjectApi: any, cleanHtml: boolean) {
   return events.map((event) => {

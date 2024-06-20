@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
-import * as ui5APIService from "../core/ui5ApiService";
-import * as ui5APIFormatter from "../objectApi/objectApiFormat";
-import * as ui5APIFinder from "../search/ui5ApiFinder";
-import * as constants from "../core/constants";
-import * as favorites from "../panelFeatures/favorites";
-import * as filtering from "../panelFeatures/apiDocsFiltering";
-import * as mustache from "mustache";
-import { TemplatesContent } from "../core/dataSource";
+import * as ui5APIService from "../core/ui5ApiService.js";
+import * as ui5APIFormatter from "../objectApi/objectApiFormat.js";
+import * as ui5APIFinder from "../search/ui5ApiFinder.js";
+import * as constants from "../core/constants.js";
+import * as favorites from "../panelFeatures/favorites.js";
+import * as filtering from "../panelFeatures/apiDocsFiltering.js";
+import Mustache from "mustache";
+import { TemplatesContent } from "../core/dataSource.js";
 
 interface GlobalState {
   hitlistObjectsLimit: number;
@@ -278,7 +278,7 @@ export class ApiReferenceCtrl {
     if (!designAPI) {
       return null;
     } else {
-      return mustache.render(this.templates.objectAPI, designAPI, {
+      return Mustache.render(this.templates.objectAPI, designAPI, {
         membersTemplate: this.templates.members,
       });
     }

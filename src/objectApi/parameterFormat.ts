@@ -1,6 +1,6 @@
-import { formatJsDoc } from "./formatter";
-import { ParameterApi, ParametersApi } from "./types";
-import { Ui5ObjectParameters } from "../core/types";
+import { formatJsDoc } from "./formatter.js";
+import { ParameterApi, ParametersApi } from "./types.js";
+import { Ui5ObjectParameters } from "../core/types.js";
 
 export function prepareParameters(parameters: Ui5ObjectParameters, cleanHtml: boolean) {
   return parameters.map((parameter) => {

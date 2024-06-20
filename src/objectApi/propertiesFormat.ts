@@ -1,7 +1,7 @@
-import { Ui5ObjectProperties, LibraryApiSymbol } from "../core/types";
-import * as ui5ApiService from "../core/ui5ApiService";
-import { PropertyApi } from "./types";
-import * as formatter from "./formatter";
+import { Ui5ObjectProperties, LibraryApiSymbol } from "../core/types.js";
+import * as ui5ApiService from "../core/ui5ApiService.js";
+import { PropertyApi } from "./types.js";
+import * as formatter from "./formatter.js";
 
 export function prepareProperties(
   properties: Ui5ObjectProperties,

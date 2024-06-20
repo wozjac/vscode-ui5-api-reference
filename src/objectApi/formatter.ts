@@ -1,4 +1,4 @@
-import * as constants from "../core/constants";
+import * as constants from "../core/constants.js";
 
 export function convertModuleNameToPath(moduleName: string): string {
   return moduleName.replace("module:", "").replace(/\//g, ".");

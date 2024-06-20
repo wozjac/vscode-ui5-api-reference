@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import * as dataSource from "../../../../core/dataSource";
-import * as stubber from "../../../support/stubber";
+import * as dataSource from "../../../../core/dataSource.js";
+import * as stubber from "../../../support/stubber.js";
 import * as vscode from "vscode";
 import * as path from "path";
 

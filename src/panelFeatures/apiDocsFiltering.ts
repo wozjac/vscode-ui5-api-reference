@@ -1,5 +1,5 @@
-import * as constants from "../core/constants";
-import { LibraryApiSymbol } from "../core/types";
+import * as constants from "../core/constants.js";
+import { LibraryApiSymbol } from "../core/types.js";
 
 interface DeleteMarkers {
   events: boolean;

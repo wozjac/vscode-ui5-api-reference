@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import * as ui5ApiFinder from "../../../../search/ui5ApiFinder";
-import ui5ApiObjects from "../../../support/fixtures/ui5ApiObjects";
-import * as stubber from "../../../support/stubber";
+import * as ui5ApiFinder from "../../../../search/ui5ApiFinder.js";
+import ui5ApiObjects from "../../../support/fixtures/ui5ApiObjects.js";
+import * as stubber from "../../../support/stubber.js";
 
 describe("ui5ApiFinder tests", () => {
   before(() => {

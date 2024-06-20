@@ -1,13 +1,13 @@
-import * as ui5Api from "../core/types";
-import * as ui5ApiService from "../core/ui5ApiService";
-import * as favorites from "../panelFeatures/favorites";
-import * as formatter from "./formatter";
-import * as methodFormat from "./methodFormat";
-import * as eventFormat from "./eventFormat";
-import * as aggregationFormat from "./aggregationFormat";
-import * as constructorFormat from "./constructorFormat";
-import * as propertiesFormat from "./propertiesFormat";
-import { Ui5SymbolApi } from "./types";
+import * as ui5Api from "../core/types.js";
+import * as ui5ApiService from "../core/ui5ApiService.js";
+import * as favorites from "../panelFeatures/favorites.js";
+import * as formatter from "./formatter.js";
+import * as methodFormat from "./methodFormat.js";
+import * as eventFormat from "./eventFormat.js";
+import * as aggregationFormat from "./aggregationFormat.js";
+import * as constructorFormat from "./constructorFormat.js";
+import * as propertiesFormat from "./propertiesFormat.js";
+import { Ui5SymbolApi } from "./types.js";
 
 export function getFormattedObjectApi(
   ui5ObjectApi: ui5Api.LibraryApiSymbol,

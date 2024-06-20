@@ -1,9 +1,9 @@
 import { expect } from "chai";
-import * as objectApiFormat from "../../../../objectApi/objectApiFormat";
-import * as formatter from "../../../../objectApi/formatter";
-import sapUiCoreApi from "../../../support/fixtures/sapUiCoreApi";
-import * as stubber from "../../../support/stubber";
-import { LibraryApiSymbol } from "../../../../core/types";
+import * as objectApiFormat from "../../../../objectApi/objectApiFormat.js";
+import * as formatter from "../../../../objectApi/formatter.js";
+import sapUiCoreApi from "../../../support/fixtures/sapUiCoreApi.js";
+import * as stubber from "../../../support/stubber.js";
+import { LibraryApiSymbol } from "../../../../core/types.js";
 
 describe("objectApiFormat tests", () => {
   before(() => {

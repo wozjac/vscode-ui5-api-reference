@@ -1,7 +1,7 @@
-import * as ui5Api from "./types";
-import * as constants from "./constants";
-import * as dataSource from "./dataSource";
-import * as apiBuffer from "./ui5ApiBuffer";
+import * as ui5Api from "./types.js";
+import * as constants from "./constants.js";
+import * as dataSource from "./dataSource.js";
+import * as apiBuffer from "./ui5ApiBuffer.js";
 
 interface Ui5LibrariesApi {
   [index: string]: ui5Api.LibraryApi;

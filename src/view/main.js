@@ -1,3 +1,5 @@
+import DOMPurify from "dompurify";
+
 (function () {
   // eslint-disable-next-line
   const vscode = acquireVsCodeApi();
@@ -168,7 +170,7 @@
     elements.apiDocsElement.empty();
     unregisterUi5ObjectLinkHandlers();
 
-    elements.apiDocsElement.append(message.result);
+    elements.apiDocsElement.append(DOMPurify.sanitize(message.result));
     registerUi5ObjectLinkHandlers();
     removeEmptyBorrowedSections();
   }

@@ -287,7 +287,6 @@
       htmlElement.appendTo(elements.hitlistElement);
     }
 
-    // eslint-disable-next-line quotes
     elements.hitlistElement.append('<hr class="vsc-ui5-ar-hr"/>');
     elements.hitlistElement.show();
   }

@@ -109,7 +109,8 @@ import DOMPurify from "dompurify";
     elements.favoritesListElement.empty();
 
     for (let index = 0; index < favorites.length; index++) {
-      const element = favorites[index];
+      let element = favorites[index];
+      element = DOMPurify.sanitize(element);
 
       const objectLinkElement = $(`
         <a href="#" class="vsc-ui5-ar-favorite-link" title="${element}">
@@ -260,9 +261,11 @@ import DOMPurify from "dompurify";
     let htmlElement;
 
     for (const ui5Object of ui5Objects) {
+      const name = DOMPurify.sanitize(ui5Object.name);
+
       htmlElement = $(
         `<li>
-          <a href="#" class="vsc-ui5-ar-link" title="${ui5Object.name}">${ui5Object.name}</a>
+          <a href="#" class="vsc-ui5-ar-link" title="${name}">${name}</a>
         </li>`
       );
 

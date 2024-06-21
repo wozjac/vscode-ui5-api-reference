@@ -10,35 +10,28 @@
   -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'none'; style-src {{cspSource}}; script-src 'nonce-{{nonce}}';">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
-  <link href="{{styleVSCodeUri}}"
-    rel="stylesheet">
-  <link href="{{styleMainUri}}"
-    rel="stylesheet">
-  <script nonce="{{nonce}}"
-    src="{{jQueryScriptUri}}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{styleVSCodeUri}}" rel="stylesheet">
+  <link href="{{styleMainUri}}" rel="stylesheet">
+  <script nonce="{{nonce}}" src="{{jQueryScriptUri}}"></script>
+  <script nonce="{{nonce}}" src="{{purifyScriptUri}}"></script>
 
   <title>UI5 API Reference</title>
 </head>
 
 <body>
   <ul id="vsc-ui5-ar-favorites"></ul>
-  <input type="search"
-    id="vsc-ui5-ar-search-input"
-    placeholder="Search">
+  <input type="search" id="vsc-ui5-ar-search-input" placeholder="Search">
   </input>
 
-  <div id="vsc-ui5-ar-messages"
-    class="messages">
+  <div id="vsc-ui5-ar-messages" class="messages">
     <div class="message"></div>
   </div>
   <ul id="vsc-ui5-ar-hits">
   </ul>
   <div id="vsc-ui5-ar-api"></div>
 
-  <script nonce="{{nonce}}"
-    src="{{mainScriptUri}}">
+  <script nonce="{{nonce}}" src="{{mainScriptUri}}">
   </script>
 </body>
 

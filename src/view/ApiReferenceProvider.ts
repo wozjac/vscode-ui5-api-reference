@@ -35,6 +35,9 @@ export class ApiReferenceProvider {
       jQueryScriptUri: this.view.webview.asWebviewUri(
         vscode.Uri.joinPath(this.extensionUri, "src/view", "jquery.min.js")
       ),
+      purifyScriptUri: this.view.webview.asWebviewUri(
+        vscode.Uri.joinPath(this.extensionUri, "src/view", "purify.min.js")
+      ),
       mainScriptUri: this.view.webview.asWebviewUri(
         vscode.Uri.joinPath(this.extensionUri, "src/view", "main.js")
       ),

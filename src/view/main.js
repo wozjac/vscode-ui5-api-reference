@@ -1,5 +1,3 @@
-import DOMPurify from "dompurify";
-
 (function () {
   // eslint-disable-next-line
   const vscode = acquireVsCodeApi();
@@ -110,6 +108,7 @@ import DOMPurify from "dompurify";
 
     for (let index = 0; index < favorites.length; index++) {
       let element = favorites[index];
+      // eslint-disable-next-line
       element = DOMPurify.sanitize(element);
 
       const objectLinkElement = $(`
@@ -171,6 +170,7 @@ import DOMPurify from "dompurify";
     elements.apiDocsElement.empty();
     unregisterUi5ObjectLinkHandlers();
 
+    //eslint-disable-next-line
     elements.apiDocsElement.append(DOMPurify.sanitize(message.result));
     registerUi5ObjectLinkHandlers();
     removeEmptyBorrowedSections();
@@ -261,6 +261,7 @@ import DOMPurify from "dompurify";
     let htmlElement;
 
     for (const ui5Object of ui5Objects) {
+      //eslint-disable-next-line
       const name = DOMPurify.sanitize(ui5Object.name);
 
       htmlElement = $(

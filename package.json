@@ -75,7 +75,7 @@
     "markdownlint-cli": "^0.41.0",
     "mocha": "^10.4.0",
     "nyc": "^15.1.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.7",
     "sinon": "^18.0.0",
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",

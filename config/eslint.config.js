@@ -9,6 +9,7 @@ module.exports = [
       "dist/**",
       "coverage/**",
       "src/view/jquery.min.js",
+      "src/view/templates",
       ".vscode-test/**/*",
       "src/view/purify.min.js",
     ],

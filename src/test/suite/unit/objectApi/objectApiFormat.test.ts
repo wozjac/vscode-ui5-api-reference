@@ -3,7 +3,6 @@ import * as objectApiFormat from "../../../../objectApi/objectApiFormat.js";
 import * as formatter from "../../../../objectApi/formatter.js";
 import sapUiCoreApi from "../../../support/fixtures/sapUiCoreApi.js";
 import * as stubber from "../../../support/stubber.js";
-import { LibraryApiSymbol } from "../../../../core/types.js";
 
 describe("objectApiFormat tests", () => {
   before(() => {
@@ -15,6 +14,7 @@ describe("objectApiFormat tests", () => {
   });
 
   it("should return formatted ui5 api object (EventProvider)", () => {
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     const api = objectApiFormat.getFormattedObjectApi(sapUiCoreApi.symbols[1] as any);
     expect(api).not.to.be.null;
     expect(api.hasConstructorParams).to.be.false;
@@ -26,6 +26,7 @@ describe("objectApiFormat tests", () => {
   });
 
   it("should return formatted ui5 api object (Tree)", () => {
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     const api = objectApiFormat.getFormattedObjectApi(sapUiCoreApi.symbols[0] as any);
     expect(api).not.to.be.null;
     expect(api.events).to.have.length(1);

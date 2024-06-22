@@ -16,6 +16,7 @@ export interface Ui5SymbolApi {
   methods?: MethodsApi;
   events?: EventsApi;
   ui5Constructor?: Ui5ConstructorApi;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties?: any;
   aggregations?: AggregationsApi;
   inheritedApi?: { [key: string]: Ui5SymbolApi } | Ui5SymbolApi[];
@@ -43,6 +44,7 @@ export interface MethodApi {
   returnValue: ReturnValue;
   deprecated: Deprecated;
   static: boolean;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   parameters: any;
   objectName: string;
   apiDocUrl: string;

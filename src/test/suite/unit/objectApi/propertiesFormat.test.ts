@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as stubber from "../../../support/stubber.js";
 import { prepareProperties } from "../../../../objectApi/propertiesFormat.js";
-import { Ui5ObjectProperty, LibraryApiSymbol } from "../../../../core/types.js";
+import { Ui5ObjectProperty } from "../../../../core/types.js";
 import { ColumnListItemApiSymbol } from "../common.js";
 
 const rawPropertyBasic: Ui5ObjectProperty = {

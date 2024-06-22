@@ -25,8 +25,7 @@ export function getNamespace(text: string, document: TextDocument): string | und
   }
 
   xmlns = xmlns.includes(">") ? xmlns.slice(0, -1) : xmlns;
-  // eslint-disable-next-line quotes
-  const regex = new RegExp(namespace === "" ? `xmlns="(.*?)"` : `xmlns:${namespace}="(.*?)\"`);
+  const regex = new RegExp(namespace === "" ? `xmlns="(.*?)"` : `xmlns:${namespace}="(.*?)"`);
   let matchResult = xmlns.match(regex);
 
   if (!matchResult) {
@@ -34,6 +33,7 @@ export function getNamespace(text: string, document: TextDocument): string | und
   }
 
   const match = matchResult[0];
+  // eslint-disable-next-line
   matchResult = match.match(/\"(.*?)\"/);
 
   if (!matchResult) {

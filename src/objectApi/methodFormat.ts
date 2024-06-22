@@ -44,6 +44,7 @@ export function prepareMethods(
 
     if (method.returnValue && method.returnValue.type) {
       methodApi.hasReturnValue = true;
+      //eslint-disable-next-line
       const returnType = method.returnValue.type.replace(/[\[\]]/g, "");
       methodApi.returnValue = { type: returnType };
 
@@ -55,7 +56,8 @@ export function prepareMethods(
 
       try {
         returnObject = getUi5Objects()[returnType];
-      } catch (err) {
+        //eslint-disable-next-line
+      } catch (err) { 
         // ignore
       }
 

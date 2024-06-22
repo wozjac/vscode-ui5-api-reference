@@ -26,6 +26,7 @@ export function filterApiMembers(
     }
 
     if (filterable && memberSearchString) {
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
       return filterable.filter((member: any) => {
         if (member.visibility !== "public") {
           return false;

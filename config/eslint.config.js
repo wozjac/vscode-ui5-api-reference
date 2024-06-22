@@ -1,5 +1,6 @@
 const globals = require("globals");
 const js = require("@eslint/js");
+const tseslint = require("typescript-eslint");
 
 module.exports = [
   {
@@ -8,11 +9,13 @@ module.exports = [
       "dist/**",
       "coverage/**",
       "src/view/jquery.min.js",
+      "src/view/templates/**",
       ".vscode-test/**/*",
       "src/view/purify.min.js",
     ],
   },
   js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: "latest",
@@ -21,6 +24,7 @@ module.exports = [
         ...globals.commonjs,
         ...globals.jquery,
         ...globals.mocha,
+        ...globals.node,
       },
     },
     rules: {

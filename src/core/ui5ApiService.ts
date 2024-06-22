@@ -33,6 +33,7 @@ function fetchLibraryApi(libraryApiUrl: string): Promise<ui5Api.LibraryApi> {
 }
 
 function getLibraryApi(libraryName: string): Promise<ui5Api.LibraryApi> {
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const libraryApi = ui5Libraries[libraryName] as any;
 
   return new Promise((resolve, reject) => {
@@ -118,6 +119,7 @@ export function getUi5ObjectDesignApi(
   }
 }
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadUi5Objects(): Promise<any> {
   if (Object.keys(apiIndexNodes).length > 0) {
     return Promise.resolve(true);

@@ -1,10 +1,11 @@
 import * as formatter from "./formatter.js";
 import * as ui5ApiService from "../core/ui5ApiService.js";
-import { AggregationApi, AggregationsApi } from "./types.js";
+import { AggregationApi } from "./types.js";
 import { Ui5ObjectAggregations } from "../core/types.js";
 
 export function prepareAggregations(
   aggregations: Ui5ObjectAggregations,
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   ui5ObjectApi: any,
   cleanHtml: boolean
 ) {
@@ -14,6 +15,7 @@ export function prepareAggregations(
     aggregationApi.cardinality = aggregation.cardinality;
     aggregationApi.objectName = ui5ObjectApi.name;
 
+    //eslint-disable-next-line
     const theType = aggregation.type.replace(/[\[\]]/g, "");
     aggregationApi.type = theType;
     const typeObject = ui5ApiService.getUi5Objects()[theType];

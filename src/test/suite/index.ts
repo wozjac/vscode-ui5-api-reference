@@ -5,6 +5,7 @@ import * as glob from "glob";
 const doCoverage = true;
 
 function setupCoverage() {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const NYC = require("nyc");
 
   const nyc = new NYC({

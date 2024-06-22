@@ -41,7 +41,7 @@
     "copyFixtures": "copyfiles --error --up 1 ./src/test/support/fixtures/*.* out",
     "copyEditor": "copyfiles --error --up 1 ./src/test/support/editor/*.xml out",
     "rimraf": "./node_modules/rimraf/bin.js",
-    "eslint": "eslint -c config/eslint.config.js ./src/**/*",
+    "eslint": "eslint -c config/eslint.config.js ./src/**/*.ts",
     "lint": "npm run eslint && npm run commitlint && npm run markdownlint",
     "commitlint": "npx commitlint --from HEAD~1 --to HEAD --verbose -g ./config/commitlint.config.mjs",
     "markdownlint": "npx markdownlint -c ./config/markdownlint.json **/*.md",

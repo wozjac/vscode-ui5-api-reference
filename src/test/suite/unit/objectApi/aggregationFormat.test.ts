@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as stubber from "../../../support/stubber.js";
 import { prepareAggregations } from "../../../../objectApi/aggregationFormat.js";
-import { Ui5ObjectAggregation, LibraryApiSymbol } from "../../../../core/types.js";
+import { Ui5ObjectAggregation } from "../../../../core/types.js";
 import { ColumnListItemApiSymbol } from "../common.js";
 
 const rawAggregation: Ui5ObjectAggregation = {

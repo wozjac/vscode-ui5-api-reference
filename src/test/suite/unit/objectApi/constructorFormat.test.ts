@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as stubber from "../../../support/stubber.js";
 import { prepareConstructor } from "../../../../objectApi/constructorFormat.js";
-import { Ui5ObjectConstructor, LibraryApiSymbol } from "../../../../core/types.js";
+import { Ui5ObjectConstructor } from "../../../../core/types.js";
 import { ColumnListItemApiSymbol } from "../common.js";
 
 const rawConstructor: Ui5ObjectConstructor = {

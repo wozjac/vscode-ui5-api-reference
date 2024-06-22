@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as stubber from "../../../support/stubber.js";
 import { prepareMethods } from "../../../../objectApi/methodFormat.js";
-import { Ui5ObjectMethod, LibraryApiSymbol } from "../../../../core/types.js";
+import { Ui5ObjectMethod } from "../../../../core/types.js";
 import { ColumnListItemApiSymbol } from "../common.js";
 
 const rawMethod: Ui5ObjectMethod = {

@@ -14,7 +14,7 @@ export class ApiReferenceProvider {
     this.templates = templates;
   }
 
-  resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext) {
+  resolveWebviewView(webviewView: vscode.WebviewView, /* context: vscode.WebviewViewResolveContext */) {
     this.view = webviewView;
     this.apiReferenceCtrl = new ApiReferenceCtrl(webviewView, this.templates);
 

@@ -1,8 +1,9 @@
 import { formatJsDoc } from "./formatter.js";
-import { EventApi, EventsApi } from "./types.js";
+import { EventApi } from "./types.js";
 import * as parameterFormat from "./parameterFormat.js";
 import { Ui5ObjectEvents } from "../core/types.js";
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function prepareEvents(events: Ui5ObjectEvents, ui5ObjectApi: any, cleanHtml: boolean) {
   return events.map((event) => {
     const eventApi = <EventApi>{};

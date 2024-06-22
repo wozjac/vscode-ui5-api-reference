@@ -47,6 +47,7 @@ export interface LibraryApiSymbol {
   "ui5-metamodel"?: boolean;
   "ui5-metadata"?: Ui5Metadata;
   inheritedApi?: { [key: string]: LibraryApiSymbol };
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties?: any;
   deprecated?: Deprecated;
   aggregations?: Ui5ObjectAggregations;
@@ -92,6 +93,7 @@ export type Ui5ObjectEvents = Ui5ObjectEvent[];
 export interface Ui5Metadata {
   metadataClass?: string;
   stereotype?: string;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties?: any;
   aggregations?: Ui5ObjectAggregations;
 }

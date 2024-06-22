@@ -1,5 +1,4 @@
 import * as ui5Api from "../core/types.js";
-import * as ui5ApiService from "../core/ui5ApiService.js";
 import * as favorites from "../panelFeatures/favorites.js";
 import * as formatter from "./formatter.js";
 import * as methodFormat from "./methodFormat.js";
@@ -75,11 +74,12 @@ export function getFormattedObjectApi(
         if (metadata && "properties" in metadata) {
           properties = metadata.properties;
         }
+        //eslint-disable-next-line
       } catch (error) {
         properties = [];
       }
 
-      if (ui5ObjectApi.hasOwnProperty("constructor")) {
+      if (Object.prototype.hasOwnProperty.call(ui5ObjectApi, "constructor")) {
         formattedApi.hasConstructor = true;
 
         if (ui5ObjectApi.constructor) {
@@ -103,6 +103,7 @@ export function getFormattedObjectApi(
   }
 
   if (properties && properties.length > 0) {
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     const publicProperties = properties.filter((property: any) => {
       return property.visibility === "public";
     });

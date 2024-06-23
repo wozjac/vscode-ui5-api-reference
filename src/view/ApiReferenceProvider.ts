@@ -14,7 +14,9 @@ export class ApiReferenceProvider {
     this.templates = templates;
   }
 
-  resolveWebviewView(webviewView: vscode.WebviewView, /* context: vscode.WebviewViewResolveContext */) {
+  resolveWebviewView(
+    webviewView: vscode.WebviewView /* context: vscode.WebviewViewResolveContext */
+  ) {
     this.view = webviewView;
     this.apiReferenceCtrl = new ApiReferenceCtrl(webviewView, this.templates);
 
@@ -23,6 +25,15 @@ export class ApiReferenceProvider {
 
       localResourceRoots: [this.extensionUri],
     };
+
+    const configuration =
+      vscode.workspace.getConfiguration("UI5ReferencePanel");
+
+    const apiBaseUrl = configuration.get("apiURL") as string;
+
+    const versionRegex = /\d+\.\d+\.\d+/;
+    const match = apiBaseUrl.match(versionRegex);
+    const version = match ? match[0] : "";
 
     const variables = {
       nonce: getNonce(),
@@ -41,10 +52,14 @@ export class ApiReferenceProvider {
       mainScriptUri: this.view.webview.asWebviewUri(
         vscode.Uri.joinPath(this.extensionUri, "src/view", "main.js")
       ),
+      apiVersion: version,
       cspSource: this.view.webview.cspSource,
     };
 
-    webviewView.webview.html = Mustache.render(this.templates.webview, variables);
+    webviewView.webview.html = Mustache.render(
+      this.templates.webview,
+      variables
+    );
 
     webviewView.webview.onDidReceiveMessage(
       (message) => {
@@ -85,7 +100,8 @@ export class ApiReferenceProvider {
 
 function getNonce() {
   let text = "";
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let i = 0; i < 32; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }

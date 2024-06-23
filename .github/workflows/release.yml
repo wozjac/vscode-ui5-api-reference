@@ -22,7 +22,7 @@ jobs:
       - name: Package vsce
         run: npm run package
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           prerelease: true
           files: vscode-ui5-api-reference-*.vsix

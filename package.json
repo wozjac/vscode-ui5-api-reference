@@ -3,7 +3,7 @@
   "displayName": "VSCode UI5: API Reference",
   "description": "VSCode extension: SAPUI5/OpenUI5 Reference documentation in a side bar view",
   "license": "MIT",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "engines": {
     "vscode": "^1.90.0"
   },

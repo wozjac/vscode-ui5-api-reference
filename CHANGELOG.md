@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.5.0...v1.6.0) (2024-06-23)
+
+
+### Features
+
+* default apiURL setting points to version 1.120.15 ([ce35ca6](https://github.com/wozjac/vscode-ui5-api-reference/commit/ce35ca6c64dd5206219e530a438e79df2be9c964))
+* show API version in the search input ([45240df](https://github.com/wozjac/vscode-ui5-api-reference/commit/45240dfd2dba8fc95ec0d310fbe88729f9ff01f7))
+
 ## [1.5.0](https://github.com/wozjac/vscode-ui5-api-reference/compare/v1.4.6...v1.5.0) (2023-08-24)
 
 

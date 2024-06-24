@@ -65,7 +65,7 @@
     "@vscode/test-electron": "^2.4.0",
     "@vscode/vsce": "^2.29.0",
     "c8": "^10.1.2",
-    "chai": "^4.3.4",
+    "chai": "^5.1.1",
     "copyfiles": "^2.4.1",
     "coveralls-next": "^4.2.1",
     "dompurify": "^3.1.5",

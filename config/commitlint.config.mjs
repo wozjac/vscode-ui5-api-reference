@@ -5,7 +5,7 @@ export default {
   },
   ignores: [
     (message) => {
-      /^Bumps \[.+]\(.+\) from .+ to .+\.$/m.test(message);
+      /^Bump \[.+]\(.+\) from .+ to .+\.$/m.test(message);
     },
   ],
 };

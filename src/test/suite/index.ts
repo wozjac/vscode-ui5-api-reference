@@ -5,7 +5,7 @@ import * as glob from "glob";
 const doCoverage = true;
 
 function setupCoverage() {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const NYC = require("nyc");
 
   const nyc = new NYC({
@@ -44,7 +44,9 @@ export async function run() {
   try {
     await new Promise((resolve, reject) => {
       mocha.run((failures) => {
-        failures ? reject(new Error(`${failures} tests failed`)) : resolve(undefined);
+        return failures
+          ? reject(new Error(`${failures} tests failed`))
+          : resolve(undefined);
       });
     });
   } finally {

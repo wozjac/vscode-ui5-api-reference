@@ -137,7 +137,7 @@
       "properties": {
         "UI5ReferencePanel.apiURL": {
           "type": "string",
-          "default": "https://openui5.hana.ondemand.com/1.130.8",
+          "default": "https://openui5.hana.ondemand.com/1.136.7",
           "description": "The path to SAPUI5/OpenUI5 version. Please remember to reload VS Code after changing it!"
         },
         "UI5ReferencePanel.favorites": {

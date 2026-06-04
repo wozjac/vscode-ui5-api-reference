@@ -11,10 +11,10 @@ jobs:
         os: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "20"
       - name: Install dependencies
@@ -28,7 +28,7 @@ jobs:
         if: runner.os == 'Linux'
       - name: Coveralls
         if: runner.os == 'Linux'
-        uses: coverallsapp/github-action@v2.3.0
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ github.token }}
           file: ./out/coverage/lcov.info

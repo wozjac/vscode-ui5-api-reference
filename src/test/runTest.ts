@@ -1,4 +1,5 @@
 import { resolve } from "path";
+import { mkdirSync } from "fs";
 import { runTests } from "@vscode/test-electron";
 
 async function main() {
@@ -11,8 +12,26 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = resolve(__dirname, "./suite/index");
 
+    const launchArgs = [];
+
+    if (process.env.GITHUB_ACTIONS === "true" && process.platform !== "win32") {
+      const vscodeCiBasePath = "/tmp/vsc-test";
+      const userDataDir = resolve(vscodeCiBasePath, "user-data");
+      const extensionsDir = resolve(vscodeCiBasePath, "extensions");
+
+      mkdirSync(userDataDir, { recursive: true });
+      mkdirSync(extensionsDir, { recursive: true });
+
+      launchArgs.unshift(`--extensions-dir=${extensionsDir}`);
+      launchArgs.unshift(`--user-data-dir=${userDataDir}`);
+    }
+
     // Download VS Code, unzip it and run the integration test
-    await runTests({ extensionDevelopmentPath, extensionTestsPath });
+    await runTests({
+      extensionDevelopmentPath,
+      extensionTestsPath,
+      launchArgs,
+    });
   } catch (err) {
     console.error(err);
     console.error("Failed to run tests");

@@ -1,0 +1,124 @@
+name: Dependabot Auto-Merge
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate-dependabot-pr:
+    if: |
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'dependabot/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      eligible: ${{ steps.eligibility.outputs.eligible }}
+      update_type: ${{ steps.metadata.outputs.update-type }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate PR eligibility
+        id: eligibility
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+          ECOSYSTEM: ${{ steps.metadata.outputs.package-ecosystem }}
+          TARGET_BRANCH: ${{ steps.metadata.outputs.target-branch }}
+        run: |
+          echo "eligible=false" >> "$GITHUB_OUTPUT"
+
+          if [ "$UPDATE_TYPE" != "version-update:semver-patch" ] && [ "$UPDATE_TYPE" != "version-update:semver-minor" ]; then
+            echo "Skipping: update type is '$UPDATE_TYPE', only semver patch/minor are eligible."
+            exit 0
+          fi
+
+          if [ "$ECOSYSTEM" != "npm_and_yarn" ]; then
+            echo "Skipping: only npm updates are eligible (got '$ECOSYSTEM')."
+            exit 0
+          fi
+
+          if [ "$TARGET_BRANCH" != "$DEFAULT_BRANCH" ]; then
+            echo "Skipping: target branch '$TARGET_BRANCH' is not default branch '$DEFAULT_BRANCH'."
+            exit 0
+          fi
+
+          disallowed=0
+          file_count=0
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            file_count=$((file_count + 1))
+            if [[ "$file" =~ (^|/)package\.json$|(^|/)package-lock\.json$|(^|/)npm-shrinkwrap\.json$|(^|/)yarn\.lock$|(^|/)pnpm-lock\.yaml$ ]]; then
+              echo "Allowed changed file: $file"
+            else
+              echo "Disallowed changed file: $file"
+              disallowed=1
+            fi
+          done < <(gh api "repos/$REPO/pulls/$PR_NUMBER/files" --paginate --jq '.[].filename')
+
+          if [ "$file_count" -eq 0 ]; then
+            echo "Skipping: no changed files were detected."
+            exit 0
+          fi
+
+          if [ "$disallowed" -ne 0 ]; then
+            echo "Skipping: PR includes files outside dependency manifests/lockfiles."
+            exit 0
+          fi
+
+          echo "eligible=true" >> "$GITHUB_OUTPUT"
+
+  enable-automerge:
+    needs: validate-dependabot-pr
+    if: needs.validate-dependabot-pr.outputs.eligible == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Select allowed merge method
+        id: merge-method
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          allow_merge_commit=$(gh api "repos/$REPO" --jq '.allow_merge_commit')
+          allow_squash_merge=$(gh api "repos/$REPO" --jq '.allow_squash_merge')
+          allow_rebase_merge=$(gh api "repos/$REPO" --jq '.allow_rebase_merge')
+
+          if [ "$allow_squash_merge" = "true" ]; then
+            echo "flag=--squash" >> "$GITHUB_OUTPUT"
+          elif [ "$allow_rebase_merge" = "true" ]; then
+            echo "flag=--rebase" >> "$GITHUB_OUTPUT"
+          elif [ "$allow_merge_commit" = "true" ]; then
+            echo "flag=--merge" >> "$GITHUB_OUTPUT"
+          else
+            echo "No merge methods are enabled in repository settings." >&2
+            exit 1
+          fi
+
+      - name: Enable auto-merge for minor and patch updates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          MERGE_FLAG: ${{ steps.merge-method.outputs.flag }}
+          UPDATE_TYPE: ${{ needs.validate-dependabot-pr.outputs.update_type }}
+        run: |
+          gh pr review "$PR_URL" --approve --body "Auto-approving Dependabot $UPDATE_TYPE update."
+          gh pr merge --auto "$MERGE_FLAG" "$PR_URL"
